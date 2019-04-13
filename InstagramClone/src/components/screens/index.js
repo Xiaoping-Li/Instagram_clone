@@ -6,6 +6,7 @@ import SearchScreen from './SearchScreen';
 import ProfileScreen from './ProfileScreen';
 import AddPostScreen from './AddPostScreen';
 import AlbumScreen from './AlbumScreen';
+import CameraScreen from './CameraScreen';
 
 
 export {
@@ -17,4 +18,5 @@ export {
     ProfileScreen,
     AddPostScreen,
     AlbumScreen,
+    CameraScreen,
 }
