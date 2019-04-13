@@ -88,7 +88,12 @@ class SignupScreen extends Component {
                 <View style={styles.divider_bar}></View> 
 
                 {/* Log In */}
-                <Text>Already have an account? Log In</Text>
+                <Text
+                    onPress={() => this.props.navigation.navigate('SignIn')}
+                    accessibilityLabel="Link to Sign In page"
+                >
+                    Already have an account? Log In
+                </Text>
             </View>
         );
     }

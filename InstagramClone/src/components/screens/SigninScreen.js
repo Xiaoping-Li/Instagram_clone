@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     },
     header: {
         fontFamily: 'Pacifico-Reg',
-        fontSize: 50,
+        fontSize: 40,
         marginTop: 50,
     },
     divider_bar: {
