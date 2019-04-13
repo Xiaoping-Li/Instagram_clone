@@ -108,7 +108,7 @@ const AddPostStackNavigator = createStackNavigator(
 
 const LikesStackNavigator = createStackNavigator(
   {
-    Profile: { 
+    Likes: { 
       screen: LikesScreen,
       navigationOptions: ({navigation}) => {
         return {
@@ -260,7 +260,19 @@ const HomeStackNavigator = createStackNavigator(
 const AppDrawerNavigator = createDrawerNavigator({
   Home: {
     screen: HomeStackNavigator,
-  }
+  },
+  Search: {
+    screen: SearchStackNavigator,
+  },
+  Posts: {
+    screen: AddPostStackNavigator,
+  },
+  Likes: {
+    screen: LikesStackNavigator,
+  },
+  Profile: {
+    screen: ProfileStackNavigator,
+  },
 });
 
 

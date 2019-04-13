@@ -5,20 +5,18 @@ import {
     StyleSheet, 
 } from 'react-native';
 
-import { Posts } from '../presentation';
 
-class HomeScreen extends Component {
+class LikesScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text>HomeScreen</Text>
-                <Posts />
+                <Text>LikesScreen</Text>
             </View>
         );
     }
 }
 
-export default HomeScreen;
+export default LikesScreen;
 
 const styles = StyleSheet.create({
     container: {
