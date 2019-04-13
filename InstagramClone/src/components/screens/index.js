@@ -4,6 +4,7 @@ import SignUpScreen from './SignupScreen';
 import AuthLoadingScreen from './AuthLoadingScreen';
 import SearchScreen from './SearchScreen';
 import ProfileScreen from './ProfileScreen';
+import AddPostScreen from './AddPostScreen';
 
 
 export {
@@ -13,4 +14,5 @@ export {
     AuthLoadingScreen,
     SearchScreen,
     ProfileScreen,
+    AddPostScreen,
 }
