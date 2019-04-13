@@ -29,7 +29,7 @@ class WelcomeScreen extends Component {
             <View style={styles.container}>
                 {/* Title */}
                 {this.state.fontLoaded ? (
-                    <Text style={styles.header}>Seeker Finder</Text>    
+                    <Text style={styles.header}>Instagram Clone</Text>    
                 ) : (
                     <ActivityIndicator size="large" />
                 )}
@@ -68,15 +68,6 @@ class WelcomeScreen extends Component {
                     <Text>OR</Text>
                     <View style={styles.divider_bar}></View>
                 </View>
-
-                {/* Guest navigator */}
-                <Text
-                    // onPress={() => this.props.navigation.navigate('SignUp')}
-                    accessibilityLabel="Visit as guest"
-                    style={styles.btn}
-                >
-                    Visit as guest
-                </Text>       
             </View>
         );
     }
