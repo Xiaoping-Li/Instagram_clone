@@ -3,6 +3,7 @@ import SignInScreen from './SigninScreen';
 import SignUpScreen from './SignupScreen';
 import AuthLoadingScreen from './AuthLoadingScreen';
 import SearchScreen from './SearchScreen';
+import ProfileScreen from './ProfileScreen';
 
 
 export {
@@ -11,4 +12,5 @@ export {
     SignUpScreen,
     AuthLoadingScreen,
     SearchScreen,
+    ProfileScreen,
 }
