@@ -1,0 +1,249 @@
+import React, {Component} from 'react';
+import { 
+  createSwitchNavigator,
+  createAppContainer,
+  createDrawerNavigator,
+  createBottomTabNavigator,
+  createStackNavigator,
+} from 'react-navigation';
+
+import { 
+  WelcomeScreen, 
+  HomeScreen, 
+  AddPostScreen, 
+  ProfileScreen, 
+  SearchScreen, 
+  SignInScreen,
+  SignUpScreen,
+  AuthLoadingScreen,
+  CameraScreen,
+  AlbumScreen,
+} from './components/screens';
+
+import Icon from '@expo/vector-icons/Ionicons';
+
+
+export default class InstagramClone extends Component {
+  render() {
+      return <AppContainer />; 
+  }
+}
+
+// Nest another stackNavigator inside HomeTabNavigator
+const PostsStackNavigator = createStackNavigator(
+  {
+    Home: { 
+      screen: HomeScreen,
+      navigationOptions: ({navigation}) => {
+        return {
+          headerTitle: 'Home',
+          headerLeft: (
+            <Icon
+              style={{ paddingLeft: 10}}
+              onPress={() => navigation.openDrawer()} 
+              name="md-menu" 
+              size={30} 
+            />
+          )
+        }  
+      } 
+    },
+  },
+  {
+    defaultNavigationOptions: {
+      gesturesEnabled: false   // drawerNavigator only open the drawer
+    }
+  }
+);
+
+const SearchStackNavigator = createStackNavigator(
+  {
+    Search: { 
+      screen: SearchScreen,
+      navigationOptions: ({navigation}) => {
+        return {
+          headerTitle: 'Search',
+          headerLeft: (
+            <Icon
+              style={{ paddingLeft: 10}}
+              onPress={() => navigation.openDrawer()} 
+              name="md-menu" 
+              size={30} 
+            />
+          )
+        }  
+      } 
+    },
+  },
+);
+
+const AddPostStackNavigator = createStackNavigator(
+  {
+    AddPost: { 
+      screen: AddPostScreen,
+      navigationOptions: ({navigation}) => {
+        return {
+          headerTitle: 'AddPost',
+          headerLeft: (
+            <Icon
+              style={{ paddingLeft: 10}}
+              onPress={() => navigation.openDrawer()} 
+              name="md-menu" 
+              size={30} 
+            />
+          )
+        }  
+      } 
+    },
+    Album: AlbumScreen,
+    Camera: CameraScreen,
+  },
+  {
+    defaultNavigationOptions: {
+      gesturesEnabled: false   // drawerNavigator only open the drawer
+    }
+  }
+);
+
+const ProfileStackNavigator = createStackNavigator(
+  {
+    Profile: { 
+      screen: ProfileScreen,
+      navigationOptions: ({navigation}) => {
+        return {
+          headerTitle: 'Profile',
+          headerLeft: (
+            <Icon
+              style={{ paddingLeft: 10}}
+              onPress={() => navigation.openDrawer()} 
+              name="md-menu" 
+              size={30} 
+            />
+          )
+        }  
+      } 
+    },
+  },
+);
+
+// TabNavigator nested inside HomeStackNavigator,
+// HomeStackNavigator nested inside AppDrawerNavigator,
+// AppDrawerNavigator nested inside AppSwitchNavigator,
+const HomeTabNavigator = createBottomTabNavigator(
+  {
+    Home: {
+      screen: PostsStackNavigator,
+      navigationOptions: () => ({
+        tabBarIcon: ({tintColor}) => (
+          <Icon
+            name="md-home"
+            color={tintColor}
+            size={30} 
+          />
+        )
+      })
+    },
+    Search: {
+      screen: SearchStackNavigator,
+      navigationOptions: () => ({
+        tabBarIcon: ({tintColor}) => (
+          <Icon
+            name="md-search"
+            color={tintColor}
+            size={30} 
+          />
+        )
+      }) 
+    },
+    AddPost: {
+      screen: AddPostStackNavigator,
+      navigationOptions: () => ({
+        tabBarIcon: ({tintColor}) => (
+          <Icon
+            name="md-add"
+            color={tintColor}
+            size={30} 
+          />
+        )
+      })
+    },
+    Profile: {
+      screen: ProfileStackNavigator,
+      navigationOptions: () => ({
+        tabBarIcon: ({tintColor}) => (
+          <Icon
+            name="md-person"
+            color={tintColor}
+            size={30} 
+          />
+        )
+      })
+    },
+  },
+  {
+    navigationOptions: ({navigation}) => {
+      // Get the route name for each tab and set the route name as the header title
+      const { routeName } = navigation.state.routes[navigation.state.index];
+      return {
+        // get rid of the back arrow under the header of PostsStackNavigator
+        header: null,
+        headerTitle: routeName
+      };
+    },
+    tabBarOptions: {
+      showLabel: false,
+      // activeTintColor: '#000000',
+      // inactiveTintColor: '#586589',
+      // style: {
+      //   backgroundColor: '#171F33',
+      // }
+    }
+  },
+  
+);
+
+const HomeStackNavigator = createStackNavigator(
+  {
+    HomeTabNavigator: HomeTabNavigator,
+  },
+  {
+    defaultNavigationOptions: ({navigation}) => {
+      return {
+        headerLeft: (
+          <Icon
+            style={{ paddingLeft: 10}}
+            onPress={() => navigation.openDrawer()} 
+            name="md-menu" 
+            size={30} 
+          />
+        )
+      };
+    }
+  }
+
+);
+
+const AppDrawerNavigator = createDrawerNavigator({
+  Home: {
+    screen: HomeStackNavigator,
+  }
+});
+
+
+const AuthStackNavigator = createStackNavigator(
+  {
+    Welcome: WelcomeScreen,
+    SignIn: SignInScreen,
+    SignUp: SignUpScreen,
+  }
+);
+
+const AppSwitchNavigator = createSwitchNavigator({
+  AuthLoading: AuthLoadingScreen,
+  Auth: AuthStackNavigator,
+  App:  AppDrawerNavigator,
+});
+
+const AppContainer = createAppContainer(AppSwitchNavigator);
+
+
