@@ -61,13 +61,6 @@ class WelcomeScreen extends Component {
                 >
                     Sign up with email or phone number
                 </Text>
-
-                {/* Divider */}
-                <View style={styles.divider}>
-                    <View style={styles.divider_bar}></View>
-                    <Text>OR</Text>
-                    <View style={styles.divider_bar}></View>
-                </View>
             </View>
         );
     }
@@ -86,12 +79,13 @@ const styles = StyleSheet.create({
     },
     header: {
         fontFamily: 'Pacifico-Reg',
-        fontSize: 50,
+        fontSize: 40,
         marginTop: 50,
     },
     subTitle: {
         fontSize: 20,
         marginTop: 25,
+        marginBottom: 30,
         textAlign: 'center',
     },
     divider: {

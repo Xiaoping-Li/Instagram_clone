@@ -12,7 +12,8 @@ import {
   HomeScreen, 
   AddPostScreen, 
   ProfileScreen, 
-  SearchScreen, 
+  SearchScreen,
+  LikesScreen, 
   SignInScreen,
   SignUpScreen,
   AuthLoadingScreen,
@@ -105,6 +106,27 @@ const AddPostStackNavigator = createStackNavigator(
   }
 );
 
+const LikesStackNavigator = createStackNavigator(
+  {
+    Profile: { 
+      screen: LikesScreen,
+      navigationOptions: ({navigation}) => {
+        return {
+          headerTitle: 'Likes',
+          headerLeft: (
+            <Icon
+              style={{ paddingLeft: 10}}
+              onPress={() => navigation.openDrawer()} 
+              name="md-menu" 
+              size={30} 
+            />
+          )
+        }  
+      } 
+    },
+  },
+);
+
 const ProfileStackNavigator = createStackNavigator(
   {
     Profile: { 
@@ -161,6 +183,18 @@ const HomeTabNavigator = createBottomTabNavigator(
         tabBarIcon: ({tintColor}) => (
           <Icon
             name="md-add"
+            color={tintColor}
+            size={30} 
+          />
+        )
+      })
+    },
+    Likes: {
+      screen: LikesStackNavigator,
+      navigationOptions: () => ({
+        tabBarIcon: ({tintColor}) => (
+          <Icon
+            name="ios-heart-empty"
             color={tintColor}
             size={30} 
           />
