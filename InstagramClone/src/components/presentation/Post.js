@@ -10,6 +10,20 @@ import Icon from '@expo/vector-icons/Feather';
 import EllipsisIcon from '@expo/vector-icons/AntDesign';
 
 class Post extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            like: false,
+            countLikes: this.props.post.likes,
+        };
+    }
+
+    handleLikeClick = () => {
+        let update;
+        this.state.like ? update = this.state.countLikes - 1 : update = this.state.countLikes + 1;
+        this.setState({ countLikes: update, like: !this.state.like });
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -31,9 +45,10 @@ class Post extends Component {
                 <View style={styles.icons}>
                     <Icon
                         style={{ paddingLeft: 10}}
-                        onPress={() => {}} 
+                        onPress={this.handleLikeClick} 
                         name="heart" 
-                        size={20} 
+                        size={20}
+                        color={this.state.like ? "red" : null} 
                     />
 
                     <Icon
@@ -51,7 +66,7 @@ class Post extends Component {
                     />
                 </View>
 
-                <Text style={styles.likes}>{this.props.post.likes} {this.props.post.likes > 1 ? 'likes' : 'like'}</Text>
+                <Text style={styles.likes}>{this.state.countLikes} {this.state.countLikes > 1 ? 'likes' : 'like'}</Text>
             </View>
         );
     }
