@@ -7,15 +7,19 @@ class AddPostScreen extends Component {
         return (
             <View style={styles.container}>
                 <Icon
+                    style={styles.icon}
                     onPress={() => this.props.navigation.navigate('Album')} 
                     name="photo-album" 
-                    size={100} 
+                    size={80} 
+                    color="gray"
                 />
 
                 <Icon
+                    style={styles.icon}
                     onPress={() => this.props.navigation.navigate('Camera')} 
                     name="camera-alt" 
-                    size={100} 
+                    size={80}
+                    color="gray" 
                 />                  
             </View>
         );
@@ -27,8 +31,15 @@ export default AddPostScreen;
 const styles = StyleSheet.create({
     container: {
       flex: 1,
+      flexDirection: 'row',
       backgroundColor: '#fff',
       alignItems: 'center', 
-      justifyContent: 'center',
+      justifyContent: 'space-around',
+    },
+    icon: {
+        borderColor: '#e0e0e0',
+        borderStyle: 'dashed',
+        borderWidth: 2,
+        borderRadius: 20,
     },
 });
