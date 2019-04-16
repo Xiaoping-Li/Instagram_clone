@@ -3,7 +3,9 @@ import {
     View, 
     Text, 
     StyleSheet,
-    Image, 
+    Image,
+    TextInput,
+    Button, 
 } from 'react-native';
 
 import Icon from '@expo/vector-icons/Feather';
@@ -15,6 +17,8 @@ class Post extends Component {
         this.state = {
             like: false,
             countLikes: this.props.post.likes,
+            commentInfo: '',
+            comment: false,
         };
     }
 
@@ -22,6 +26,10 @@ class Post extends Component {
         let update;
         this.state.like ? update = this.state.countLikes - 1 : update = this.state.countLikes + 1;
         this.setState({ countLikes: update, like: !this.state.like });
+    }
+
+    handlecommentClick = () => {
+        this.setState({ comment: !this.state.comment });
     }
 
     render() {
@@ -53,7 +61,7 @@ class Post extends Component {
 
                     <Icon
                         style={{ paddingLeft: 10}}
-                        onPress={() => {}} 
+                        onPress={this.handlecommentClick} 
                         name="message-circle" 
                         size={20} 
                     />
@@ -67,6 +75,20 @@ class Post extends Component {
                 </View>
 
                 <Text style={styles.likes}>{this.state.countLikes} {this.state.countLikes > 1 ? 'likes' : 'like'}</Text>
+
+                <View style={this.state.comment ? styles.comment : {height: 0}}>
+                    <TextInput
+                        placeholder="Add a comment..."
+                        value={this.state.commentInfo}
+                        onChange={commentInfo => this.setState({commentInfo})}
+                        style={styles.input}
+                    />
+                    <Button
+                        title="Post"
+                        onPress={() => {}}
+                    />
+                </View>
+                
             </View>
         );
     }
@@ -104,5 +126,16 @@ const styles = StyleSheet.create({
         fontSize: 15,
         fontWeight: 'bold',
         margin: 10,
+    },
+    comment: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        borderTopWidth: 1,
+        borderTopColor: 'gray',
+        borderStyle: 'solid',
+    },
+    input: {
+        width: 300,
     },
 });
