@@ -17,8 +17,6 @@ import {
   SignInScreen,
   SignUpScreen,
   AuthLoadingScreen,
-  CameraScreen,
-  AlbumScreen,
 } from './components/screens';
 
 import Icon from '@expo/vector-icons/Ionicons';
@@ -96,8 +94,6 @@ const AddPostStackNavigator = createStackNavigator(
         }  
       } 
     },
-    Album: AlbumScreen,
-    Camera: CameraScreen,
   },
   {
     defaultNavigationOptions: {

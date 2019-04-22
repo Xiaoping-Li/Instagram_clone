@@ -7,8 +7,6 @@ import SearchScreen from './SearchScreen';
 import LikesScreen from './LikesScreen';
 import ProfileScreen from './ProfileScreen';
 import AddPostScreen from './AddPostScreen';
-import AlbumScreen from './AlbumScreen';
-import CameraScreen from './CameraScreen';
 
 
 export {
@@ -21,6 +19,4 @@ export {
     LikesScreen,
     ProfileScreen,
     AddPostScreen,
-    AlbumScreen,
-    CameraScreen,
 }
