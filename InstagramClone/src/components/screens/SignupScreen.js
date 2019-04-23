@@ -13,11 +13,11 @@ class SignupScreen extends Component {
     constructor() {
         super();
         this.state = {
-        email: '',
-        username: '',
-        password: '',
-        rePassword: '',
-        fontLoaded: false,
+            email: '',
+            username: '',
+            password: '',
+            rePassword: '',
+            fontLoaded: false,
         }
     }
 
