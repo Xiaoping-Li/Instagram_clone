@@ -1,4 +1,5 @@
 # Instagram_clone
-This is a React Native Project by cloning Instagram.
+This is a Instagram clone app build with the MERN stack.
 * React Native
 * MongoDB
+
