@@ -14,9 +14,7 @@ const UserSchema = new Schema({
     },
     password: {
         type: String,
-        required: [true, 'Password is required'],
-        validate: passwordValidator,
-        msg: 'password too short, at least 4 char', 
+        required: [true, 'Password is required'], 
     },
     thumbnail: String,
     createAt: {
@@ -31,8 +29,3 @@ const UserSchema = new Schema({
 const UserModel = mongoose.model('user', UserSchema);
 
 module.exports = UserModel;
-
-// Create a Validator for password, could provide more rules inside this funciton
-const passwordValidator = pw => {
-    return pw.length >= 4;
-};
