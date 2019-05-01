@@ -3,21 +3,19 @@ const Schema = mongoose.Schema;
 
 // Create Post Schema
 const PostSchema = new Schema({
-    user: {
+    owner: {
         type: Schema.Types.ObjectId,
-        ref: 'users'
+        ref: 'user'
     },
-    parentID: Number,
     uri: {
         type: String,
-        required: true,
+        required: [true, 'Please provide image link'],
     },
-    desc: String,
     likes: [
         {
             user: {
                 type: Schema.Types.ObjectId,
-                ref: 'users',
+                ref: 'user',
             }
         }
     ],
@@ -25,11 +23,11 @@ const PostSchema = new Schema({
         {
             user: {
                 type: Schema.Types.ObjectId,
-                ref: 'users',
+                ref: 'user',
             },
             text: {
                 type: String,
-                required: true,
+                required: [true, 'Content required'],
             },
             date: {
                 type: Date,
@@ -44,6 +42,6 @@ const PostSchema = new Schema({
 });
 
 // Create and export PostModel
-const PostModel = mongoose.model('Post', PostSchema);
+const PostModel = mongoose.model('post', PostSchema);
 
 module.exports = PostModel;
