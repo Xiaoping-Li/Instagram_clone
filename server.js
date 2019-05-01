@@ -66,6 +66,14 @@ server.get('/posts', (req, res) => {
         .catch(err => console.log(err));   
 });
 
+server.get('/posts/:owner', (req, res) => {
+    const {owner}  = req.params;
+    Posts
+        .find({ owner })
+        .then(result => res.status(200).json(result))
+        .catch(err => console.log(err));
+});
+
 server.post('/posts', (req, res) => {
     const newPost = req.body;
     Posts
@@ -73,6 +81,25 @@ server.post('/posts', (req, res) => {
         .then(result => res.status(201).json(result))
         .catch(err => console.log(err));
 });
+
+server.put('/posts/:id', (req, res) => {
+    const { id } = req.params;
+    const update = req.body;
+    Posts
+        .findByIdAndUpdate(id, update, {new: true})
+        .then(result => res.status(203).json(result))
+        .catch(err => console.log(err));
+});
+
+server.delete('/posts/:id', (req, res) => {
+    const { id } = req.params;
+    Posts
+        .findByIdAndDelete(id)
+        .then(result => res.status(201).json(result))
+        .catch(err => console.log(err));
+});
+
+
 
 
 

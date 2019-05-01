@@ -21,8 +21,12 @@ const UserSchema = new Schema({
         type: Date,
         default: Date.now,
     },
-    posts: [{type: Schema.Types.ObjectId, ref: 'post',}],
-    friends: [{ type: Schema.Types.ObjectId, ref: 'user'}], 
+    friends: [{
+        user: {
+            type: Schema.Types.ObjectId,
+            ref: 'user',
+        }
+    }], 
 });
 
 // Create User Model
