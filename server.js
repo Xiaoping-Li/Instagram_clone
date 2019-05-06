@@ -3,6 +3,11 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
+const session = require('express-session');
+// consts from Config
+const db = require('./config/keys_dev').mongoURI;
+const SECRET_SESSION = require('./config/keys_dev').SECRET_SESSION;
+const middlewares = require('./Middlewares.js');
 
 const server = express();
 
@@ -10,16 +15,27 @@ const UserRouter = require('./endPoints/Users');
 const PostRouter = require('./endPoints/Posts');
 const Users = require('./models/User');
 
+// server use global middlewares
 server.use(bodyParser.json());
 server.use(cors({
     origin: true,
     credentials: true,
 }));
+server.use(session({
+    secret: SECRET_SESSION,
+    resave: false,
+    saveUninitialized: false,
+}));
+
 
 const PORT = process.env.PORT || 5000;
 
-// Database Config
-const db = require('./config/keys_dev').mongoURI;
+// Validate user, but exempt '/signup' and 'signin'
+server.use((req, res, next) => {
+    if (req.originalUrl === '/signin' || req.originalUrl === '/signup') return next();
+    return middlewares.validateUser(req,res,next);
+})
+
 
 // Using bcrypt to hash plain password and save hashed password to database
 server.post('/signup', (req, res) => {
@@ -39,12 +55,31 @@ server.post('/signup', (req, res) => {
 
 // When user try to login, check the password first
 server.post('/signin', (req, res) => {
-
+    const { email } = req.body;
+    Users
+    .findOne({ email })
+    .then(user => {
+        const hashedPW = user.password;
+        bcrypt
+            .compare(req.body.password, hashedPW)
+            .then(result => {
+                if (!result) throw new Error();
+                req.session.email = email;
+                req.user = user;
+                delete req.user.password;
+                res.json({ success: true, email });
+            })
+            .catch(err => res.json({message: "Failed when comparing password", err}));
+    })
+    .catch(err => res.json({message: "Error happens when try to sign you in", err}));
 });
 
 // When user logout of the app
 server.post('/signout', (req, res) => {
-
+    req.session.email = null;
+    req.user = null;
+    // Redirect to /login page
+    res.json({success: true, session: req.session});
 });
 
 
