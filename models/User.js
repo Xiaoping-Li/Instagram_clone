@@ -35,6 +35,7 @@ const UserSchema = new Schema({
 },
 { runSettersOnQuery: true });
 
+
 // Create User Model
 const UserModel = mongoose.model('user', UserSchema);
 
