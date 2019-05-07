@@ -3,7 +3,7 @@ import {
     View, 
     Text, 
     StyleSheet, 
-    TextInput, 
+    TextInput,
     AsyncStorage, 
     ActivityIndicator, 
 } from 'react-native';
@@ -50,14 +50,14 @@ class SigninScreen extends Component {
                 <TextInput
                     placeholder="Phone number or email"
                     value={this.state.username}
-                    onChange={username => this.setState({username})}
+                    onChangeText={username => this.setState({username})}
                     style={styles.input}
                 />
 
                 <TextInput
                     placeholder="Password"
                     value={this.state.password}
-                    onChange={password => this.setState({password})}
+                    onChangeText={password => this.setState({password})}
                     style={styles.input}
                 />
 

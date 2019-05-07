@@ -47,7 +47,7 @@ server.post('/signup', (req, res) => {
             newUser.password = hash;
             Users
                 .create(newUser)
-                .then(result => res.status(201).json(result))
+                .then(result => res.status(201).json({success: true}))
                 .catch(err => console.log(err));
         }
     });

@@ -7,7 +7,10 @@ import {
     AsyncStorage, 
     ActivityIndicator,
  } from 'react-native';
+ import axios from 'axios';
  import { Font } from 'expo';
+
+ import ROOT_URL from '../../../utils/config';
 
 class SignupScreen extends Component {
     constructor() {
@@ -30,9 +33,41 @@ class SignupScreen extends Component {
         this.setState({ fontLoaded: true });
     }
 
-    signUp = async () => {
-        await AsyncStorage.setItem('userToken', 'xiaoping');
-        this.props.navigation.navigate('App');
+    handleSignUp = () => {
+        // e.preventDefault();
+
+        if (!this.state.email || !this.state.password || !this.state.rePassword) {
+            alert('All fields are required');
+            return;
+        }
+
+        if (this.state.password !== this.state.rePassword) {
+            alert('Passwords do not match. Please try again');
+        } else {
+            const userInfo = {
+                email: this.state.email,
+                username: this.state.username,
+                password: this.state.password,
+            };
+
+            axios
+                .post('http://192.168.0.107:5000/signup', userInfo)
+                .then(result => {
+                    this.props.navigation.navigate('SignIn');
+                })
+                .catch(err => {
+                    alert('Failed to sign you up! If you already have an account, log in directly!');
+                    console.log(err);
+                });
+
+        }
+
+        this.setState({
+            email: '',
+            username: '',
+            password: '',
+            rePassword: '',
+        });
     }
 
     render() {
@@ -51,34 +86,34 @@ class SignupScreen extends Component {
                 <TextInput
                     placeholder="Phone number or email"
                     value={this.state.email}
-                    onChange={email => this.setState({email})}
+                    onChangeText={email => this.setState({email})}
                     style={styles.input}
                 />
 
                 <TextInput
                     placeholder="User name"
                     value={this.state.username}
-                    onChange={username => this.setState({username})}
+                    onChangeText={username => this.setState({username})}
                     style={styles.input}
                 />
 
                 <TextInput
                     placeholder="Password"
                     value={this.state.password}
-                    onChange={password => this.setState({password})}
+                    onChangeText={password => this.setState({password})}
                     style={styles.input}
                 />
 
                 <TextInput
                     placeholder="Re-enter password"
                     value={this.state.rePassword}
-                    onChange={rePassword => this.setState({rePassword})}
+                    onChangeText={rePassword => this.setState({rePassword})}
                     style={styles.input}
                 />
 
-                {/* Sign In Button */}
+                {/* Sign Up Button */}
                 <Text
-                    onPress={this.signUp}
+                    onPress={this.handleSignUp}
                     accessibilityLabel="Sign up"
                     style={styles.btn}
                 >
