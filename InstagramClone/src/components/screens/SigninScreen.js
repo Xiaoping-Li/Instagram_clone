@@ -7,13 +7,14 @@ import {
     AsyncStorage, 
     ActivityIndicator, 
 } from 'react-native';
+import axios from 'axios';
 import { Font } from 'expo';
 
 class SigninScreen extends Component {
     constructor() {
         super();
         this.state = {
-            username: '',
+            email: '',
             password: '',
             fontLoaded: false,
         }
@@ -28,10 +29,38 @@ class SigninScreen extends Component {
         this.setState({ fontLoaded: true });
     }
 
+    handleSignin = e => {
+        e.preventDefault();
 
-    signIn = async () => {
-        await AsyncStorage.setItem('userToken', 'xiaoping');
-        this.props.navigation.navigate('App');
+        if (!this.state.email || !this.state.password) {
+            alert('Please enter email and password');
+            return;
+        }
+
+        const userInfo = {
+            email: this.state.email,
+            password: this.state.password,
+        };
+
+        // frontend http call from cell phone expo, but server is on laptop. 
+        // So the 'url': instead of using 'loclahost', should use laptop ip address
+        axios
+            .post('http://192.168.0.107:5000/signin', userInfo)
+            .then(result => {
+                if (result.data.email) {
+                    AsyncStorage
+                        .setItem('userToken', result.data.email)
+                        .then(res => this.props.navigation.navigate('App'))
+                        .catch(err => alert('Signin Error!'))
+                } else {
+                    alert('Error happens when try to sign you in! Please check email and password!');
+                }    
+            })
+            .catch(err => {
+                alert('Failed to sign you in! If you do not have an account, sign up first!');
+                console.log(err);
+            });
+
     }
     
     render() {
@@ -50,7 +79,7 @@ class SigninScreen extends Component {
                 <TextInput
                     placeholder="Phone number or email"
                     value={this.state.username}
-                    onChangeText={username => this.setState({username})}
+                    onChangeText={email => this.setState({email})}
                     style={styles.input}
                 />
 
@@ -63,7 +92,7 @@ class SigninScreen extends Component {
 
                 {/* Sign In Button */}
                 <Text
-                    onPress={this.signIn}
+                    onPress={this.handleSignin}
                     accessibilityLabel="Sign In"
                     style={styles.btn}
                 >

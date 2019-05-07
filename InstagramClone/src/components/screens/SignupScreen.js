@@ -10,7 +10,7 @@ import {
  import axios from 'axios';
  import { Font } from 'expo';
 
- import ROOT_URL from '../../../utils/config';
+ // import ROOT_URL from '../../../utils/config';
 
 class SignupScreen extends Component {
     constructor() {
@@ -50,6 +50,8 @@ class SignupScreen extends Component {
                 password: this.state.password,
             };
 
+            // frontend http call from cell phone expo, but server is on laptop. 
+            // So the 'url': instead of using 'loclahost', should use laptop ip address
             axios
                 .post('http://192.168.0.107:5000/signup', userInfo)
                 .then(result => {
