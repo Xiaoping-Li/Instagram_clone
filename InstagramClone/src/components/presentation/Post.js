@@ -80,7 +80,7 @@ class Post extends Component {
                     <TextInput
                         placeholder="Add a comment..."
                         value={this.state.commentInfo}
-                        onChange={commentInfo => this.setState({commentInfo})}
+                        onChangeText={commentInfo => this.setState({commentInfo})}
                         style={styles.input}
                     />
                     <Button

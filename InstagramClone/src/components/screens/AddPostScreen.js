@@ -3,7 +3,9 @@ import {
     View, 
     StyleSheet,  
     Image,
+    AsyncStorage,
 } from 'react-native';
+import axios from 'axios';
 import { Permissions, ImagePicker } from 'expo';
 import Icon from '@expo/vector-icons/MaterialIcons';
 
@@ -13,7 +15,58 @@ class AddPostScreen extends Component {
         this.state = {
             image: null,
             camera: false,
+            userID: '',
         };
+    }
+
+    componentDidMount () {
+        AsyncStorage
+            .getItem('userToken')
+            .then(result => this.setState({ userID: result }))
+            .catch(err => console.log(err));
+    }
+
+    pickImage = async () => {
+        const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+        if (status === 'granted') {
+           let data = await ImagePicker.launchImageLibraryAsync({
+                allowsEditing: true,
+                aspect: [4, 3], // only works on Androi, since ios is always square crop
+            });
+            if (!data.cancelled) {
+                this.setState({image: data.uri});
+                this.handleSubmitPost();
+            }
+        } else {
+            alert('Album permission denied! Please go to Settings to give permission manually');
+        }   
+    }
+
+    takePicture = async () => {
+        const { status } = await Permissions.askAsync(Permissions.CAMERA);
+        if (status === 'granted') {
+            let data = await ImagePicker.launchCameraAsync({
+                allowsEditing: false,
+            });
+            if (!data.cancelled) {
+                this.setState({image: data.uri});
+                this.handleSubmitPost();
+            }
+        } else {
+            alert('Camera permission denied! Please go to Settings to give permission manually');
+        } 
+    }
+
+    handleSubmitPost() {
+        const postInfo = {
+            owner: this.state.userID,
+            uri: this.state.image,
+        };
+
+        axios
+            .post('http://192.168.0.107:5000/posts', postInfo)
+            .then(result => this.props.navigation.navigate('Home'))
+            .catch(err => console.log(err));
     }
 
     render() {
@@ -35,46 +88,10 @@ class AddPostScreen extends Component {
                         size={80}
                         color="gray" 
                     /> 
-                </View>
-
-                <View style={styles.img}>
-                    {this.state.image && 
-                        <Image
-                            source={{uri: this.state.image}} 
-                            style={{width: 300, height: 300}}
-                        />
-                    }    
-                </View>
-                
-                            
+                </View>                
             </View>
         );
-    }
-
-    pickImage = async () => {
-        const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-        if (status === 'granted') {
-           let data = await ImagePicker.launchImageLibraryAsync({
-                allowsEditing: true,
-                aspect: [4, 3], // only works on Androi, since ios is always square crop
-            });
-            if (!data.cancelled) this.setState({image: data.uri});
-        } else {
-            alert('Album permission denied! Please go to Settings to give permission manually');
-        }   
-    }
-
-    takePicture = async () => {
-        const { status } = await Permissions.askAsync(Permissions.CAMERA);
-        if (status === 'granted') {
-            let data = await ImagePicker.launchCameraAsync({
-                allowsEditing: false,
-            });
-            if (!data.cancelled) this.setState({image: data.uri});
-        } else {
-            alert('Camera permission denied! Please go to Settings to give permission manually');
-        } 
-    }
+    }    
 }
 
 export default AddPostScreen;
@@ -97,10 +114,4 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderRadius: 20,
     },
-    img: {
-        height: 300,
-        alignItems: 'center', 
-        justifyContent: 'center',
-        marginTop: 50,
-    }
 });

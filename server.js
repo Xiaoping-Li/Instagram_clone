@@ -67,7 +67,8 @@ server.post('/signin', (req, res) => {
                 req.session.email = email;
                 req.user = user;
                 delete req.user.password;
-                res.json({ success: true, email });
+                const userID = req.user._id;
+                res.json({ success: true, userID });
             })
             .catch(err => res.json({message: "Failed when comparing password", err}));
     })

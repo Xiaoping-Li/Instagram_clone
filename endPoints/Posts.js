@@ -22,7 +22,7 @@ PostRouter.post('', (req, res) => {
     const newPost = req.body;
     Posts
         .create(newPost)
-        .then(result => res.status(201).json(result))
+        .then(post => res.status(201).json({success: true, post}))
         .catch(err => console.log(err));
 });
 

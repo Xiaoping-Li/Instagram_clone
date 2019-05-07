@@ -47,9 +47,9 @@ class SigninScreen extends Component {
         axios
             .post('http://192.168.0.107:5000/signin', userInfo)
             .then(result => {
-                if (result.data.email) {
+                if (result.data.userID) {
                     AsyncStorage
-                        .setItem('userToken', result.data.email)
+                        .setItem('userToken', result.data.userID)
                         .then(res => this.props.navigation.navigate('App'))
                         .catch(err => alert('Signin Error!'))
                 } else {
