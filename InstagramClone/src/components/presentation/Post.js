@@ -16,7 +16,7 @@ class Post extends Component {
         super(props);
         this.state = {
             like: false,
-            countLikes: this.props.post.likes,
+            countLikes: this.props.post.likes.length,
             commentInfo: '',
             comment: false,
         };
@@ -36,8 +36,8 @@ class Post extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.header}>
-                    <Image style={{width: 40, height: 40, margin: 10, borderRadius: 20,}} source={{uri: this.props.post.thumbnail}} />
-                    <Text style={{fontSize: 15, fontWeight: 'bold',}}>{this.props.post.user}</Text>
+                    <Image style={{width: 40, height: 40, margin: 10, borderRadius: 20,}} source={{uri: this.props.post.owner.thumbnail}} />
+                    <Text style={{fontSize: 15, fontWeight: 'bold',}}>{this.props.post.owner.username}</Text>
                     <EllipsisIcon 
                         style={{ marginLeft: 200,}}
                         onPress={() => {}} 

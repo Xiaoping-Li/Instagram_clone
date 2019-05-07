@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { 
     View, 
     StyleSheet,  
-    Image,
     AsyncStorage,
 } from 'react-native';
 import axios from 'axios';
@@ -10,8 +9,8 @@ import { Permissions, ImagePicker } from 'expo';
 import Icon from '@expo/vector-icons/MaterialIcons';
 
 class AddPostScreen extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             image: null,
             camera: false,

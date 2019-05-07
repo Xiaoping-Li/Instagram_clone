@@ -3,17 +3,18 @@ const Posts = require('../models/Post');
 const PostRouter = express.Router();
 
 /****** API Endpoints for Posts ********/
-PostRouter.get('', (req, res) => {
-    Posts
-        .find()
-        .then(result => res.status(200).json(result))
-        .catch(err => console.log(err));   
-});
+// PostRouter.get('', (req, res) => {
+//     Posts
+//         .find()
+//         .then(result => res.status(200).json(result))
+//         .catch(err => console.log(err));   
+// });
 
 PostRouter.get('/:owner', (req, res) => {
     const {owner}  = req.params;
     Posts
         .find({ owner })
+        .populate('owner', 'username thumbnail')
         .then(result => res.status(200).json(result))
         .catch(err => console.log(err));
 });
