@@ -15,6 +15,7 @@ PostRouter.get('/:owner', (req, res) => {
     Posts
         .find({ owner })
         .populate('owner', 'username thumbnail')
+        .sort('-createAt')
         .then(result => res.status(200).json(result))
         .catch(err => console.log(err));
 });
