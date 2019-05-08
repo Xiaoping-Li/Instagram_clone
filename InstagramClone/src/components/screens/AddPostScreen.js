@@ -66,12 +66,10 @@ class AddPostScreen extends Component {
             uri: this.state.image,
         };
 
-        
-
         axios
             .post('http://192.168.0.107:5000/posts', postInfo)
             .then(action(result => {
-                globalStore.changeState('see ya');
+                globalStore.updatePosts(result.data.post);
                 this.props.navigation.navigate('Home');
             }))
             .catch(err => console.log(err));

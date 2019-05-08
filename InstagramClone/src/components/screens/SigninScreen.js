@@ -10,6 +10,9 @@ import {
 import axios from 'axios';
 import { Font } from 'expo';
 
+import globalStore from '../../../GlobalStore';
+import { action } from 'mobx';
+
 class SigninScreen extends Component {
     constructor() {
         super();
@@ -47,10 +50,20 @@ class SigninScreen extends Component {
         axios
             .post('http://192.168.0.107:5000/signin', userInfo)
             .then(result => {
-                if (result.data.userID) {
+                const userID = result.data.user._id;
+                
+                if (userID) {
+                    const user = {};
+                    user.username = result.data.user.username;
+                    user.email = result.data.user.email;
+                    user.thumbnail = result.data.user.thumbnail;
+
                     AsyncStorage
-                        .setItem('userToken', result.data.userID)
-                        .then(res => this.props.navigation.navigate('App'))
+                        .setItem('userToken', userID)
+                        .then(action(res => {
+                            globalStore.updateUser(user);
+                            this.props.navigation.navigate('App');
+                        }))
                         .catch(err => alert('Signin Error!'))
                 } else {
                     alert('Error happens when try to sign you in! Please check email and password!');

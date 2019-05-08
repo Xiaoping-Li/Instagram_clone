@@ -4,13 +4,13 @@ import {
     View, 
     StyleSheet,
     AsyncStorage,
-    Button, 
 } from 'react-native';
 import axios from 'axios';
 import { Posts } from '../presentation';
 
-import globalStore from '../../../GlobalStore';
 import {observer} from 'mobx-react';
+import { action } from 'mobx';
+import globalStore from '../../../GlobalStore';
 
 
 @observer
@@ -19,7 +19,6 @@ class HomeScreen extends Component {
         super();
         this.state = {
             userID: '',
-            posts: [],
         };
     }
 
@@ -37,24 +36,19 @@ class HomeScreen extends Component {
         const owner = this.state.userID;
         axios
             .get('http://192.168.0.107:5000/posts/' + owner)
-            .then(result => {
+            .then(action(result => {
                 if (result.data.length) {
-                    this.setState({ posts: result.data });
+                    globalStore.initPosts(result.data);
                 }
-            })
+            }))
             .catch(err => console.log(err));   
     }
 
     render() {
         return (
             <View style={styles.container}>
-                <Text>{globalStore.greet}</Text>
-                <Button
-                    title="press me"
-                    onPress={() => globalStore.changeState('bye-bye')}
-                />
-                {this.state.posts.length ? 
-                    <Posts posts={this.state.posts}/> 
+                {globalStore.posts.length ? 
+                    <Posts posts={globalStore.posts}/> 
                     : 
                     <Text
                         onPress={() => this.props.navigation.navigate('AddPost')}

@@ -12,9 +12,11 @@ class GlobalStore {
     updateUser = (updated) => this.user = updated;
 
     friends = [];
+    initFriends = list => this.friends = list;
     updateFriends = (friend) => this.friends.unshift(friend);
 
     posts = [];
+    initPosts = list => this.posts = list;
     updatePosts = (post) => this.posts.unshift(post);
 }
 
