@@ -8,6 +8,10 @@ import axios from 'axios';
 import { Permissions, ImagePicker } from 'expo';
 import Icon from '@expo/vector-icons/MaterialIcons';
 
+
+import globalStore from '../../../GlobalStore';
+import { action } from 'mobx';
+
 class AddPostScreen extends Component {
     constructor(props) {
         super(props);
@@ -62,9 +66,14 @@ class AddPostScreen extends Component {
             uri: this.state.image,
         };
 
+        
+
         axios
             .post('http://192.168.0.107:5000/posts', postInfo)
-            .then(result => this.props.navigation.navigate('Home'))
+            .then(action(result => {
+                globalStore.changeState('see ya');
+                this.props.navigation.navigate('Home');
+            }))
             .catch(err => console.log(err));
     }
 

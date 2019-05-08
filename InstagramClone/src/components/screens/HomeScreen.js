@@ -3,11 +3,17 @@ import {
     Text, 
     View, 
     StyleSheet,
-    AsyncStorage, 
+    AsyncStorage,
+    Button, 
 } from 'react-native';
 import axios from 'axios';
 import { Posts } from '../presentation';
 
+import globalStore from '../../../GlobalStore';
+import {observer} from 'mobx-react';
+
+
+@observer
 class HomeScreen extends Component {
     constructor() {
         super();
@@ -42,6 +48,11 @@ class HomeScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
+                <Text>{globalStore.greet}</Text>
+                <Button
+                    title="press me"
+                    onPress={() => globalStore.changeState('bye-bye')}
+                />
                 {this.state.posts.length ? 
                     <Posts posts={this.state.posts}/> 
                     : 
@@ -53,6 +64,7 @@ class HomeScreen extends Component {
                     </Text>
                 }    
             </View>
+            
         );
     }
 }
