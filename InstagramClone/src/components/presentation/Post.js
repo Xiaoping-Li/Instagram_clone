@@ -11,6 +11,8 @@ import {
 import Icon from '@expo/vector-icons/Feather';
 import EllipsisIcon from '@expo/vector-icons/AntDesign';
 
+import globalStore from '../../../GlobalStore'; 
+
 class Post extends Component {
     constructor(props) {
         super(props);
@@ -36,8 +38,8 @@ class Post extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.header}>
-                    <Image style={{width: 40, height: 40, margin: 10, borderRadius: 20,}} source={{uri: this.props.post.owner.thumbnail}} />
-                    <Text style={{fontSize: 15, fontWeight: 'bold',}}>{this.props.post.owner.username}</Text>
+                    <Image style={{width: 40, height: 40, margin: 10, borderRadius: 20,}} source={{uri: globalStore.user.thumbnail}} />
+                    <Text style={{fontSize: 15, fontWeight: 'bold',}}>{globalStore.user.username}</Text>
                     <EllipsisIcon 
                         style={{ marginLeft: 200,}}
                         onPress={() => {}} 

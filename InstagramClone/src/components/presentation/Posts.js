@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import Post from './Post';
 
+import globalStore from '../../../GlobalStore';
 
 class Posts extends Component {
     render() {
@@ -14,7 +15,7 @@ class Posts extends Component {
             <View style={styles.container}>
                 
                 <FlatList
-                    data={this.props.posts}
+                    data={globalStore.posts}
                     renderItem={({item}) => <Post post={item} />}
                     keyExtractor={(item, index) => 'key'+index}
                 />

@@ -48,7 +48,7 @@ class HomeScreen extends Component {
         return (
             <View style={styles.container}>
                 {globalStore.posts.length ? 
-                    <Posts posts={globalStore.posts}/> 
+                    <Posts /> 
                     : 
                     <Text
                         onPress={() => this.props.navigation.navigate('AddPost')}
