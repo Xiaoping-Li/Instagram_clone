@@ -35,7 +35,7 @@ class HomeScreen extends Component {
     getPosts() {
         const owner = this.state.userID;
         axios
-            .get('http://192.168.0.107:5000/posts/' + owner)
+            .get(`http://192.168.0.107:5000/posts/?owner=${owner}`)
             .then(action(result => {
                 if (result.data.length) {
                     globalStore.initPosts(result.data);
