@@ -35,11 +35,11 @@ PostRouter.put('/:id', (req, res) => {
         .catch(err => console.log(err));
 });
 
-PostRouter.delete('/:id', (req, res) => {
-    const { id } = req.params;
+PostRouter.delete('', (req, res) => {
+    const { id } = req.query;
     posts
         .delete(id)
-        .then(result => res.status(201).json(result))
+        .then(result => res.status(201).json({success: true, result}))
         .catch(err => console.log(err));
 });
 
