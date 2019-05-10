@@ -1,44 +1,54 @@
 const express = require('express');
 const Users = require('../models/User');
 const UserRouter = express.Router();
+const users = require('./UsersController');
 
 /****** API Endpoints for Users ********/
-UserRouter.get('', (req, res) => {
-    Users
-        .find()
-        .then(result => res.status(200).json(result))
-        .catch(err => console.log(err));   
-});
+// UserRouter.get('', (req, res) => {
+//     users
+//         .getAll()
+//         .then(result => res.status(200).json(result))
+//         .catch(err => console.log(err));   
+// });
 
-UserRouter.get('/:email', (req, res) => {
-    const {email}  = req.params;
-    Users
-        .find({ email })
-        .then(result => res.status(200).json(result))
+UserRouter.get('', (req, res) => {
+    const {username}  = req.query;
+    users
+        .getByUsername(username)
+        .then(result => {
+            console.log(result);
+            const list = result.map(item => {
+                const modified = {};
+                modified.username = item.username;
+                modified.thumbnail = item.thumbnail;
+                return modified;
+            });
+            res.status(200).json({success: true, list});
+        })
         .catch(err => console.log(err));
 });
 
 UserRouter.post('', (req, res) => {
     const newUser = req.body;
-    Users
-        .create(newUser)
+    users
+        .insert(newUser)
         .then(result => res.status(201).json(result))
         .catch(err => console.log(err));
 });
 
-UserRouter.put('/:id', (req, res) => {
-    const { id } = req.params;
+UserRouter.put('', (req, res) => {
+    const { id } = req.query;
     const update = req.body;
-    Users
-        .findByIdAndUpdate(id, update, {new: true})
+    users
+        .update(id, update, {new: true})
         .then(result => res.status(203).json(result))
         .catch(err => console.log(err));
 });
 
-UserRouter.delete('/:id', (req, res) => {
-    const { id } = req.params;
-    Users
-        .findByIdAndDelete(id)
+UserRouter.delete('', (req, res) => {
+    const { id } = req.query;
+    users
+        .delete(id)
         .then(result => res.status(201).json(result))
         .catch(err => console.log(err));
 });

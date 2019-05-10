@@ -1,5 +1,5 @@
 const express = require('express');
-const posts = require('./PostsControlers');
+const posts = require('./PostsControllers');
 const PostRouter = express.Router();
 
 /****** API Endpoints for Posts ********/
