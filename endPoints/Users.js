@@ -23,7 +23,7 @@ UserRouter.get('', (req, res) => {
                 modified.thumbnail = item.thumbnail;
                 return modified;
             });
-            res.status(200).json({success: true, list});
+            res.status(200).json(list);
         })
         .catch(err => console.log(err));
 });
