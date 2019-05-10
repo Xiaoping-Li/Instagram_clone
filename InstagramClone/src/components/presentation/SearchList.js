@@ -1,20 +1,31 @@
 import React, { Component } from 'react';
 import { 
     View, 
-    Text, 
     StyleSheet,
     FlatList 
 } from 'react-native';
 
+import SearchListItem from './SearchListItem';
 
 class SearchList extends Component {
     render() {
         return (
-            <View>
-                <Text>Here is the SearchList</Text>
+            <View style={styles.container}>
+                <FlatList
+                    data={this.props.list}
+                    renderItem={({item}) => <SearchListItem item={item} />}
+                    keyExtractor={(item, index) => 'key'+index}
+                />
             </View>
         );
     }
 }
 
 export default SearchList;
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+    },
+});

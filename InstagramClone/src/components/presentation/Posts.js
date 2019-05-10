@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {
-    Text,
     View,  
     StyleSheet,
     FlatList,
@@ -13,7 +12,6 @@ class Posts extends Component {
     render() {
         return (
             <View style={styles.container}>
-                
                 <FlatList
                     data={globalStore.posts}
                     renderItem={({item, idx}) => <Post post={item} idx={idx} />}

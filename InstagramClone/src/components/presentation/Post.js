@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { 
     View, 
     Text, 
@@ -14,7 +14,7 @@ import EllipsisIcon from '@expo/vector-icons/AntDesign';
 import globalStore from '../../../GlobalStore'; 
 import { action } from 'mobx';
 
-class Post extends Component {
+class Post extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
