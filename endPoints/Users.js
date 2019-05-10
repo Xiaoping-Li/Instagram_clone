@@ -16,7 +16,6 @@ UserRouter.get('', (req, res) => {
     users
         .getByUsername(username)
         .then(result => {
-            console.log(result);
             const list = result.map(item => {
                 const modified = {};
                 modified.username = item.username;

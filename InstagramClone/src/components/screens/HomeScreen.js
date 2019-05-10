@@ -22,7 +22,7 @@ class HomeScreen extends Component {
         };
     }
 
-    componentDidMount () {
+    componentDidMount = () => {
         AsyncStorage
             .getItem('userToken')
             .then(result => {
@@ -32,7 +32,7 @@ class HomeScreen extends Component {
             .catch(err => console.log(err));
     }
 
-    getPosts() {
+    getPosts = () => {
         const owner = this.state.userID;
         axios
             .get(`http://192.168.0.107:5000/posts/?owner=${owner}`)

@@ -3,8 +3,8 @@ import {
     View, 
     StyleSheet, 
     TextInput,
-    Button,
-    Text, 
+    Text,
+    Button, 
 } from 'react-native';
 import axios from 'axios';
 import Icon from '@expo/vector-icons/Ionicons';
@@ -12,20 +12,22 @@ import Icon from '@expo/vector-icons/Ionicons';
 import SearchList from '../presentation/SearchList';
 
 class SearchScreen extends Component {
-    state = {
-        query: '',
-        list: [],
+    constructor(props) {
+        super(props);
+        this.state = {
+            username: '',
+            list: [],
+        };
     }
 
-    handleSearch() {
-
-        if (this.state.query) {
+    handleSearch = () => {
+        if (this.state.username) {
             axios
-                .get(`http://192.168.0.107:5000/users/?username=${this.state.query}`)
-                .then(result => {
-                    console.log(result.data);
-                })
+                .get(`http://192.168.0.107:5000/users?username=${this.state.username}`)
+                .then(result => this.setState({list: result.data}))
                 .catch(err => console.log(err));
+        } else {
+            alert('Please type username');
         }
     }
 
@@ -44,14 +46,19 @@ class SearchScreen extends Component {
                     <TextInput
                         placeholder="Search"
                         value={this.state.query}
-                        onChangeText={query => this.setState({query})}
+                        onChangeText={username => this.setState({username})}
                         style={styles.input}
                     />
 
-                    <Text onPress={() => {}} style={{fontSize: 15,marginRight: 5,}}>Search</Text>    
+                    <Text 
+                        onPress={this.handleSearch} 
+                        style={{fontSize: 15,marginRight: 5,}}
+                    >
+                        Search
+                    </Text>    
                 </View>
 
-                <SearchList />    
+                <SearchList list={this.state.list}/>    
             </View>
         );
     }
