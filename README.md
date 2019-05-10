@@ -1,6 +1,6 @@
 # Instagram_clone
 This is a Instagram clone app build with the MERN stack.
-* React Native
+* React Native, Mobx
 * MongoDB, Mongoose, Express
-* JWT, express-session, passport, bcrypt
+* Express-session, passport, bcrypt
 
