@@ -9,7 +9,7 @@ import {
 import axios from 'axios';
 import Icon from '@expo/vector-icons/Ionicons';
 
-import SearchList from '../presentation/SearchList';
+import { SearchList } from '../presentation';
 
 class SearchScreen extends Component {
     constructor(props) {

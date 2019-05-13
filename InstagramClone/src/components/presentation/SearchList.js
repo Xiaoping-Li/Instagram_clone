@@ -5,7 +5,7 @@ import {
     FlatList 
 } from 'react-native';
 
-import SearchListItem from './SearchListItem';
+import { SearchListItem } from './';
 
 class SearchList extends Component {
     render() {
