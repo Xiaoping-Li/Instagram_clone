@@ -22,16 +22,16 @@ const UserSchema = new Schema({
         type: String,
         default: 'https://cdn.pixabay.com/photo/2016/08/09/17/52/instagram-1581266_960_720.jpg',
     },
+    friends: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'friend',
+        }
+    ],
     createAt: {
         type: Date,
         default: Date.now,
     },
-    friends: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'user',
-        }
-    ], 
 },
 { runSettersOnQuery: true });
 
