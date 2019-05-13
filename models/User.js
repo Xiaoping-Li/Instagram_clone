@@ -25,7 +25,13 @@ const UserSchema = new Schema({
     friends: [
         {
             type: Schema.Types.ObjectId,
-            ref: 'friend',
+            ref: 'user',
+        }
+    ],
+    requests: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'friendRequest',
         }
     ],
     createAt: {
