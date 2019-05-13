@@ -18,6 +18,7 @@ UserRouter.get('', (req, res) => {
         .then(result => {
             const list = result.map(item => {
                 const modified = {};
+                modified.id = item._id;
                 modified.username = item.username;
                 modified.thumbnail = item.thumbnail;
                 return modified;
