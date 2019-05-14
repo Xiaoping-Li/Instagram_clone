@@ -2,8 +2,6 @@
 import {observable, decorate, action} from 'mobx';
 
 class GlobalStore {
-    // greet = 'hello';
-    // changeState = (str) => this.greet = str;
     user = {
         username: '',
         email: '',
@@ -14,6 +12,10 @@ class GlobalStore {
     friends = [];
     initFriends = list => this.friends = list;
     updateFriends = (friend) => this.friends.unshift(friend);
+
+    requests = [];
+    initRequests = list => this.requests = list;
+    updateRequests = request => this.requests.unshift(request);
 
     posts = [];
     initPosts = list => this.posts = list;
