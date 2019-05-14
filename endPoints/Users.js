@@ -15,6 +15,7 @@ UserRouter.get('/:id', (req, res) => {
     const { id } = req.params;
     Users
         .findById(id)
+        .populate('requests')
         .then(result => {
             const user = {};
             user.requests = result.requests;

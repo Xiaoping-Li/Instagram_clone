@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
-        alignItems: 'center', 
+        // alignItems: 'center', ---> If keep this, SearchList won't show correct properties for list item
         justifyContent: 'flex-start',    
     },
     searchBar: {
