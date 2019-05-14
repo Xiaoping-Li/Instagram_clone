@@ -17,6 +17,7 @@ import {
   SignInScreen,
   SignUpScreen,
   AuthLoadingScreen,
+  FriendStatusScreen,
 } from './components/screens';
 
 import Icon from '@expo/vector-icons/Ionicons';
@@ -73,6 +74,22 @@ const SearchStackNavigator = createStackNavigator(
         }  
       } 
     },
+
+    FriendStatus: {
+      screen: FriendStatusScreen,
+      navigationOptions: ({navigation}) => {
+        return {
+          headerLeft: (
+            <Icon
+              style={{ paddingLeft: 10}}
+              onPress={() => navigation.openDrawer()} 
+              name="md-menu" 
+              size={30} 
+            />
+          )
+        }  
+      } 
+    }
   },
 );
 

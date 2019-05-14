@@ -7,6 +7,7 @@ import SearchScreen from './SearchScreen';
 import LikesScreen from './LikesScreen';
 import ProfileScreen from './ProfileScreen';
 import AddPostScreen from './AddPostScreen';
+import FriendStatusScreen from './FriendStatusScreen';
 
 
 export {
@@ -19,4 +20,5 @@ export {
     LikesScreen,
     ProfileScreen,
     AddPostScreen,
+    FriendStatusScreen,
 }
