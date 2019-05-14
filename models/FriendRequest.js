@@ -13,7 +13,7 @@ const FriendRequestSchema = new Schema({
     },
     status: {
         type: String,
-        enum: ['Requested', 'Pending', 'Friend'],
+        enum: ['Requested', 'Pending', 'Friends'],
     },
     createAt: {
         type: Date,

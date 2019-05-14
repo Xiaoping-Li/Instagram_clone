@@ -23,10 +23,11 @@ FriendRouter.post('', (req, res) => {
     recipientRequest.recipient = req.query.sender;
     recipientRequest.status = 'Pending';
 
-
+    // Create two requests in the db
     FriendRequests
         .create(senderRequest, recipientRequest)
         .then(result => {
+            // After createing successfully, save the requests' ids to corresponding user requests list
             const sender = result[0];
             const recipient = result[1];
 
@@ -41,6 +42,31 @@ FriendRouter.post('', (req, res) => {
                 .catch(err => console.log(err));
 
             res.status(201).json(result);
+        })
+        .catch(err => console.log(err));
+});
+
+FriendRouter.put('', (req, res) => {
+    const senderID = req.query.sender;
+    const recipientID = req.query.recipient;
+
+    FriendRequests
+        .updateOne({ sender: senderID, recipient: recipientID }, { status: 'Friends' })
+        .then(result => {
+            Users
+                .update({ _id: senderID }, { $push: { friends: recipientID }})
+                .then(result => res.status(200).json(result.ok))
+                .catch(err => console.log(err));
+        })
+        .catch(err => console.log(err));
+
+    FriendRequests
+        .updateOne({ sender: recipientID, recipient: senderID }, { status: 'Friends' })
+        .then(result => {
+            Users
+                .update({ _id: recipientID }, { $push: { friends: senderID }})
+                .then(result => res.status(200).json(result.ok))
+                .catch(err => console.log(err));
         })
         .catch(err => console.log(err));
 });
