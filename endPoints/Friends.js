@@ -50,6 +50,8 @@ FriendRouter.put('', (req, res) => {
     const senderID = req.query.sender;
     const recipientID = req.query.recipient;
 
+    // Change friendRequest state from Pending to Friends
+    // Save recipientID to sender's friends' list
     FriendRequests
         .updateOne({ sender: senderID, recipient: recipientID }, { status: 'Friends' })
         .then(result => {
@@ -60,6 +62,8 @@ FriendRouter.put('', (req, res) => {
         })
         .catch(err => console.log(err));
 
+    // Change friendRequest state from Requested to Friends
+    // Save senderID to recipient's friends' list 
     FriendRequests
         .updateOne({ sender: recipientID, recipient: senderID }, { status: 'Friends' })
         .then(result => {
@@ -69,6 +73,10 @@ FriendRouter.put('', (req, res) => {
                 .catch(err => console.log(err));
         })
         .catch(err => console.log(err));
+});
+
+FriendRouter.delete('', (req, res) => {
+
 });
 
 module.exports = FriendRouter;
