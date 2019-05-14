@@ -25,14 +25,14 @@ class GlobalStore {
 decorate(
     GlobalStore,
     {
-        // greet: observable,
-        // changeState: action,
         user: observable,
         friends: observable,
         posts: observable,
+        requests: observable,
         updateUser: action,
         updateFriends: action,
         updatePosts: action,
+        updateRequests: action,
     }
 );
 

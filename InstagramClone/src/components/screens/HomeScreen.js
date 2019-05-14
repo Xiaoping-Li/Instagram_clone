@@ -28,6 +28,7 @@ class HomeScreen extends Component {
             .then(result => {
                 this.setState({ userID: result });
                 this.getPosts();
+                this.getFriendsAndRequests();
             })
             .catch(err => console.log(err));
     }
@@ -42,6 +43,22 @@ class HomeScreen extends Component {
                 }
             }))
             .catch(err => console.log(err));   
+    }
+
+    getFriendsAndRequests = () => {
+        const id = this.state.userID;
+        axios
+            .get(`http://192.168.0.107:5000/users/:${id}`)
+            .then(action(result => {
+                if (result.data.friends.length) {
+                    globalStore.initFriends(result.data.friends);
+                }
+
+                if (result.data.requests.length) {
+                    globalStore.initRequests(result.data.requests);
+                }
+            }))
+            .catch(err => console.log(err));
     }
 
     render() {
