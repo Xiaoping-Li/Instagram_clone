@@ -13,6 +13,7 @@ const server = express();
 
 const UserRouter = require('./endPoints/Users');
 const PostRouter = require('./endPoints/Posts');
+const FriendReqRouter = require('./endPoints/Friends');
 const Users = require('./models/User');
 
 // server use global middlewares
@@ -86,6 +87,7 @@ server.post('/signout', (req, res) => {
 // Using Routers
 server.use('/users', UserRouter);
 server.use('/posts', PostRouter);
+server.use('/friends', FriendReqRouter);
 
 // Connect to MongoDB
 mongoose.Promise = global.Promise;
