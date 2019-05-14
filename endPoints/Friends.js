@@ -76,7 +76,50 @@ FriendRouter.put('', (req, res) => {
 });
 
 FriendRouter.delete('', (req, res) => {
+    const senderID = req.query.sender;
+    const recipientID = req.query.recipient;
 
+    FriendRequests
+        .findOneAndDelete({ sender: senderID, recipient: recipientID })
+        .then(result => {
+            if(result.status === 'Friends') {
+                Users
+                    .update(
+                        { _id: senderID }, 
+                        { $pull: { friends: recipientID, requests: result._id }},
+                        {multi: true}
+                    )
+                    .then(result => res.status(204).json({msg: "Delete successfully from both side", ok: result.ok }))
+                    .catch(err => console.log(err));
+            } else {
+                Users
+                    .update({ _id: senderID }, { $pull: { requests: result._id }})
+                    .then(result => res.status(204).json({msg: "Delete successfully from both side", ok: result.ok }))
+                    .catch(err => console.log(err));
+            }
+        })
+        .catch(err => console.log(err));
+
+    FriendRequests
+        .findOneAndDelete({ sender: recipientID, recipient: senderID })
+        .then(result => {
+            if(result.status === 'Friends') {
+                Users
+                    .update(
+                        { _id: recipientID }, 
+                        { $pull: { friends: senderID, requests: result._id }},
+                        {multi: true}
+                    )
+                    .then(result => res.status(204).json({msg: "Delete successfully from both side", ok: result.ok }))
+                    .catch(err => console.log(err));
+            } else {
+                Users
+                    .update({ _id: recipientID }, { $pull: { requests: result._id }})
+                    .then(result => res.status(204).json({msg: "Delete successfully from both side", ok: result.ok }))
+                    .catch(err => console.log(err));
+            }
+        })
+        .catch(err => console.log(err));
 });
 
 module.exports = FriendRouter;
