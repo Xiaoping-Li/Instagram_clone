@@ -59,7 +59,6 @@ class SearchScreen extends Component {
                     </Text>    
                 </View>
 
-                {/* <SearchList list={this.state.list}/>     */}
                 <View>
                 {
                     this.state.list.map((item, idx) => (
@@ -70,7 +69,11 @@ class SearchScreen extends Component {
                             chevronColor="#a9a9a9"
                             chevron={true}
                             bottomDivider={true}
-                            onPress={() => this.props.navigation.navigate('FriendStatus')}
+                            onPress={() => this.props.navigation.navigate('FriendStatus', {
+                                friendName: item.username,
+                                thumbnail: item.thumbnail,
+                                friendID: item.id,
+                            })}
                         />
                     ))
                 }
