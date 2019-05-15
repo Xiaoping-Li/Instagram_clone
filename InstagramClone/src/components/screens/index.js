@@ -8,6 +8,8 @@ import LikesScreen from './LikesScreen';
 import ProfileScreen from './ProfileScreen';
 import AddPostScreen from './AddPostScreen';
 import FriendStatusScreen from './FriendStatusScreen';
+import PersonProfileScreen from './PersonProfileScreen';
+import PersonRequestsScreen from './PersonRequestsScreen';
 
 
 export {
@@ -21,4 +23,6 @@ export {
     ProfileScreen,
     AddPostScreen,
     FriendStatusScreen,
+    PersonProfileScreen,
+    PersonRequestsScreen,
 }

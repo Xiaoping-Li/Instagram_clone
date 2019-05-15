@@ -5,6 +5,7 @@ import {
   createDrawerNavigator,
   createBottomTabNavigator,
   createStackNavigator,
+  createMaterialTopTabNavigator,
 } from 'react-navigation';
 
 import { 
@@ -78,6 +79,7 @@ const SearchStackNavigator = createStackNavigator(
     FriendStatus: {
       screen: FriendStatusScreen,
       // With the code below, won't show the back arrow to search list
+      
       // navigationOptions: ({navigation}) => {
       //   return {
       //     headerLeft: (
@@ -142,25 +144,31 @@ const LikesStackNavigator = createStackNavigator(
   },
 );
 
-const ProfileStackNavigator = createStackNavigator(
+// const ProfileStackNavigator = createStackNavigator(
+//   {
+//     Profile: { 
+//       screen: ProfileScreen,
+//       navigationOptions: ({navigation}) => {
+//         return {
+//           headerTitle: 'Profile',
+//           headerLeft: (
+//             <Icon
+//               style={{ paddingLeft: 10}}
+//               onPress={() => navigation.openDrawer()} 
+//               name="md-menu" 
+//               size={30} 
+//             />
+//           )
+//         }  
+//       } 
+//     },
+//   },
+// );
+
+const ProfileTopTabNavigator = createMaterialTopTabNavigator(
   {
-    Profile: { 
-      screen: ProfileScreen,
-      navigationOptions: ({navigation}) => {
-        return {
-          headerTitle: 'Profile',
-          headerLeft: (
-            <Icon
-              style={{ paddingLeft: 10}}
-              onPress={() => navigation.openDrawer()} 
-              name="md-menu" 
-              size={30} 
-            />
-          )
-        }  
-      } 
-    },
-  },
+    
+  }
 );
 
 // TabNavigator nested inside HomeStackNavigator,
@@ -247,8 +255,7 @@ const HomeTabNavigator = createBottomTabNavigator(
       //   backgroundColor: '#171F33',
       // }
     }
-  },
-  
+  }, 
 );
 
 const HomeStackNavigator = createStackNavigator(
