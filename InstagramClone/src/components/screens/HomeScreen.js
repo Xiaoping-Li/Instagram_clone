@@ -48,9 +48,8 @@ class HomeScreen extends Component {
     getFriendsAndRequests = () => {
         const id = this.state.userID;
         axios
-            .get(`http://192.168.0.107:5000/users/:${id}`)
+            .get(`http://192.168.0.107:5000/users/${id}`)
             .then(action(result => {
-               
                 if (result.data.friends.length) {
                     globalStore.initFriends(result.data.friends);
                 }

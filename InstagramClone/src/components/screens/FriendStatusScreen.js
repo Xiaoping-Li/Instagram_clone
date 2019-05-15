@@ -36,10 +36,11 @@ class FriendStatusScreen extends Component {
             .get(`http://192.168.0.107:5000/friends/?sender=${userID}&recipient=${this.state.friendID}`)
             .then(result => {
                 if (result.data.length) {
-                    this.setState({ status: result.data.length[0].status });
+                    this.setState({ status: result.data[0].status });
                 }
             })
-            .catch(err => console.log(err));       
+            .catch(err => console.log(err));   
+            
     }
 
     handleAddFriend = () => {
@@ -94,7 +95,7 @@ class FriendStatusScreen extends Component {
             renderItems = 
                 <View>
                     <Text>{this.state.status}</Text>
-                    <Text>No Friends</Text>
+                    <Text onPress={this.handleRemoveFriend}>No Friends</Text>
                 </View>;
         } else if (this.state.status === 'Pending') {
             renderItems = 
