@@ -10,6 +10,7 @@ import axios from 'axios';
 import Icon from '@expo/vector-icons/Ionicons';
 
 import { SearchList } from '../presentation';
+import { ListItem } from 'react-native-elements';
 
 class SearchScreen extends Component {
     constructor(props) {
@@ -58,7 +59,22 @@ class SearchScreen extends Component {
                     </Text>    
                 </View>
 
-                <SearchList list={this.state.list}/>    
+                {/* <SearchList list={this.state.list}/>     */}
+                <View>
+                {
+                    this.state.list.map((item, idx) => (
+                        <ListItem
+                            key={idx}
+                            leftAvatar={{ source: { uri: item.thumbnail }}} 
+                            title={item.username}
+                            chevronColor="#a9a9a9"
+                            chevron={true}
+                            bottomDivider={true}
+                            onPress={() => this.props.navigation.navigate('FriendStatus')}
+                        />
+                    ))
+                }
+                </View>
             </View>
         );
     }

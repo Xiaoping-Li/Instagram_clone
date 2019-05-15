@@ -50,6 +50,7 @@ class HomeScreen extends Component {
         axios
             .get(`http://192.168.0.107:5000/users/:${id}`)
             .then(action(result => {
+                console.log(result.data);
                 if (result.data.friends.length) {
                     globalStore.initFriends(result.data.friends);
                 }

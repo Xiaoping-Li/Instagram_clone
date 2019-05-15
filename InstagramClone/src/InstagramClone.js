@@ -77,21 +77,23 @@ const SearchStackNavigator = createStackNavigator(
 
     FriendStatus: {
       screen: FriendStatusScreen,
-      navigationOptions: ({navigation}) => {
-        return {
-          headerLeft: (
-            <Icon
-              style={{ paddingLeft: 10}}
-              onPress={() => navigation.openDrawer()} 
-              name="md-menu" 
-              size={30} 
-            />
-          )
-        }  
-      } 
+      // With the code below, won't show the back arrow to search list
+      // navigationOptions: ({navigation}) => {
+      //   return {
+      //     headerLeft: (
+      //       <Icon
+      //         style={{ paddingLeft: 10}}
+      //         onPress={() => navigation.openDrawer()} 
+      //         name="md-menu" 
+      //         size={30} 
+      //       />
+      //     )
+      //   }  
+      // } 
     }
   },
 );
+
 
 const AddPostStackNavigator = createStackNavigator(
   {
