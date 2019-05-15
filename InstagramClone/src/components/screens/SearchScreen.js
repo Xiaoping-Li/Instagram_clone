@@ -18,6 +18,7 @@ class SearchScreen extends Component {
         this.state = {
             username: '',
             list: [],
+            msg: '',
         };
     }
 
@@ -25,7 +26,14 @@ class SearchScreen extends Component {
         if (this.state.username) {
             axios
                 .get(`http://192.168.0.107:5000/users?username=${this.state.username}`)
-                .then(result => this.setState({list: result.data}))
+                .then(result => {
+                    if (result.data.length) {
+                        this.setState({list: result.data, msg: '', });
+                    } else {
+                        this.setState({ msg: 'No result found'});
+                    }
+                    
+                })
                 .catch(err => console.log(err));
         } else {
             alert('Please type username');
@@ -60,23 +68,25 @@ class SearchScreen extends Component {
                 </View>
 
                 <View>
-                {
-                    this.state.list.map((item, idx) => (
-                        <ListItem
-                            key={idx}
-                            leftAvatar={{ source: { uri: item.thumbnail }}} 
-                            title={item.username}
-                            chevronColor="#a9a9a9"
-                            chevron={true}
-                            bottomDivider={true}
-                            onPress={() => this.props.navigation.navigate('FriendStatus', {
-                                friendName: item.username,
-                                thumbnail: item.thumbnail,
-                                friendID: item.id,
-                            })}
-                        />
-                    ))
-                }
+                    {this.state.msg ?
+                        <Text style={{ fontSize: 30 }}>{this.state.msg}</Text>
+                        :
+                        this.state.list.map((item, idx) => (
+                            <ListItem
+                                key={idx}
+                                leftAvatar={{ source: { uri: item.thumbnail }}} 
+                                title={item.username}
+                                chevronColor="#a9a9a9"
+                                chevron={true}
+                                bottomDivider={true}
+                                onPress={() => this.props.navigation.navigate('FriendStatus', {
+                                    friendName: item.username,
+                                    thumbnail: item.thumbnail,
+                                    friendID: item.id,
+                                })}
+                            />
+                        ))
+                    }
                 </View>
             </View>
         );

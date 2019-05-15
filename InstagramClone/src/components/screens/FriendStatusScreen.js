@@ -93,34 +93,39 @@ class FriendStatusScreen extends Component {
         let renderItems;
         if (this.state.status === 'Friends') {
             renderItems = 
-                <View>
-                    <Text>{this.state.status}</Text>
-                    <Text onPress={this.handleRemoveFriend}>No Friends</Text>
+                <View style={{alignItems: 'center', justifyContent: 'center',}}>
+                    <Text style={{fontSize: 20}}>{this.state.status}</Text>
+                    <View style={styles.divider}></View>
+                    <Text style={styles.btn} onPress={this.handleRemoveFriend}>No Friends</Text>
                 </View>;
         } else if (this.state.status === 'Pending') {
             renderItems = 
-                <View>
-                    <Text>{this.state.status}</Text>
-                    <Text onPress={this.handleAccpetRequest}>Accept</Text>
-                    <Text onPress={this.handleRemoveRequest}>Reject</Text>
+                <View style={{alignItems: 'center', justifyContent: 'center',}}>
+                    <Text style={{fontSize: 20}}>{this.state.status}</Text>
+                    <View style={styles.divider}></View>
+                    <View style={styles.btns}>
+                        <Text style={styles.btn} onPress={this.handleAccpetRequest}>Accept</Text>
+                        <Text style={styles.btn} onPress={this.handleRemoveRequest}>Reject</Text>
+                    </View>   
                 </View>;
         } else if (this.state.status === 'Requested') {
             renderItems = 
-                <View>
-                    <Text>{this.state.status}</Text>
-                    <Text onPress={this.handleRemoveRequest}>Cancel</Text>
+                <View style={{alignItems: 'center', justifyContent: 'center',}}>
+                    <Text style={{fontSize: 20}}>{this.state.status}</Text>
+                    <View style={styles.divider}></View>
+                    <Text style={styles.btn} onPress={this.handleRemoveRequest}>Cancel</Text>
                 </View>;
         } else {
             renderItems = 
-                <View>
-                    <Text onPress={this.handleAddFriend}>{this.state.status}</Text>
+                <View style={{alignItems: 'center', justifyContent: 'center',}}>
+                    <Text style={styles.btn} onPress={this.handleAddFriend}>{this.state.status}</Text>
                 </View>;
         }
 
         return (
             <View style={styles.container}>
                 <Image style={{width: 100, height:100, margin: 30, borderRadius: 50,}} source={{uri: this.state.thumbnail}} />
-                <Text>{this.state.friendName}</Text> 
+                <Text style={styles.friendName}>{this.state.friendName}</Text> 
                 {renderItems}
             </View>
         );
@@ -134,6 +139,32 @@ const styles = StyleSheet.create({
       flex: 1,
       backgroundColor: '#fff',
       alignItems: 'center', 
-      justifyContent: 'center',
+    //   justifyContent: 'center',
     },
+    friendName: {
+        fontSize: 30,
+        fontWeight: "600",
+        marginBottom: 20,
+    },
+    divider: {
+        backgroundColor: '#D3D3D3',
+        width: 200,
+        height: 1,
+        marginTop: 20,
+        marginBottom: 20,
+    },
+    btns: {
+        width: 250,
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+    },
+    btn: {
+        fontSize: 20,
+        width: 100,
+        backgroundColor: 'powderblue',
+        textAlign: 'center',
+        // marginTop: 25,
+        padding: 5, 
+    }
 });
