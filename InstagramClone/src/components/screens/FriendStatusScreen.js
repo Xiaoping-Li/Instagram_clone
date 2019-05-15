@@ -65,7 +65,16 @@ class FriendStatusScreen extends Component {
             .catch(err => console.log(err));
     }
 
-   
+    handleRemoveRequest = () => {
+        const userID = globalStore.user.userID;
+        axios
+            .delete(`http://192.168.0.107:5000/friends/?sender=${userID}&recipient=${this.state.friendID}`)
+            .then(action(result => {
+                globalStore.deleteRequest(userID, this.state.friendID);
+                this.setState({ status: "Add Friend"});
+            }))
+            .catch(err => console.log(err));
+    }
 
     render() {
         let renderItems;
