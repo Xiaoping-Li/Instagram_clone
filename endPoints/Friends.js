@@ -4,12 +4,19 @@ const FriendRouter = express.Router();
 const FriendRequests = require('../models/FriendRequest');
 const Users = require('../models/User');
 
+// FriendRouter.get('', (req, res) => {
+//     FriendRequests
+//         .find()
+//         .then(result => res.status(200).json(result))
+//         .catch(err => console.log(err));
+// });
+
 FriendRouter.get('', (req, res) => {
     FriendRequests
-        .find()
+        .find({ sender: req.query.sender, recipient: req.query.recipient })
         .then(result => res.status(200).json(result))
         .catch(err => console.log(err));
-})
+});
 
 FriendRouter.post('', (req, res) => {
     // Create two request the same time, change ID for sender and recipient, have different status

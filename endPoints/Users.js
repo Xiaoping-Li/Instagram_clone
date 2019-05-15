@@ -4,12 +4,12 @@ const users = require('./UsersController');
 const Users = require('../models/User');
 
 /****** API Endpoints for Users ********/
-// UserRouter.get('', (req, res) => {
-//     users
-//         .getAll()
-//         .then(result => res.status(200).json(result))
-//         .catch(err => console.log(err));   
-// });
+UserRouter.get('', (req, res) => {
+    users
+        .getAll()
+        .then(result => res.status(200).json(result))
+        .catch(err => console.log(err));   
+});
 
 UserRouter.get('/:id', (req, res) => {
     const { id } = req.params;
