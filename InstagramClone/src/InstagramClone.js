@@ -19,6 +19,7 @@ import {
   SignUpScreen,
   AuthLoadingScreen,
   FriendStatusScreen,
+  RequestsScreen,
 } from './components/screens';
 
 import Icon from '@expo/vector-icons/Ionicons';
@@ -78,8 +79,7 @@ const SearchStackNavigator = createStackNavigator(
 
     FriendStatus: {
       screen: FriendStatusScreen,
-      // With the code below, won't show the back arrow to search list
-      
+      /**With the code below, won't show the back arrow to search list */
       // navigationOptions: ({navigation}) => {
       //   return {
       //     headerLeft: (
@@ -144,32 +144,34 @@ const LikesStackNavigator = createStackNavigator(
   },
 );
 
-// const ProfileStackNavigator = createStackNavigator(
-//   {
-//     Profile: { 
-//       screen: ProfileScreen,
-//       navigationOptions: ({navigation}) => {
-//         return {
-//           headerTitle: 'Profile',
-//           headerLeft: (
-//             <Icon
-//               style={{ paddingLeft: 10}}
-//               onPress={() => navigation.openDrawer()} 
-//               name="md-menu" 
-//               size={30} 
-//             />
-//           )
-//         }  
-//       } 
-//     },
-//   },
-// );
-
 const ProfileTopTabNavigator = createMaterialTopTabNavigator(
   {
-    
-  }
+    Profile: { screen: ProfileScreen },
+    Requests: { screen: RequestsScreen }
+  },
 );
+
+const ProfileStackNavigator = createStackNavigator(
+  {
+    PersonProfile: { 
+      screen: ProfileTopTabNavigator,
+      navigationOptions: ({navigation}) => {
+        return {
+          headerTitle: 'Profile',
+          headerLeft: (
+            <Icon
+              style={{ paddingLeft: 10}}
+              onPress={() => navigation.openDrawer()} 
+              name="md-menu" 
+              size={30} 
+            />
+          )
+        }  
+      } 
+    },
+  },
+);
+
 
 // TabNavigator nested inside HomeStackNavigator,
 // HomeStackNavigator nested inside AppDrawerNavigator,
