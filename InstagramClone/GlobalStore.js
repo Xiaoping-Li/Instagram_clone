@@ -17,6 +17,14 @@ class GlobalStore {
     requests = [];
     initRequests = list => this.requests = list;
     addRequests = request => this.requests.push(request);
+    updateRequests = (senderID, recipientID) => {
+        for (let i = 0; i < this.requests.length; i++) {
+            if (this.requests[i].sender === senderID && this.requests[i].recipient === recipientID) {
+                this.requests[i].status = 'Friends';
+                return;
+            }
+        }
+    };
 
     posts = [];
     initPosts = list => this.posts = list;

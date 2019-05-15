@@ -54,6 +54,19 @@ class FriendStatusScreen extends Component {
             .catch(err => console.log(err));
     }
 
+    handleAccpetRequest = () => {
+        const userID = globalStore.user.userID;
+        axios
+            .put(`http://192.168.0.107:5000/friends/?sender=${userID}&recipient=${this.state.friendID}`)
+            .then(action(result => {
+                globalStore.updateRequests(userID, this.state.friendID);
+                this.setState({ status: 'Friends'});
+            }))
+            .catch(err => console.log(err));
+    }
+
+   
+
     render() {
         let renderItems;
         if (this.state.status === 'Friends') {
@@ -66,7 +79,7 @@ class FriendStatusScreen extends Component {
             renderItems = 
                 <View>
                     <Text>{this.state.status}</Text>
-                    <Text>Accept</Text>
+                    <Text onPress={this.handleAccpetRequest}>Accept</Text>
                     <Text>Reject</Text>
                 </View>;
         } else if (this.state.status === 'Requested') {
