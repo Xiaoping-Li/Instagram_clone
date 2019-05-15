@@ -16,7 +16,7 @@ class GlobalStore {
 
     requests = [];
     initRequests = list => this.requests = list;
-    updateRequests = request => this.requests.unshift(request);
+    addRequests = request => this.requests.push(request);
 
     posts = [];
     initPosts = list => this.posts = list;
@@ -33,7 +33,7 @@ decorate(
         updateUser: action,
         updateFriends: action,
         updatePosts: action,
-        updateRequests: action,
+        addRequests: action,
     }
 );
 
