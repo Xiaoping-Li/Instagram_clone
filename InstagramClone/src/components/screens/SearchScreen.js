@@ -19,6 +19,7 @@ class SearchScreen extends Component {
             username: '',
             list: [],
             msg: '',
+            searched: false,
         };
     }
 
@@ -28,9 +29,9 @@ class SearchScreen extends Component {
                 .get(`http://192.168.0.107:5000/users?username=${this.state.username}`)
                 .then(result => {
                     if (result.data.length) {
-                        this.setState({list: result.data, msg: '', });
+                        this.setState({ list: result.data, msg: '', searched: true });
                     } else {
-                        this.setState({ msg: 'No result found'});
+                        this.setState({ msg: 'No result found', searched: true });
                     }
                     
                 })
@@ -38,6 +39,10 @@ class SearchScreen extends Component {
         } else {
             alert('Please type username');
         }
+    }
+
+    handleCancel = () => {
+        this.setState({ list: [], searched: false, username: '', msg: '' });
     }
 
 
@@ -54,17 +59,24 @@ class SearchScreen extends Component {
 
                     <TextInput
                         placeholder="Search"
-                        value={this.state.query}
+                        value={this.state.username}
                         onChangeText={username => this.setState({username})}
                         style={styles.input}
                     />
 
                     <Text 
                         onPress={this.handleSearch} 
-                        style={{fontSize: 15,marginRight: 5,}}
+                        style={{fontSize: 15}}
                     >
                         Search
-                    </Text>    
+                    </Text> 
+
+                    <Text
+                        onPress={this.handleCancel}
+                        style={this.state.searched ? {fontSize: 15, marginLeft: 5, marginRight: 5, color: 'red',} : {width: 0}}
+                    >
+                        Cancel
+                    </Text>   
                 </View>
 
                 <View>
@@ -119,7 +131,7 @@ const styles = StyleSheet.create({
         height: 40,
     },
     input: {
-        width: 300,
+        width: 245,
         fontSize: 20,
         marginLeft: 10,
     },
