@@ -4,22 +4,28 @@ const users = require('./UsersController');
 const Users = require('../models/User');
 
 /****** API Endpoints for Users ********/
-// UserRouter.get('', (req, res) => {
-//     users
-//         .getAll()
-//         .then(result => res.status(200).json(result))
-//         .catch(err => console.log(err));   
-// });
+UserRouter.get('', (req, res) => {
+    users
+        .getAll()
+        .then(result => res.status(200).json(result))
+        .catch(err => console.log(err));   
+});
 
 UserRouter.get('/:id', (req, res) => {
     const { id } = req.params;
     Users
         .findById(id)
         .populate('requests')
+        .populate('friends')
         .then(result => {
             const user = {};
             user.requests = result.requests;
-            user.friends = result.friends;
+
+            if (result.friends.length) {
+                user.friends = result.friends.map(friend => friend = { id: friend._id, friendName: friend.username, thumbnail: friend.thumbnail });
+            } else {
+                user.friends = result.friends;
+            }
             res.status(201).json(user);
         })
         .catch(err => console.log(err));
