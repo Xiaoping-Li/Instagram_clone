@@ -10,6 +10,18 @@ import globalStore from '../../../GlobalStore';
 
 
 class FriendsScreen extends Component {
+    // handleRemoveFriend = () => {
+    //     const userID = globalStore.user.userID;
+    //     axios
+    //         .delete(`http://192.168.0.107:5000/friends/?sender=${userID}&recipient=${this.state.friendID}`)
+    //         .then(action(result => {
+    //             globalStore.deleteRequest(userID, this.state.friendID);
+    //             globalStore.deleteFriend(friendID);
+    //             this.setState({ status: "Add Friend"});
+    //         }))
+    //         .catch(err => console.log(err));
+    // }
+
     render() {
         return (
             <View style={styles.container}>

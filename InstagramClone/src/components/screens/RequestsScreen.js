@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
-import { 
-    View, 
-    Text, 
-    StyleSheet, 
-} from 'react-native';
+import { View,  FlatList, StyleSheet } from 'react-native';
+
+import { Request } from '../presentation';
 
 import globalStore from '../../../GlobalStore';
+
 
 
 class RequestsScreen extends Component {
     render() {
         return (
-            <View style={styles.container}>
-                <Text>PersonRequestsScreen</Text>
+            <View>
+                <FlatList
+                    data={globalStore.requests}
+                    renderItem={({item, idx}) => <Request req={item} idx={idx} />}
+                    keyExtractor={(item, index) => 'key'+index}
+                />
             </View>
         );
     }
@@ -20,11 +23,10 @@ class RequestsScreen extends Component {
 
 export default RequestsScreen;
 
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center', 
-      justifyContent: 'center',
-    },
-});
+// const styles = StyleSheet.create({
+//     container: {
+//         flex: 1,
+//         backgroundColor: '#fff',
+//         // marginTop: 10,
+//     }
+// });
