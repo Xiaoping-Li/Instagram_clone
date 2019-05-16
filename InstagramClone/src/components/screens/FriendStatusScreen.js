@@ -55,69 +55,64 @@ class FriendStatusScreen extends Component {
             .catch(err => console.log(err));
     }
 
-    handleAccpetRequest = () => {
-        const userID = globalStore.user.userID;
-        axios
-            .put(`http://192.168.0.107:5000/friends/?sender=${userID}&recipient=${this.state.friendID}`)
-            .then(action(result => {
-                globalStore.updateRequests(userID, this.state.friendID);
-                this.setState({ status: 'Friends'});
-            }))
-            .catch(err => console.log(err));
-    }
+    // handleAccpetRequest = () => {
+    //     const userID = globalStore.user.userID;
+    //     axios
+    //         .put(`http://192.168.0.107:5000/friends/?sender=${userID}&recipient=${this.state.friendID}`)
+    //         .then(action(result => {
+    //             globalStore.updateRequests(userID, this.state.friendID);
+    //             this.setState({ status: 'Friends'});
+    //         }))
+    //         .catch(err => console.log(err));
+    // }
 
-    handleRemoveRequest = () => {
-        const userID = globalStore.user.userID;
-        axios
-            .delete(`http://192.168.0.107:5000/friends/?sender=${userID}&recipient=${this.state.friendID}`)
-            .then(action(result => {
-                globalStore.deleteRequest(userID, this.state.friendID);
-                this.setState({ status: "Add Friend"});
-            }))
-            .catch(err => console.log(err));
-    }
+    // handleRemoveRequest = () => {
+    //     const userID = globalStore.user.userID;
+    //     axios
+    //         .delete(`http://192.168.0.107:5000/friends/?sender=${userID}&recipient=${this.state.friendID}`)
+    //         .then(action(result => {
+    //             globalStore.deleteRequest(userID, this.state.friendID);
+    //             this.setState({ status: "Add Friend"});
+    //         }))
+    //         .catch(err => console.log(err));
+    // }
 
-    handleRemoveFriend = () => {
-        const userID = globalStore.user.userID;
-        axios
-            .delete(`http://192.168.0.107:5000/friends/?sender=${userID}&recipient=${this.state.friendID}`)
-            .then(action(result => {
-                globalStore.deleteRequest(userID, this.state.friendID);
-                globalStore.deleteFriend(friendID);
-                this.setState({ status: "Add Friend"});
-            }))
-            .catch(err => console.log(err));
-    }
+    // handleRemoveFriend = () => {
+    //     const userID = globalStore.user.userID;
+    //     axios
+    //         .delete(`http://192.168.0.107:5000/friends/?sender=${userID}&recipient=${this.state.friendID}`)
+    //         .then(action(result => {
+    //             globalStore.deleteRequest(userID, this.state.friendID);
+    //             globalStore.deleteFriend(friendID);
+    //             this.setState({ status: "Add Friend"});
+    //         }))
+    //         .catch(err => console.log(err));
+    // }
 
     render() {
         let renderItems;
         if (this.state.status === 'Friends') {
             renderItems = 
                 <View style={{alignItems: 'center', justifyContent: 'center',}}>
-                    <Text style={{fontSize: 20}}>{this.state.status}</Text>
+                    <View style={styles.status}><Text style={{fontSize: 20}}>{this.state.status}</Text></View>
                     <View style={styles.divider}></View>
-                    <Text style={styles.btn} onPress={this.handleRemoveFriend}>No Friends</Text>
                 </View>;
         } else if (this.state.status === 'Pending') {
             renderItems = 
                 <View style={{alignItems: 'center', justifyContent: 'center',}}>
-                    <Text style={{fontSize: 20}}>{this.state.status}</Text>
+                    <View style={styles.status}><Text style={{fontSize: 20}}>{this.state.status}</Text></View>
                     <View style={styles.divider}></View>
-                    <View style={styles.btns}>
-                        <Text style={styles.btn} onPress={this.handleAccpetRequest}>Accept</Text>
-                        <Text style={styles.btn} onPress={this.handleRemoveRequest}>Reject</Text>
-                    </View>   
                 </View>;
         } else if (this.state.status === 'Requested') {
             renderItems = 
                 <View style={{alignItems: 'center', justifyContent: 'center',}}>
-                    <Text style={{fontSize: 20}}>{this.state.status}</Text>
+                    <View style={styles.status}><Text style={{fontSize: 20}}>{this.state.status}</Text></View>
                     <View style={styles.divider}></View>
-                    <Text style={styles.btn} onPress={this.handleRemoveRequest}>Cancel</Text>
                 </View>;
         } else {
             renderItems = 
                 <View style={{alignItems: 'center', justifyContent: 'center',}}>
+                    <View style={styles.divider}></View>
                     <Text style={styles.btn} onPress={this.handleAddFriend}>{this.state.status}</Text>
                 </View>;
         }
@@ -153,18 +148,19 @@ const styles = StyleSheet.create({
         marginTop: 20,
         marginBottom: 20,
     },
-    btns: {
-        width: 250,
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center',
+    status: {
+        borderWidth: 1,
+        borderStyle: 'solid',
+        borderColor: '#D3D3D3',
+        borderRadius: 10,
+        padding: 5,
     },
     btn: {
         fontSize: 20,
-        width: 100,
+        width: 150,
         backgroundColor: 'powderblue',
         textAlign: 'center',
-        // marginTop: 25,
         padding: 5, 
+        marginTop: 50,
     }
 });
