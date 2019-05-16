@@ -9,6 +9,7 @@ import ProfileScreen from './ProfileScreen';
 import AddPostScreen from './AddPostScreen';
 import FriendStatusScreen from './FriendStatusScreen';
 import RequestsScreen from './RequestsScreen';
+import FriendsScreen from './FriendsScreen';
 
 
 export {
@@ -23,4 +24,5 @@ export {
     AddPostScreen,
     FriendStatusScreen,
     RequestsScreen,
+    FriendsScreen
 }
