@@ -24,5 +24,5 @@ export {
     AddPostScreen,
     FriendStatusScreen,
     RequestsScreen,
-    FriendsScreen
+    FriendsScreen,
 }

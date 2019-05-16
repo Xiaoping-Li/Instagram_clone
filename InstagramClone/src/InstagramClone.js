@@ -20,6 +20,7 @@ import {
   AuthLoadingScreen,
   FriendStatusScreen,
   RequestsScreen,
+  FriendsScreen,
 } from './components/screens';
 
 import Icon from '@expo/vector-icons/Ionicons';
@@ -147,8 +148,18 @@ const LikesStackNavigator = createStackNavigator(
 const ProfileTopTabNavigator = createMaterialTopTabNavigator(
   {
     Profile: { screen: ProfileScreen },
-    Requests: { screen: RequestsScreen }
+    Friends: { screen: FriendsScreen },
+    Requests: { screen: RequestsScreen },
   },
+  {
+    navigationOptions: ({navigation}) => {
+      // Get the route name for each tab and set the route name as the header title
+      const { routeName } = navigation.state.routes[navigation.state.index];
+      return {
+        headerTitle: routeName
+      };
+    },
+  }, 
 );
 
 const ProfileStackNavigator = createStackNavigator(
