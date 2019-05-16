@@ -10,9 +10,10 @@ class GlobalStore {
     };
     updateUser = (updated) => this.user = updated;
 
+    // Friends
     friends = [];
     initFriends = list => this.friends = list;
-    updateFriends = (friend) => this.friends.unshift(friend);
+    addFriends = (friend) => this.friends.unshift(friend);
     deleteFriend = friendID => {
         let idx;
         for (let i = 0; i < this.friends.length; i++) {
@@ -22,6 +23,7 @@ class GlobalStore {
         this.friends.splice(idx, 1);
     };
 
+    // Requests
     requests = [];
     initRequests = list => this.requests = list;
     addRequests = request => this.requests.push(request);
@@ -40,6 +42,7 @@ class GlobalStore {
         this.requests.splice(idx, 1);
     }
 
+    // Posts
     posts = [];
     initPosts = list => this.posts = list;
     addPosts = (post) => this.posts.unshift(post);
@@ -54,7 +57,7 @@ decorate(
         posts: observable,
         requests: observable,
         updateUser: action,
-        updateFriends: action,
+        addFriends: action,
         deleteFriend: action,
         addPosts: action,
         addRequests: action,

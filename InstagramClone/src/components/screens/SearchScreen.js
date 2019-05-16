@@ -4,12 +4,10 @@ import {
     StyleSheet, 
     TextInput,
     Text,
-    Button, 
 } from 'react-native';
 import axios from 'axios';
 import Icon from '@expo/vector-icons/Ionicons';
 
-import { SearchList } from '../presentation';
 import { ListItem } from 'react-native-elements';
 
 class SearchScreen extends Component {

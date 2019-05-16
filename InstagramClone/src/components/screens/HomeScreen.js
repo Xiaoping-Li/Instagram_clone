@@ -15,18 +15,10 @@ import globalStore from '../../../GlobalStore';
 
 @observer
 class HomeScreen extends Component {
-    constructor() {
-        super();
-        this.state = {
-            userID: '',
-        };
-    }
-
     componentDidMount = () => {
         AsyncStorage
             .getItem('userToken')
             .then(result => {
-                this.setState({ userID: result });
                 this.getPosts();
                 this.getFriendsAndRequests();
             })
@@ -34,9 +26,9 @@ class HomeScreen extends Component {
     }
 
     getPosts = () => {
-        const owner = this.state.userID;
+        const userID = globalStore.user.userID;
         axios
-            .get(`http://192.168.0.107:5000/posts/?owner=${owner}`)
+            .get(`http://192.168.0.107:5000/posts/?owner=${userID}`)
             .then(action(result => {
                 if (result.data.length) {
                     globalStore.initPosts(result.data);
@@ -46,9 +38,9 @@ class HomeScreen extends Component {
     }
 
     getFriendsAndRequests = () => {
-        const id = this.state.userID;
+        const userID = globalStore.user.userID;
         axios
-            .get(`http://192.168.0.107:5000/users/${id}`)
+            .get(`http://192.168.0.107:5000/users/${userID}`)
             .then(action(result => {
                 if (result.data.friends.length) {
                     globalStore.initFriends(result.data.friends);

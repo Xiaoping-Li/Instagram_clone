@@ -58,7 +58,7 @@ class SigninScreen extends Component {
                     user.email = result.data.user.email;
                     user.thumbnail = result.data.user.thumbnail;
                     user.userID = userID;
-
+                    
                     AsyncStorage
                         .setItem('userToken', userID)
                         .then(action(res => {
