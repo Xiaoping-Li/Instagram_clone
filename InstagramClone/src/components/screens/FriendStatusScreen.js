@@ -31,7 +31,7 @@ class FriendStatusScreen extends Component {
 
     componentDidMount = () => {
         const userID = globalStore.user.userID;
-        
+    
         axios
             .get(`http://192.168.0.107:5000/friends/?sender=${userID}&recipient=${this.state.friendID}`)
             .then(result => {
@@ -91,19 +91,7 @@ class FriendStatusScreen extends Component {
 
     render() {
         let renderItems;
-        if (this.state.status === 'Friends') {
-            renderItems = 
-                <View style={{alignItems: 'center', justifyContent: 'center',}}>
-                    <View style={styles.status}><Text style={{fontSize: 20}}>{this.state.status}</Text></View>
-                    <View style={styles.divider}></View>
-                </View>;
-        } else if (this.state.status === 'Pending') {
-            renderItems = 
-                <View style={{alignItems: 'center', justifyContent: 'center',}}>
-                    <View style={styles.status}><Text style={{fontSize: 20}}>{this.state.status}</Text></View>
-                    <View style={styles.divider}></View>
-                </View>;
-        } else if (this.state.status === 'Requested') {
+        if (this.state.status !== 'Add Friend') {
             renderItems = 
                 <View style={{alignItems: 'center', justifyContent: 'center',}}>
                     <View style={styles.status}><Text style={{fontSize: 20}}>{this.state.status}</Text></View>
@@ -134,7 +122,6 @@ const styles = StyleSheet.create({
       flex: 1,
       backgroundColor: '#fff',
       alignItems: 'center', 
-    //   justifyContent: 'center',
     },
     friendName: {
         fontSize: 30,

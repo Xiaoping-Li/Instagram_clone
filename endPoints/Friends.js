@@ -4,12 +4,12 @@ const FriendRouter = express.Router();
 const FriendRequests = require('../models/FriendRequest');
 const Users = require('../models/User');
 
-FriendRouter.get('', (req, res) => {
-    FriendRequests
-        .find()
-        .then(result => res.status(200).json(result))
-        .catch(err => console.log(err));
-});
+// FriendRouter.get('', (req, res) => {
+//     FriendRequests
+//         .find()
+//         .then(result => res.status(200).json(result))
+//         .catch(err => console.log(err));
+// });
 
 FriendRouter.get('', (req, res) => {
     FriendRequests

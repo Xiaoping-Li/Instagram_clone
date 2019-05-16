@@ -24,7 +24,7 @@ class SearchScreen extends Component {
     handleSearch = () => {
         if (this.state.username) {
             axios
-                .get(`http://192.168.0.107:5000/users?username=${this.state.username}`)
+                .get(`http://192.168.0.107:5000/users/?username=${this.state.username}`)
                 .then(result => {
                     if (result.data.length) {
                         this.setState({ list: result.data, msg: '', searched: true });

@@ -16,11 +16,17 @@ UserRouter.get('/:id', (req, res) => {
     Users
         .findById(id)
         .populate('requests')
+        // How to populate 'ref' nested inside another 'ref'
+        .populate({ path: 'requests', populate: { path: 'recipient'}})
         .populate('friends')
         .then(result => {
             const user = {};
-            user.requests = result.requests;
-
+            if (result.requests.length) {
+                user.requests = result.requests.filter(request => request.status === 'Pending');
+            } else {
+                user.requests = result.requests;
+            }
+            
             if (result.friends.length) {
                 user.friends = result.friends.map(friend => friend = { id: friend._id, friendName: friend.username, thumbnail: friend.thumbnail });
             } else {
