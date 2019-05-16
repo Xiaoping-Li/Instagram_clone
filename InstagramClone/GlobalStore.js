@@ -42,7 +42,7 @@ class GlobalStore {
 
     posts = [];
     initPosts = list => this.posts = list;
-    updatePosts = (post) => this.posts.unshift(post);
+    addPosts = (post) => this.posts.unshift(post);
     deletePost = idx => this.posts.splice(idx, 1);
 }
 
@@ -56,7 +56,7 @@ decorate(
         updateUser: action,
         updateFriends: action,
         deleteFriend: action,
-        updatePosts: action,
+        addPosts: action,
         addRequests: action,
         updateRequests: action,
         deleteRequest: action,

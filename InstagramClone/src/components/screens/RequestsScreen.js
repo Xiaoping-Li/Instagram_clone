@@ -5,6 +5,8 @@ import {
     StyleSheet, 
 } from 'react-native';
 
+import globalStore from '../../../GlobalStore';
+
 
 class RequestsScreen extends Component {
     render() {

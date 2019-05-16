@@ -66,13 +66,15 @@ class HomeScreen extends Component {
             <View style={styles.container}>
                 {globalStore.posts.length ? 
                     <Posts /> 
-                    : 
-                    <Text
-                        onPress={() => this.props.navigation.navigate('AddPost')}
-                        style={{fontSize: 20, fontWeight: 'bold',}}
-                    >
-                        Something you want to share?
-                    </Text>
+                    :
+                    <View style={styles.btnContainer}>
+                        <Text
+                            onPress={() => this.props.navigation.navigate('AddPost')}
+                            style={styles.btn}
+                        >
+                            Something you want to share?
+                        </Text>
+                    </View> 
                 }    
             </View>
             
@@ -87,4 +89,18 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',  
     },
+    btnContainer: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        
+    },
+    btn: {
+        width: 350,
+        backgroundColor: 'powderblue',
+        textAlign: 'center',
+        fontSize: 20,
+        fontWeight: 'bold',
+        padding: 10,
+    }
 });
