@@ -69,7 +69,7 @@ class AddPostScreen extends Component {
         axios
             .post('http://192.168.0.107:5000/posts', postInfo)
             .then(action(result => {
-                globalStore.updatePosts(result.data.post);
+                globalStore.addPosts(result.data.post);
                 this.props.navigation.navigate('Home');
             }))
             .catch(err => console.log(err));
