@@ -21,17 +21,28 @@ UserRouter.get('/:id', (req, res) => {
         .populate('friends')
         .then(result => {
             const user = {};
-            if (result.requests.length) {
-                user.requests = result.requests.filter(request => request.status === 'Pending');
-            } else {
-                user.requests = result.requests;
-            }
             
-            if (result.friends.length) {
-                user.friends = result.friends.map(friend => friend = { id: friend._id, friendName: friend.username, thumbnail: friend.thumbnail });
+            const rtn = result.requests.filter(request => request.status === 'Pending');
+            if (rtn.length) {
+                user.requests = rtn.map(request => {
+                    const short = {};
+                    short.recipient = {};
+                    short._id = request._id;
+                    short.sender = request.sender;
+                    short.recipient.username = request.recipient.username;
+                    short.recipient.ID = request.recipient._id;
+                    short.recipient.thumbnail = request.recipient.thumbnail;
+                    short.status = request.status;
+                    
+                    return short;
+                });
             } else {
-                user.friends = result.friends;
+                user.requests = [];
             }
+                                    
+            user.friends = result.friends.map(friend => friend = { id: friend._id, friendName: friend.username, thumbnail: friend.thumbnail });
+            
+
             res.status(201).json(user);
         })
         .catch(err => console.log(err));
