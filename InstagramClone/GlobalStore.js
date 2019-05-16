@@ -43,6 +43,7 @@ class GlobalStore {
     posts = [];
     initPosts = list => this.posts = list;
     updatePosts = (post) => this.posts.unshift(post);
+    deletePost = idx => this.posts.splice(idx, 1);
 }
 
 decorate(
