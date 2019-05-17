@@ -1,4 +1,7 @@
 import React, {Component} from 'react';
+import { Provider } from 'mobx-react/native';
+import globalStore from '../GlobalStore';
+
 import { 
   createSwitchNavigator,
   createAppContainer,
@@ -28,7 +31,11 @@ import Icon from '@expo/vector-icons/Ionicons';
 
 export default class InstagramClone extends Component {
   render() {
-      return <AppContainer />; 
+      return (
+        <Provider globalStore={globalStore}>
+          <AppContainer />
+        </Provider>
+      ); 
   }
 }
 

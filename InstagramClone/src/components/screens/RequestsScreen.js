@@ -3,11 +3,11 @@ import { View,  FlatList, StyleSheet } from 'react-native';
 
 import { Request } from '../presentation';
 
-import {observer} from 'mobx-react';
+
 import globalStore from '../../../GlobalStore';
 
 
-@observer
+
 class RequestsScreen extends Component {
     render() {
         return (
