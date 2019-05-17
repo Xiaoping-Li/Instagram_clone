@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { inject } from 'mobx-react/native';
+
 import { 
     View, 
     Text, 
@@ -10,9 +12,10 @@ import {
 import axios from 'axios';
 import { Font } from 'expo';
 
-import globalStore from '../../../GlobalStore';
-import { action } from 'mobx';
+// import globalStore from '../../../GlobalStore';
+// import { action } from 'mobx';
 
+@inject('globalStore')
 class SigninScreen extends Component {
     constructor() {
         super();
@@ -61,10 +64,10 @@ class SigninScreen extends Component {
                     
                     AsyncStorage
                         .setItem('userToken', userID)
-                        .then(action(res => {
-                            globalStore.updateUser(user);
+                        .then(res => {
+                            this.props.globalStore.updateUser(user);
                             this.props.navigation.navigate('App');
-                        }))
+                        })
                         .catch(err => alert('Signin Error!'))
                 } else {
                     alert('Error happens when try to sign you in! Please check email and password!');

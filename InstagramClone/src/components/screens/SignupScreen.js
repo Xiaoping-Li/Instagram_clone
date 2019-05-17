@@ -3,8 +3,7 @@ import {
     View, 
     Text, 
     StyleSheet,
-    TextInput, 
-    AsyncStorage, 
+    TextInput,  
     ActivityIndicator,
  } from 'react-native';
  import axios from 'axios';

@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { inject, observer } from 'mobx-react/native';
+
 import {
     Text, 
     View, 
@@ -8,11 +10,12 @@ import {
 import axios from 'axios';
 import { Posts } from '../presentation';
 
-import {observer} from 'mobx-react';
-import { action } from 'mobx';
-import globalStore from '../../../GlobalStore';
+// import {observer} from 'mobx-react';
+// import { action } from 'mobx';
+// import globalStore from '../../../GlobalStore';
 
 
+@inject('globalStore')
 @observer
 class HomeScreen extends Component {
     componentDidMount = () => {
@@ -29,11 +32,11 @@ class HomeScreen extends Component {
         const userID = globalStore.user.userID;
         axios
             .get(`http://192.168.0.107:5000/posts/?owner=${userID}`)
-            .then(action(result => {
+            .then(result => {
                 if (result.data.length) {
-                    globalStore.initPosts(result.data);
+                    this.props.globalStore.initPosts(result.data);
                 }
-            }))
+            })
             .catch(err => console.log(err));   
     }
 
@@ -41,22 +44,22 @@ class HomeScreen extends Component {
         const userID = globalStore.user.userID;
         axios
             .get(`http://192.168.0.107:5000/users/${userID}`)
-            .then(action(result => {
+            .then(result => {
                 if (result.data.friends.length) {
-                    globalStore.initFriends(result.data.friends);
+                    this.props.globalStore.initFriends(result.data.friends);
                 }
 
                 if (result.data.requests.length) {
-                    globalStore.initRequests(result.data.requests);
+                    this.props.globalStore.initRequests(result.data.requests);
                 }
-            }))
+            })
             .catch(err => console.log(err));
     }
 
     render() {
         return (
             <View style={styles.container}>
-                {globalStore.posts.length ? 
+                {this.props.globalStore.posts.length ? 
                     <Posts /> 
                     :
                     <View style={styles.btnContainer}>

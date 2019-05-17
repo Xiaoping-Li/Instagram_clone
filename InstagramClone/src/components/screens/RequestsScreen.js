@@ -1,19 +1,22 @@
 import React, { Component } from 'react';
+import { inject, observer } from 'mobx-react/native';
+
 import { View,  FlatList, StyleSheet } from 'react-native';
 
 import { Request } from '../presentation';
 
 
-import globalStore from '../../../GlobalStore';
+// import globalStore from '../../../GlobalStore';
 
 
-
+@inject('globalStore')
+@observer
 class RequestsScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
                 <FlatList
-                    data={globalStore.requests}
+                    data={this.props.globalStore.requests}
                     renderItem={({item, idx}) => <Request req={item} idx={idx} />}
                     keyExtractor={(item, index) => 'key'+index}
                 />

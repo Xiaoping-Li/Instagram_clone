@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { inject, observer } from 'mobx-react/native';
+
 import { 
     View, 
     Text, 
@@ -6,10 +8,11 @@ import {
 } from 'react-native';
 
 import { ListItem } from 'react-native-elements';
-import globalStore from '../../../GlobalStore';
+// import globalStore from '../../../GlobalStore';
 
 
-
+@inject('globalStore')
+@observer
 class FriendsScreen extends Component {
     // handleRemoveFriend = () => {
     //     const userID = globalStore.user.userID;
@@ -26,10 +29,10 @@ class FriendsScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
-                {globalStore.friends.length ?
+                {this.props.globalStore.friends.length ?
                     <View>
                         {
-                            globalStore.friends.map((item, idx) => (
+                            this.props.globalStore.friends.map((item, idx) => (
                                 <ListItem
                                     key={idx}
                                     leftAvatar={{ source: { uri: item.thumbnail }}} 
