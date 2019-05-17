@@ -47,11 +47,9 @@ class FriendStatusScreen extends Component {
         const userID = globalStore.user.userID;
         axios
             .post(`http://192.168.0.107:5000/friends/?sender=${userID}&recipient=${this.state.friendID}`)
-            .then(action(result => {
-                const senderRequest = result.data[0];
-                globalStore.addRequests(senderRequest);
+            .then(result => {
                 this.setState({ status: "Requested"});
-            }))
+            })
             .catch(err => console.log(err));
     }
 

@@ -64,14 +64,14 @@ class SearchScreen extends Component {
 
                     <Text 
                         onPress={this.handleSearch} 
-                        style={{fontSize: 15}}
+                        style={{fontSize: 20}}
                     >
                         Search
                     </Text> 
 
                     <Text
                         onPress={this.handleCancel}
-                        style={this.state.searched ? {fontSize: 15, marginLeft: 5, marginRight: 5, color: 'red',} : {width: 0}}
+                        style={this.state.searched ? {fontSize: 20, marginLeft: 20, marginRight: 10, color: 'red',} : {width: 0}}
                     >
                         Cancel
                     </Text>   
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
         height: 40,
     },
     input: {
-        width: 245,
+        width: 200,
         fontSize: 20,
         marginLeft: 10,
     },

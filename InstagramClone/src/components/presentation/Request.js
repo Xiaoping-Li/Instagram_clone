@@ -6,39 +6,58 @@ import {
     Image, 
 } from 'react-native';
 
+import axios from 'axios';
+
 import globalStore from '../../../GlobalStore';
 import { action } from 'mobx';
 
-class Request extends PureComponent {
-    // handleAccpetRequest = () => {
-    //     const userID = globalStore.user.userID;
-    //     axios
-    //         .put(`http://192.168.0.107:5000/friends/?sender=${userID}&recipient=${this.state.friendID}`)
-    //         .then(action(result => {
-    //             globalStore.updateRequests(userID, this.state.friendID);
-    //             this.setState({ status: 'Friends'});
-    //         }))
-    //         .catch(err => console.log(err));
-    // }
 
-    // handleRemoveRequest = () => {
-    //     const userID = globalStore.user.userID;
-    //     axios
-    //         .delete(`http://192.168.0.107:5000/friends/?sender=${userID}&recipient=${this.state.friendID}`)
-    //         .then(action(result => {
-    //             globalStore.deleteRequest(userID, this.state.friendID);
-    //             this.setState({ status: "Add Friend"});
-    //         }))
-    //         .catch(err => console.log(err));
-    // }
+class Request extends PureComponent {
+    handleAccpetRequest = () => {
+        const userID = globalStore.user.userID;
+        axios
+            .put(`http://192.168.0.107:5000/friends/?sender=${userID}&recipient=${this.props.req.recipient.ID}`)
+            .then(action(result => {
+                const friend = {};
+                friend.id = this.props.req.recipient.ID;
+                friend.friendName = this.props.req.recipient.username;
+                friend.thumbnail = this.props.req.recipient.thumbnail;
+
+                globalStore.addFriends(friend);
+                globalStore.deleteRequest(this.props.idx);
+            }))
+            .catch(err => console.log(err));
+    }
+
+    handleRemoveRequest = () => {
+        const userID = globalStore.user.userID;
+        axios
+            .delete(`http://192.168.0.107:5000/friends/?sender=${userID}&recipient=${this.props.req.recipient.ID}`)
+            .then(action(result => {
+                globalStore.deleteRequest(this.props.idx);
+            }))
+            .catch(err => console.log(err));
+    }
 
     render() {
         return (
             <View style={styles.container}>
                 <Image style={styles.img} source={{uri: this.props.req.recipient.thumbnail}} />
                 <Text style={styles.name}>{this.props.req.recipient.username}</Text>
-                <Text>Accept</Text>
-                <Text>Reject</Text>
+                
+                <Text 
+                    style={{fontSize: 20}}
+                    onPress={this.handleAccpetRequest}
+                >
+                    Accept
+                </Text>
+                
+                <Text 
+                    style={{marginLeft: 20, color: 'red', fontSize: 20, marginRight: 10}}
+                    onPress={this.handleRemoveRequest}
+                >
+                    Reject
+                </Text>      
             </View>
         );
     }
@@ -63,12 +82,13 @@ const styles = StyleSheet.create({
     img: {
         width: 40, 
         height: 40,
-        margin: 10, 
+        marginLeft: 10, 
         borderRadius: 20,
     },
     name: {
-        fontSize: 15,
+        fontSize: 20,
         fontWeight: 'bold',
-        width: 200,
+        width: 150,
+        marginLeft: 20,
     },
 });

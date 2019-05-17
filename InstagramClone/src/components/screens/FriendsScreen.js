@@ -5,10 +5,11 @@ import {
     StyleSheet, 
 } from 'react-native';
 
+import {observer} from 'mobx-react';
 import { ListItem } from 'react-native-elements';
 import globalStore from '../../../GlobalStore';
 
-
+@observer
 class FriendsScreen extends Component {
     // handleRemoveFriend = () => {
     //     const userID = globalStore.user.userID;

@@ -26,22 +26,8 @@ class GlobalStore {
     // Requests
     requests = [];
     initRequests = list => this.requests = list;
-    addRequests = request => this.requests.push(request);
-    updateRequests = (senderID, recipientID) => {
-        for (let i = 0; i < this.requests.length; i++) {
-            if (this.requests[i].sender === senderID && this.requests[i].recipient === recipientID) this.requests[i].status = 'Friends';
-            return;
-        }
-    };
-    deleteRequest = (senderID, recipientID) => {
-        let idx;
-        for (let i = 0; i < this.requests.length; i++) {
-            if (this.requests[i].sender === senderID && this.requests[i].recipient === recipientID) idx = i;
-            break;   
-        }
-        this.requests.splice(idx, 1);
-    }
-
+    deleteRequest = idx => this.requests.splice(idx, 1);
+    
     // Posts
     posts = [];
     initPosts = list => this.posts = list;
@@ -59,10 +45,9 @@ decorate(
         updateUser: action,
         addFriends: action,
         deleteFriend: action,
-        addPosts: action,
-        addRequests: action,
-        updateRequests: action,
         deleteRequest: action,
+        addPosts: action,
+        deletePost: action,
     }
 );
 

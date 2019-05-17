@@ -41,7 +41,7 @@ class Post extends PureComponent {
             .delete(`http://192.168.0.107:5000/posts/?id=${id}`)
             .then(action(result => {
                 if (result.data.success) {
-                    globalStore.deletePost(this.props.idx, 1);
+                    globalStore.deletePost(this.props.idx);
                 }
             }))
             .catch(err => console.log(err));
