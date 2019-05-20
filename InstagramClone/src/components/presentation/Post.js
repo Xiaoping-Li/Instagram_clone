@@ -1,6 +1,4 @@
 import React, { PureComponent } from 'react';
-import { inject, observer } from 'mobx-react/native';
-
 import { 
     View, 
     Text, 
@@ -13,11 +11,9 @@ import axios from 'axios';
 import Icon from '@expo/vector-icons/Feather';
 import EllipsisIcon from '@expo/vector-icons/AntDesign';
 
-// import globalStore from '../../../GlobalStore'; 
-// import { action } from 'mobx';
+import globalStore from '../../../GlobalStore'; 
+import { action } from 'mobx';
 
-@inject('globalStore')
-@observer
 class Post extends PureComponent {
     constructor(props) {
         super(props);
@@ -43,11 +39,11 @@ class Post extends PureComponent {
         const id = this.props.post._id;
         axios
             .delete(`http://192.168.0.107:5000/posts/?id=${id}`)
-            .then(result => {
+            .then(action(result => {
                 if (result.data.success) {
-                    this.props.globalStore.deletePost(this.props.idx);
+                    globalStore.deletePost(this.props.idx);
                 }
-            })
+            }))
             .catch(err => console.log(err));
     }
 

@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
-import { inject } from 'mobx-react/native';
-
 import { View, Text, StyleSheet, Button, AsyncStorage, } from 'react-native';
 
-// import globalStore from '../../../GlobalStore';
-// import { action } from 'mobx';
+import globalStore from '../../../GlobalStore';
+import { action } from 'mobx';
 
-@inject('globalStore')
 class ProfileScreen extends Component {
     signOut = () => {
         AsyncStorage
             .clear()
-            .then(result => {
+            .then(action(result => {
                 const update = {
                     username: '',
                     email: '',
@@ -19,11 +16,11 @@ class ProfileScreen extends Component {
                     userID: '',
                 };
 
-                this.props.globalStore.updateUser(update);
-                this.props.globalStore.initFriends([]);
-                this.props.globalStore.initPosts([]);
-                this.props.globalStore.initRequests([]);
-            })
+                globalStore.updateUser(update);
+                globalStore.initFriends([]);
+                globalStore.initPosts([]);
+                globalStore.initRequests([]);
+            }))
             .catch(err => console.log(err));
         this.props.navigation.navigate('AuthLoading');
     }

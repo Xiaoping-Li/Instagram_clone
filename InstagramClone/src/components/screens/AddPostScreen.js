@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { inject } from 'mobx-react/native';
-
 import { 
     View, 
     StyleSheet,  
@@ -11,10 +9,9 @@ import { Permissions, ImagePicker } from 'expo';
 import Icon from '@expo/vector-icons/MaterialIcons';
 
 
-// import globalStore from '../../../GlobalStore';
-// import { action } from 'mobx';
+import globalStore from '../../../GlobalStore';
+import { action } from 'mobx';
 
-@inject('globalStore')
 class AddPostScreen extends Component {
     constructor(props) {
         super(props);
@@ -71,10 +68,10 @@ class AddPostScreen extends Component {
 
         axios
             .post('http://192.168.0.107:5000/posts', postInfo)
-            .then(result => {
-                this.props.globalStore.addPosts(result.data.post);
+            .then(action(result => {
+                globalStore.addPosts(result.data.post);
                 this.props.navigation.navigate('Home');
-            })
+            }))
             .catch(err => console.log(err));
     }
 

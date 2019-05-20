@@ -1,6 +1,4 @@
 import React, { PureComponent } from 'react';
-import { inject, observer } from 'mobx-react/native';
-
 import { 
     View, 
     Text, 
@@ -10,34 +8,33 @@ import {
 
 import axios from 'axios';
 
-// import globalStore from '../../../GlobalStore';
-// import { action } from 'mobx';
+import globalStore from '../../../GlobalStore';
+import { action } from 'mobx';
 
-@inject('globalStore')
-@observer
+
 class Request extends PureComponent {
     handleAccpetRequest = () => {
-        const userID = this.props.globalStore.user.userID;
+        const userID = globalStore.user.userID;
         axios
             .put(`http://192.168.0.107:5000/friends/?sender=${userID}&recipient=${this.props.req.recipient.ID}`)
-            .then(result => {
+            .then(action(result => {
                 const friend = {};
                 friend.id = this.props.req.recipient.ID;
                 friend.friendName = this.props.req.recipient.username;
                 friend.thumbnail = this.props.req.recipient.thumbnail;
 
-                this.props.globalStore.addFriends(friend);
-                this.props.globalStore.deleteRequest(this.props.idx);
-            })
+                globalStore.addFriends(friend);
+                globalStore.deleteRequest(this.props.idx);
+            }))
             .catch(err => console.log(err));
     }
 
     handleRemoveRequest = () => {
-        const userID = this.props.globalStore.user.userID;
+        const userID = globalStore.user.userID;
         axios
             .delete(`http://192.168.0.107:5000/friends/?sender=${userID}&recipient=${this.props.req.recipient.ID}`)
             .then(action(result => {
-                this.props.globalStore.deleteRequest(this.props.idx);
+                globalStore.deleteRequest(this.props.idx);
             }))
             .catch(err => console.log(err));
     }
