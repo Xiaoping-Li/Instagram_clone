@@ -37,21 +37,21 @@ class ProfileScreen extends Component {
         return (
             <View style={styles.container}>
                 {globalStore.user.userID ?
-                    <View>
+                    <View style={styles.profileContainer}>
                         <Icon
                             raised
                             name='edit'
                             type='font-awesome'
                             onPress={() => {}} 
                         />
-                        <View>
+                        <View style={styles.profile}>
                             <Image source={{uri: globalStore.user.thumbnail}} style={styles.img}/>
-                            <Text>User Name: {globalStore.user.username}</Text>
-                            <Text>Primary Email Address: {globalStore.user.email}</Text>
+                            <Text style={{fontSize: 20, marginBottom: 10}}>User Name: {globalStore.user.username}</Text>
+                            <Text style={{fontSize: 20, }}>Primary Email Address: {globalStore.user.email}</Text>
                         </View>
                         
-                        <View>
-                            <Text onPress={this.signOut}>Sign Out</Text>
+                        <View style={{marginRight: 12}}>
+                            <Text onPress={this.signOut} style={styles.signOut}>Sign Out</Text>
                         </View>    
                     </View>
                     :
@@ -70,15 +70,29 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: '#fff',
-      alignItems: 'center', 
-      justifyContent: 'center',
+    },
+    profileContainer: {
+        flex: 1,
+        justifyContent: 'space-around',
+        alignItems: 'flex-end',
+    },
+    profile: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 300,
+        width: 350,
+        borderColor: '#e2e2e2',
+        borderRadius: 20,
+        borderWidth: 1,
+        marginRight: 12,
     },
     img: {
         width: 100,
         height: 100,
-        borderColor: 'gray',
+        borderColor: '#e2e2e2',
         borderRadius: 50,
         borderWidth: 1,
+        marginBottom: 30
     },
     signOut: {
         borderColor: 'red',
