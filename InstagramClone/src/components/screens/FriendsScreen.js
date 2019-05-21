@@ -5,27 +5,27 @@ import {
     StyleSheet, 
     FlatList,
 } from 'react-native';
+import axios from 'axios';
+import { Icon } from 'react-native-elements';
 
 import { ListItem } from 'react-native-elements';
 import globalStore from '../../../GlobalStore';
+import { action } from 'mobx';
 import {observer} from 'mobx-react/native';
-
-import { Icon } from 'react-native-elements';
 
 
 @observer
 class FriendsScreen extends Component {
-    // handleRemoveFriend = () => {
-    //     const userID = globalStore.user.userID;
-    //     axios
-    //         .delete(`http://192.168.0.107:5000/friends/?sender=${userID}&recipient=${this.state.friendID}`)
-    //         .then(action(result => {
-    //             globalStore.deleteRequest(userID, this.state.friendID);
-    //             globalStore.deleteFriend(friendID);
-    //             this.setState({ status: "Add Friend"});
-    //         }))
-    //         .catch(err => console.log(err));
-    // }
+
+    handleRemoveFriend = (id) => {
+        const userID = globalStore.user.userID;
+        axios
+            .delete(`http://192.168.0.107:5000/friends/?sender=${userID}&recipient=${id}`)
+            .then(action(result => {
+                globalStore.deleteFriend(id);
+            }))
+            .catch(err => console.log(err));
+    }
 
     renderRow = ({item}) => {
         return (
@@ -42,7 +42,7 @@ class FriendsScreen extends Component {
                         type='font-awesome'
                         color='#8B0000'
                         size={15}
-                        onPress={() => {}}
+                        onPress={item => this.handleRemoveFriend(item.id)}
                     />
                 } 
             />

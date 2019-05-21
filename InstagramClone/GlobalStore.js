@@ -50,8 +50,8 @@ class GlobalStore {
     friends = [];
     initFriends = list => this.friends = list;
     addFriends = (friend) => this.friends.push(friend);
-    deleteFriend = idx => {
-        this.friends = this.friends.filter((item, i) => i !== idx);
+    deleteFriend = id => {
+        this.friends = this.friends.filter(friend => friend.id !== id);
     };
 
     // Requests
