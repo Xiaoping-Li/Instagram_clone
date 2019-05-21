@@ -6,7 +6,7 @@ module.exports = {
     },
 
     getByOwner: (owner) => {
-        return owner ? Posts.find({owner}).sort('-createAt') : null;
+        return owner ? Posts.find({owner}) : null;
     },
 
     insert: (newPost) => Posts.create(newPost),

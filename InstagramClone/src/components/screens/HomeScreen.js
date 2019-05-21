@@ -8,7 +8,7 @@ import {
 import axios from 'axios';
 import { Posts } from '../presentation';
 
-import {observer} from 'mobx-react';
+import {observer} from 'mobx-react/native';
 import { action } from 'mobx';
 import globalStore from '../../../GlobalStore';
 

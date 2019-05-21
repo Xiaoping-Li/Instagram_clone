@@ -7,8 +7,8 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@babel/plugin-proposal-decorators": "^7.4.4",
     "axios": "^0.18.0",
-    "babel-plugin-transform-decorators-legacy": "^1.3.5",
     "expo": "^32.0.0",
     "mobx": "^5.9.4",
     "mobx-react": "^5.4.3",
