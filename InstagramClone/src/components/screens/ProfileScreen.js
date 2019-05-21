@@ -7,12 +7,15 @@ import {
     AsyncStorage,
     Image, 
 } from 'react-native';
-import { Icon } from 'react-native-elements';
+import { Icon, Overlay } from 'react-native-elements';
 
+import {observer} from 'mobx-react/native';
 import globalStore from '../../../GlobalStore';
 import { action } from 'mobx';
 
-class ProfileScreen extends Component {
+@observer
+class ProfileScreen extends Component { 
+
     signOut = () => {
         AsyncStorage
             .clear()
@@ -42,10 +45,21 @@ class ProfileScreen extends Component {
                             raised
                             name='edit'
                             type='font-awesome'
-                            onPress={() => {}} 
+                            onPress={() => globalStore.toggleVisible()} 
                         />
                         <View style={styles.profile}>
                             <Image source={{uri: globalStore.user.thumbnail}} style={styles.img}/>
+
+                            <Overlay
+                                isVisible={globalStore.isVisible}
+                                windowBackgroundColor="rgba(211,211,211, .8)"
+                                overlayBackgroundColor="#fff"
+                                width={300}
+                                height={300}
+                            >
+                                <Text>Hello from Overlay!</Text>
+                            </Overlay>
+
                             <Text style={{fontSize: 20, marginBottom: 10}}>User Name: {globalStore.user.username}</Text>
                             <Text style={{fontSize: 20, }}>Primary Email Address: {globalStore.user.email}</Text>
                         </View>

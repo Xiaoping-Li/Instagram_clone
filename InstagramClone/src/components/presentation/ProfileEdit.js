@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 
 
-class ProfileEditScreen extends Component {
+class ProfileEdit extends Component {
     render() {
         return (
             <View style={styles.container}>
@@ -16,7 +16,7 @@ class ProfileEditScreen extends Component {
     }
 }
 
-export default ProfileEditScreen;
+export default ProfileEdit;
 
 const styles = StyleSheet.create({
     container: {

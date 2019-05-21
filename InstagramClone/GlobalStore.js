@@ -68,6 +68,10 @@ class GlobalStore {
     deletePost = id => {
         this.posts = this.posts.filter(post => post._id !== id);
     } 
+
+    // Overlay
+    isVisible = false;
+    toggleVisible = () => this.isVisible = !this.isVisible;
 }
 
 decorate(
@@ -77,6 +81,8 @@ decorate(
         friends: observable,
         posts: observable,
         requests: observable,
+        isVisible: observable,
+        toggleVisible: action,
         updateUser: action,
         initFriends: action, 
         addFriends: action,

@@ -22,6 +22,7 @@ import {
   FriendStatusScreen,
   RequestsScreen,
   FriendsScreen,
+  ProfileEditScreen,
 } from './components/screens';
 
 import Icon from '@expo/vector-icons/Ionicons';
