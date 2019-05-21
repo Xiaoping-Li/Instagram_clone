@@ -42,7 +42,7 @@ class FriendsScreen extends Component {
                         type='font-awesome'
                         color='#8B0000'
                         size={15}
-                        onPress={item => this.handleRemoveFriend(item.id)}
+                        onPress={() => this.handleRemoveFriend(item.id)}
                     />
                 } 
             />
