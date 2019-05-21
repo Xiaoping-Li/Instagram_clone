@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { 
     View, 
     Text, 
@@ -12,7 +12,7 @@ import globalStore from '../../../GlobalStore';
 import { action } from 'mobx';
 
 
-class Request extends PureComponent {
+class Request extends Component {
     handleAccpetRequest = () => {
         const userID = globalStore.user.userID;
         axios
@@ -24,7 +24,7 @@ class Request extends PureComponent {
                 friend.thumbnail = this.props.req.recipient.thumbnail;
 
                 globalStore.addFriends(friend);
-                globalStore.deleteRequest(this.props.idx);
+                globalStore.deleteRequest(this.props.req._id);
             }))
             .catch(err => console.log(err));
     }
@@ -34,7 +34,7 @@ class Request extends PureComponent {
         axios
             .delete(`http://192.168.0.107:5000/friends/?sender=${userID}&recipient=${this.props.req.recipient.ID}`)
             .then(action(result => {
-                globalStore.deleteRequest(this.props.idx);
+                globalStore.deleteRequest(this.props.req._id);
             }))
             .catch(err => console.log(err));
     }
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
         borderStyle: 'solid',
         borderRadius: 10,
         padding: 5,
-        height: 40,
+        height: 45,
     },
     img: {
         width: 40, 
