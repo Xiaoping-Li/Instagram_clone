@@ -10,6 +10,7 @@ import globalStore from '../../../GlobalStore';
 @observer
 class RequestsScreen extends Component {
     render() {
+        
         return (
             <View style={styles.container}>
                 {globalStore.requests.length ? 

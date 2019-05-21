@@ -3,13 +3,15 @@ import {
     View, 
     Text, 
     StyleSheet, 
+    FlatList,
 } from 'react-native';
 
 import { ListItem } from 'react-native-elements';
 import globalStore from '../../../GlobalStore';
+import {observer} from 'mobx-react/native';
 
 
-
+@observer
 class FriendsScreen extends Component {
     // handleRemoveFriend = () => {
     //     const userID = globalStore.user.userID;
@@ -23,23 +25,28 @@ class FriendsScreen extends Component {
     //         .catch(err => console.log(err));
     // }
 
+    renderRow = ({item}) => {
+        return (
+            <ListItem
+                key={item.id}
+                leftAvatar={{ source: { uri: item.thumbnail }}} 
+                title={item.friendName}
+                chevronColor="#a9a9a9"
+                bottomDivider={true}  
+            />
+        );
+    }
+
     render() {
+         
         return (
             <View style={styles.container}>
                 {globalStore.friends.length ?
-                    <View>
-                        {
-                            globalStore.friends.map((item, idx) => (
-                                <ListItem
-                                    key={idx}
-                                    leftAvatar={{ source: { uri: item.thumbnail }}} 
-                                    title={item.friendName}
-                                    chevronColor="#a9a9a9"
-                                    bottomDivider={true}  
-                                />
-                            ))
-                        }
-                    </View>
+                    <FlatList
+                        data={globalStore.friends}
+                        renderItem={this.renderRow}
+                        keyExtractor={(item, index) => 'key'+index}
+                    />
                     : 
                     <View style={styles.textContainer}><Text style={styles.text}>Add some Friends</Text></View>
                 }
