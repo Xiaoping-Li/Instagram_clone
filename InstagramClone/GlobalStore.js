@@ -57,17 +57,17 @@ class GlobalStore {
     // Requests
     requests = [];
     initRequests = list => this.requests = list;
-    deleteRequest = idx => {
-        this.requests = this.requests.filter((item, i) => i !== idx);
+    deleteRequest = id => {
+        this.requests = this.requests.filter(request => request._id !== id);
     };
     
     // Posts
     posts = [];
     initPosts = list => this.posts = list;
     addPosts = (post) => this.posts.push(post);
-    deletePost = idx => {
-        this.posts.splice(idx, 1);
-    }
+    deletePost = id => {
+        this.posts = this.posts.filter(post => post._id !== id);
+    } 
 }
 
 decorate(

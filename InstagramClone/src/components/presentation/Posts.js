@@ -13,13 +13,11 @@ import globalStore from '../../../GlobalStore';
 class Posts extends Component {
     
     render() {
-        const posts = globalStore.posts.slice().reverse();
-
         return (
             <View style={styles.container}>
                 <FlatList
-                    data={posts}
-                    renderItem={({item, idx}) => <Post post={item} idx={idx} />}
+                    data={globalStore.posts}
+                    renderItem={({item}) => <Post post={item} />}
                     keyExtractor={(item, index) => 'key'+index}
                 />
             </View>

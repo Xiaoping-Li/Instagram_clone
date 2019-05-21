@@ -15,6 +15,7 @@ import globalStore from '../../../GlobalStore';
 
 @observer
 class HomeScreen extends Component {
+
     componentDidMount = () => {
         AsyncStorage
             .getItem('userToken')
@@ -52,6 +53,7 @@ class HomeScreen extends Component {
             }))
             .catch(err => console.log(err));
     }
+
 
     render() {
         return (
