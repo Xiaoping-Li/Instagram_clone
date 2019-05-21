@@ -10,6 +10,8 @@ import { ListItem } from 'react-native-elements';
 import globalStore from '../../../GlobalStore';
 import {observer} from 'mobx-react/native';
 
+import { Icon } from 'react-native-elements';
+
 
 @observer
 class FriendsScreen extends Component {
@@ -32,7 +34,17 @@ class FriendsScreen extends Component {
                 leftAvatar={{ source: { uri: item.thumbnail }}} 
                 title={item.friendName}
                 chevronColor="#a9a9a9"
-                bottomDivider={true}  
+                bottomDivider={true} 
+                rightIcon={
+                    <Icon
+                        raised
+                        name='remove'
+                        type='font-awesome'
+                        color='#8B0000'
+                        size={15}
+                        onPress={() => {}}
+                    />
+                } 
             />
         );
     }
