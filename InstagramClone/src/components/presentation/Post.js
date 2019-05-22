@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import axios from 'axios';
 import Icon from '@expo/vector-icons/Feather';
-import EllipsisIcon from '@expo/vector-icons/AntDesign';
+import DeleteIcon from '@expo/vector-icons/AntDesign';
 
 import globalStore from '../../../GlobalStore'; 
 import { action } from 'mobx';
@@ -55,10 +55,10 @@ class Post extends PureComponent {
                     <Text style={{fontSize: 15, fontWeight: 'bold',}}>{this.props.post.owner.username}</Text>
                     {
                         this.props.post.owner._id === globalStore.user.userID ?
-                        <EllipsisIcon 
-                            style={{ marginLeft: 200,}}
+                        <DeleteIcon 
+                            style={{ marginLeft: 200 }}
                             onPress={this.handlePostDelete} 
-                            name="ellipsis1" 
+                            name="delete" 
                             size={25}
                         />
                         :
@@ -97,19 +97,23 @@ class Post extends PureComponent {
 
                 <Text style={styles.likes}>{this.state.countLikes} {this.state.countLikes > 1 ? 'likes' : 'like'}</Text>
 
-                <View style={this.state.comment ? styles.comment : {height: 0}}>
-                    <TextInput
-                        placeholder="Add a comment..."
-                        value={this.state.commentInfo}
-                        onChangeText={commentInfo => this.setState({commentInfo})}
-                        style={styles.input}
-                    />
-                    <Button
-                        title="Post"
-                        onPress={() => {}}
-                    />
-                </View>
-                
+                {
+                    this.state.comment ?
+                    <View style={styles.comment}>
+                        <TextInput
+                            placeholder="Add a comment..."
+                            value={this.state.commentInfo}
+                            onChangeText={commentInfo => this.setState({commentInfo})}
+                            style={styles.input}
+                        />
+                        <Button
+                            title="Post"
+                            onPress={() => {}}
+                        />
+                    </View>
+                    : 
+                    null
+                }    
             </View>
         );
     }

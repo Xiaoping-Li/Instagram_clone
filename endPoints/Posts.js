@@ -1,5 +1,6 @@
 const express = require('express');
 const Users = require('../models/User');
+const Posts = require('../models/Post');
 const posts = require('./PostsControllers');
 const PostRouter = express.Router();
 
@@ -50,6 +51,15 @@ PostRouter.delete('', (req, res) => {
         .catch(err => console.log(err));
 });
 
+/****** API Endpoints for comments for corresponding post ********/
+PostRouter.put('/comments', (req, res) => {
+    const { id } = req.query;
+    const comment = req.body;
+    Posts
+        .update({ _id: id }, { $push: { comments: comment }})
+        .then(result => res.status(203).json({success: true, result}))
+        .catch(err => console.log(err));
+});
 
 
 module.exports = PostRouter;
