@@ -13,7 +13,7 @@ class ProfileEdit extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <View>
+                <View style={styles.form}>
                     <View>
                         <Text>User Name:</Text>
                         <TextInput
@@ -43,7 +43,7 @@ class ProfileEdit extends Component {
                 </View>
 
                 <View style={styles.btnContainer}>
-                    <Text style={styles.cancel}>Cancel</Text>
+                    <Text onPress={() => globalStore.toggleVisible()} style={styles.cancel}>Cancel</Text>
                     <Text style={styles.edit}>Edit</Text>
                 </View>
                 
@@ -56,17 +56,27 @@ export default ProfileEdit;
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center', 
-      justifyContent: 'center',
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center', 
+        justifyContent: 'center',
+    },
+    form: {
+        width: 360,
+        height: 300,
+        alignItems: 'center', 
+        justifyContent: 'center',
+        borderColor: '#e2e2e2',
+        borderRadius: 20,
+        borderWidth: 1,
+        marginBottom: 30,
     },
     input: {
         borderWidth: 1,
         borderColor: 'gray',
         borderStyle: 'solid',
         padding: 10,
-        width: 300,
+        width: 250,
         marginBottom: 25,
         borderRadius: 10,
     },

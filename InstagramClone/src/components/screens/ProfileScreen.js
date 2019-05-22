@@ -53,7 +53,7 @@ class ProfileScreen extends Component {
 
                             <Modal
                                 visible={globalStore.isVisible}
-                                animationType="slide"
+                                animationType="fade"
                                 transparent={false}
                             >
                                 <ProfileEdit />
