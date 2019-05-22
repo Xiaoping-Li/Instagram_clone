@@ -92,7 +92,7 @@ server.use('/friends', FriendReqRouter);
 // Connect to MongoDB
 mongoose.Promise = global.Promise;
 mongoose
-    .connect(db, { useNewUrlParser: true })
+    .connect(db, { useNewUrlParser: true, useFindAndModify: false, })
     .then(() => console.log('MongoDB Connected'))
     .catch(err => console.log(err));
 

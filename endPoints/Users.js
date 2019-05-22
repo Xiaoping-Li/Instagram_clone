@@ -78,7 +78,7 @@ UserRouter.put('', (req, res) => {
     const update = req.body;
     users
         .update(id, update, {new: true})
-        .then(result => res.status(203).json(result))
+        .then(result => res.status(203).json({success: true, result}))
         .catch(err => console.log(err));
 });
 

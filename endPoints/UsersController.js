@@ -12,7 +12,7 @@ module.exports = {
 
     insert: (newUser) => Users.create(newUser),
 
-    update: (id, updates) => Usres.findByIdAndUpdate(id, updates, {new: true}),
+    update: (id, updates) => Users.findByIdAndUpdate(id, updates, {new: true}),
 
     delete: (id) => Users.findByIdAndDelete(id),
 };

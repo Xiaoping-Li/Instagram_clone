@@ -5,11 +5,45 @@ import {
     StyleSheet,
     TextInput, 
 } from 'react-native';
+import axios from 'axios';
 
 import globalStore from '../../../GlobalStore';
+import { action } from 'mobx';
 
 
 class ProfileEdit extends Component {
+    constructor() {
+        super();
+        this.state = {
+            username: globalStore.user.username,
+            email: globalStore.user.email,
+            thumbnail: globalStore.user.thumbnail,
+        };
+    }
+
+    handleEdit = (e) => {
+        e.preventDefault();
+
+        const id = globalStore.user.userID;
+
+        const update = {
+            username: this.state.username,
+            email: this.state.email,
+            thumbnail: this.state.thumbnail,
+            userID: id,
+        }
+
+        axios
+            .put(`http://192.168.0.107:5000/users/?id=${id}`, update)
+            .then(action(result => {
+                if (result.data.success) {
+                    globalStore.updateUser(update);
+                    globalStore.toggleVisible();
+                }
+            }))
+            .catch(err => console.log(err));
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -17,8 +51,8 @@ class ProfileEdit extends Component {
                     <View>
                         <Text>User Name:</Text>
                         <TextInput
-                            value={globalStore.user.username}
-                            onChangeText={() => {}}
+                            value={this.state.username}
+                            onChangeText={username => this.setState({username})}
                             style={styles.input} 
                         />
                     </View>
@@ -26,8 +60,8 @@ class ProfileEdit extends Component {
                     <View>
                         <Text>Email Address:</Text>
                         <TextInput
-                            value={globalStore.user.email}
-                            onChangeText={() => {}}
+                            value={this.state.email}
+                            onChangeText={email => this.setState({email})}
                             style={styles.input} 
                         />
                     </View>
@@ -35,8 +69,8 @@ class ProfileEdit extends Component {
                     <View>
                         <Text>Profile Photo:</Text>
                         <TextInput
-                            value={globalStore.user.thumbnail}
-                            onChangeText={() => {}}
+                            value={this.state.thumbnail}
+                            onChangeText={thumbnail => this.setState({thumbnail})}
                             style={styles.input} 
                         />
                     </View>
@@ -44,7 +78,7 @@ class ProfileEdit extends Component {
 
                 <View style={styles.btnContainer}>
                     <Text onPress={() => globalStore.toggleVisible()} style={styles.cancel}>Cancel</Text>
-                    <Text style={styles.edit}>Edit</Text>
+                    <Text onPress={this.handleEdit} style={styles.edit}>Edit</Text>
                 </View>
                 
             </View>
