@@ -5,12 +5,8 @@ module.exports = {
         return Posts.find();
     },
 
-    // getByOwner: (owner) => {
-    //     return Posts.find({owner});
-    // },
-
     getByOwners: (owners) => {
-        return Posts.find({owner: { $in: owners}});
+        return Posts.find({owner: { $in: owners}}).sort('-createAt').limit(5);
     },
 
     insert: (newPost) => Posts.create(newPost),

@@ -27,7 +27,7 @@ class GlobalStore {
     // Posts
     posts = [];
     initPosts = list => this.posts = list;
-    addPosts = (post) => this.posts.push(post);
+    addPosts = (post) => this.posts.unshift(post);
     deletePost = id => {
         this.posts = this.posts.filter(post => post._id !== id);
     } 

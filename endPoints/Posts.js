@@ -11,15 +11,6 @@ const PostRouter = express.Router();
 //         .catch(err => console.log(err));   
 // });
 
-// PostRouter.get('', (req, res) => {
-//     const {owner}  = req.query;
-    
-//     posts
-//         .getByOwner(owner)
-//         .then(result => res.status(200).json(result))
-//         .catch(err => console.log(err));
-// });
-
 PostRouter.get('', (req, res) => {
     const {owner}  = req.query;
 
