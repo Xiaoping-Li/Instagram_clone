@@ -2,15 +2,51 @@ import React, { Component } from 'react';
 import { 
     View, 
     Text, 
-    StyleSheet, 
+    StyleSheet,
+    TextInput, 
 } from 'react-native';
+
+import globalStore from '../../../GlobalStore';
 
 
 class ProfileEdit extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text>ProfileEditScreen</Text>
+                <View>
+                    <View>
+                        <Text>User Name:</Text>
+                        <TextInput
+                            value={GlobalStore.user.username}
+                            onChangeText={() => {}}
+                            style={styles.input} 
+                        />
+                    </View>
+
+                    <View>
+                        <Text>Email Address:</Text>
+                        <TextInput
+                            value={GlobalStore.user.email}
+                            onChangeText={() => {}}
+                            style={styles.input} 
+                        />
+                    </View>
+
+                    <View>
+                        <Text>Profile Photo:</Text>
+                        <TextInput
+                            value={GlobalStore.user.thumbnail}
+                            onChangeText={() => {}}
+                            style={styles.input} 
+                        />
+                    </View>
+                </View>
+
+                <View style={styles.btnContainer}>
+                    <Text style={styles.cancel}>Cancel</Text>
+                    <Text style={styles.edit}>Edit</Text>
+                </View>
+                
             </View>
         );
     }
@@ -24,5 +60,39 @@ const styles = StyleSheet.create({
       backgroundColor: '#fff',
       alignItems: 'center', 
       justifyContent: 'center',
+    },
+    input: {
+        borderWidth: 1,
+        borderColor: 'gray',
+        borderStyle: 'solid',
+        padding: 10,
+        width: 300,
+        marginBottom: 25,
+        borderRadius: 10,
+    },
+    btnContainer: {
+        flexDirection: 'row',
+        alignItems: 'center', 
+        justifyContent: 'space-around',
+    },
+    cancel: {
+        borderColor: 'red',
+        borderWidth: 1,
+        borderRadius: 10,
+        width: 100,
+        fontSize: 20,
+        padding: 5,
+        textAlign: 'center',
+        color: 'red',
+    },
+    edit: {
+        borderColor: 'blue',
+        borderWidth: 1,
+        borderRadius: 10,
+        width: 100,
+        fontSize: 20,
+        padding: 5,
+        textAlign: 'center',
+        color: 'blue',
     },
 });

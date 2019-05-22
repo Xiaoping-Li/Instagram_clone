@@ -6,10 +6,9 @@ import {
 } from 'react-native';
 import Post from './Post';
 
-//import {observer} from 'mobx-react';
 import globalStore from '../../../GlobalStore';
 
-//@observer
+
 class Posts extends Component {
     
     render() {

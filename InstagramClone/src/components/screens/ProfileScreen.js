@@ -5,9 +5,10 @@ import {
     StyleSheet, 
     Button, 
     AsyncStorage,
-    Image, 
+    Image,
+    TextInput, 
 } from 'react-native';
-import { ProfileEdit } from '../presentation';
+// import { ProfileEdit } from '../presentation';
 import { Icon, Overlay } from 'react-native-elements';
 
 import {observer} from 'mobx-react/native';
@@ -58,7 +59,44 @@ class ProfileScreen extends Component {
                                 width={300}
                                 height="auto"
                             >
-                                <ProfileEdit />
+                                {/* <ProfileEdit /> */}
+
+                                <View>
+                                    <View>
+                                        <View>
+                                            <Text>User Name:</Text>
+                                            <TextInput
+                                                value={globalStore.user.username}
+                                                onChangeText={() => {}}
+                                                // style={styles.input} 
+                                            />
+                                        </View>
+
+                                        <View>
+                                            <Text>Email Address:</Text>
+                                            <TextInput
+                                                value={globalStore.user.email}
+                                                onChangeText={() => {}}
+                                                // style={styles.input} 
+                                            />
+                                        </View>
+
+                                        <View>
+                                            <Text>Profile Photo:</Text>
+                                            <TextInput
+                                                value={globalStore.user.thumbnail}
+                                                onChangeText={() => {}}
+                                                // style={styles.input} 
+                                            />
+                                        </View>
+                                    </View>
+
+                                    <View >
+                                        <Text>Cancel</Text>
+                                        <Text>Edit</Text>
+                                    </View>   
+                                </View>
+
                             </Overlay>
 
                             <Text style={{fontSize: 20, marginBottom: 10}}>User Name: {globalStore.user.username}</Text>
