@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import axios from 'axios';
 import { Permissions, ImagePicker } from 'expo';
+import { Icon } from 'react-native-elements';
 
 import globalStore from '../../../GlobalStore';
 import { action } from 'mobx';
@@ -68,7 +69,13 @@ class ProfileEdit extends Component {
                     <View style={styles.photo}>
                         <Text>Profile Photo:</Text>
                         <Image source={{uri: this.state.thumbnail}} style={{width: 50, height: 50, borderRadius: 10}} />
-                        <Text onPress={this.pickImage}>Change</Text>
+                        <Icon
+                            raised
+                            name='edit'
+                            type='font-awesome'
+                            size={20}
+                            onPress={this.pickImage} 
+                        />
                     </View>
 
                     <View>
@@ -122,7 +129,8 @@ const styles = StyleSheet.create({
     photo: {
         flexDirection: 'row',
         alignItems: 'center', 
-        justifyContent: 'center',
+        justifyContent: 'space-between',
+        width: 250,
     },
     input: {
         borderWidth: 1,
