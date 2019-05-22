@@ -50,6 +50,7 @@ class Post extends PureComponent {
     render() {
         return (
             <View style={styles.container}>
+                {/* Post Header */}
                 <View style={styles.header}>
                     <Image style={{width: 40, height: 40, margin: 10, borderRadius: 20,}} source={{uri: this.props.post.owner.thumbnail}} />
                     <Text style={{fontSize: 15, fontWeight: 'bold',}}>{this.props.post.owner.username}</Text>
@@ -66,11 +67,13 @@ class Post extends PureComponent {
                     }    
                 </View>
 
+                {/* Post Image */}
                 <Image 
                     source={{uri: this.props.post.uri}}
                     style={{height: 300, width: null, flex: 1,}}
                 />
                
+               {/* Post likes, comments */}
                 <View style={styles.icons}>
                     <Icon
                         style={{ paddingLeft: 10}}
@@ -111,6 +114,13 @@ class Post extends PureComponent {
                             onPress={() => {}}
                         />
                     </View>
+                    : 
+                    null
+                }
+
+                {
+                    this.props.post.comments.length ?
+                    <Comments comments={this.props.post.comments}/>
                     : 
                     null
                 }    

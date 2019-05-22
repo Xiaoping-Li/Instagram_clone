@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 
 import globalStore from '../../../GlobalStore';
-import { action } from 'mobx';
 
 class FriendStatusScreen extends Component {
     constructor(props) {
