@@ -7,6 +7,7 @@ import {
     AsyncStorage,
     Image, 
 } from 'react-native';
+import { ProfileEdit } from '../presentation';
 import { Icon, Overlay } from 'react-native-elements';
 
 import {observer} from 'mobx-react/native';
@@ -55,9 +56,9 @@ class ProfileScreen extends Component {
                                 windowBackgroundColor="rgba(211,211,211, .8)"
                                 overlayBackgroundColor="#fff"
                                 width={300}
-                                height={300}
+                                height="auto"
                             >
-                                <Text>Hello from Overlay!</Text>
+                                <ProfileEdit />
                             </Overlay>
 
                             <Text style={{fontSize: 20, marginBottom: 10}}>User Name: {globalStore.user.username}</Text>
