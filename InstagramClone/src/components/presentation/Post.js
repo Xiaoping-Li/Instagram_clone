@@ -51,13 +51,19 @@ class Post extends PureComponent {
         return (
             <View style={styles.container}>
                 <View style={styles.header}>
-                    <Image style={{width: 40, height: 40, margin: 10, borderRadius: 20,}} source={{uri: globalStore.user.thumbnail}} />
-                    <Text style={{fontSize: 15, fontWeight: 'bold',}}>{globalStore.user.username}</Text>
-                    <EllipsisIcon 
-                        style={{ marginLeft: 200,}}
-                        onPress={this.handlePostDelete} 
-                        name="ellipsis1" 
-                        size={25}/>
+                    <Image style={{width: 40, height: 40, margin: 10, borderRadius: 20,}} source={{uri: this.props.post.owner.thumbnail}} />
+                    <Text style={{fontSize: 15, fontWeight: 'bold',}}>{this.props.post.owner.username}</Text>
+                    {
+                        this.props.post.owner._id === globalStore.user.userID ?
+                        <EllipsisIcon 
+                            style={{ marginLeft: 200,}}
+                            onPress={this.handlePostDelete} 
+                            name="ellipsis1" 
+                            size={25}
+                        />
+                        :
+                        null
+                    }    
                 </View>
 
                 <Image 
