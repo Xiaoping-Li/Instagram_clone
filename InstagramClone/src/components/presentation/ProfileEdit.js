@@ -3,9 +3,11 @@ import {
     View, 
     Text, 
     StyleSheet,
-    TextInput, 
+    TextInput,
+    Image, 
 } from 'react-native';
 import axios from 'axios';
+import { Permissions, ImagePicker } from 'expo';
 
 import globalStore from '../../../GlobalStore';
 import { action } from 'mobx';
@@ -44,10 +46,31 @@ class ProfileEdit extends Component {
             .catch(err => console.log(err));
     }
 
+    pickImage = async () => {
+        const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+        if (status === 'granted') {
+           let data = await ImagePicker.launchImageLibraryAsync({
+                allowsEditing: true,
+                aspect: [4, 3], // only works on Androi, since ios is always square crop
+            });
+            if (!data.cancelled) {
+                this.setState({thumbnail: data.uri});
+            }
+        } else {
+            alert('Album permission denied! Please go to Settings to give permission manually');
+        }   
+    }
+
     render() {
         return (
             <View style={styles.container}>
                 <View style={styles.form}>
+                    <View style={styles.photo}>
+                        <Text>Profile Photo:</Text>
+                        <Image source={{uri: this.state.thumbnail}} style={{width: 50, height: 50, borderRadius: 10}} />
+                        <Text onPress={this.pickImage}>Change</Text>
+                    </View>
+
                     <View>
                         <Text>User Name:</Text>
                         <TextInput
@@ -62,15 +85,6 @@ class ProfileEdit extends Component {
                         <TextInput
                             value={this.state.email}
                             onChangeText={email => this.setState({email})}
-                            style={styles.input} 
-                        />
-                    </View>
-
-                    <View>
-                        <Text>Profile Photo:</Text>
-                        <TextInput
-                            value={this.state.thumbnail}
-                            onChangeText={thumbnail => this.setState({thumbnail})}
                             style={styles.input} 
                         />
                     </View>
@@ -104,6 +118,11 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         borderWidth: 1,
         marginBottom: 30,
+    },
+    photo: {
+        flexDirection: 'row',
+        alignItems: 'center', 
+        justifyContent: 'center',
     },
     input: {
         borderWidth: 1,
