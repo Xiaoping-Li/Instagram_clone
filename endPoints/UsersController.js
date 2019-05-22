@@ -7,7 +7,7 @@ module.exports = {
     },
 
     getByUsername: (username) => {
-        return username ? Users.find({username}) : null;
+        return Users.find({username});
     },
 
     insert: (newUser) => Users.create(newUser),

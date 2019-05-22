@@ -32,7 +32,7 @@ class GlobalStore {
         this.posts = this.posts.filter(post => post._id !== id);
     } 
 
-    // Overlay
+    // ProfileEdit Page Modal visible states
     isVisible = false;
     toggleVisible = () => this.isVisible = !this.isVisible;
 }

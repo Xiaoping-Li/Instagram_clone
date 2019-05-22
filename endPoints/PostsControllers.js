@@ -5,8 +5,12 @@ module.exports = {
         return Posts.find();
     },
 
-    getByOwner: (owner) => {
-        return owner ? Posts.find({owner}) : null;
+    // getByOwner: (owner) => {
+    //     return Posts.find({owner});
+    // },
+
+    getByOwners: (owners) => {
+        return Posts.find({owner: { $in: owners}});
     },
 
     insert: (newPost) => Posts.create(newPost),

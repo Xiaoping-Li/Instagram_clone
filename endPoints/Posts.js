@@ -1,4 +1,5 @@
 const express = require('express');
+const Users = require('../models/User');
 const posts = require('./PostsControllers');
 const PostRouter = express.Router();
 
@@ -10,12 +11,27 @@ const PostRouter = express.Router();
 //         .catch(err => console.log(err));   
 // });
 
+// PostRouter.get('', (req, res) => {
+//     const {owner}  = req.query;
+    
+//     posts
+//         .getByOwner(owner)
+//         .then(result => res.status(200).json(result))
+//         .catch(err => console.log(err));
+// });
+
 PostRouter.get('', (req, res) => {
     const {owner}  = req.query;
-    posts
-        .getByOwner(owner)
+
+    Users
+        .findById(owner)
+        .then(user => {
+            const owners = user.friends;
+            owners.push(owner);
+            return posts.getByOwners(owners);
+        })
         .then(result => res.status(200).json(result))
-        .catch(err => console.log(err));
+        .catch(err => console.log(err));  
 });
 
 PostRouter.post('', (req, res) => {
