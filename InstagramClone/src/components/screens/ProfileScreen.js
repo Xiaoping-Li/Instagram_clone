@@ -3,13 +3,12 @@ import {
     View, 
     Text, 
     StyleSheet, 
-    Button, 
     AsyncStorage,
     Image,
-    TextInput, 
+    Modal, 
 } from 'react-native';
-// import { ProfileEdit } from '../presentation';
-import { Icon, Overlay } from 'react-native-elements';
+import { ProfileEdit } from '../presentation';
+import { Icon } from 'react-native-elements';
 
 import {observer} from 'mobx-react/native';
 import globalStore from '../../../GlobalStore';
@@ -52,52 +51,13 @@ class ProfileScreen extends Component {
                         <View style={styles.profile}>
                             <Image source={{uri: globalStore.user.thumbnail}} style={styles.img}/>
 
-                            <Overlay
-                                isVisible={globalStore.isVisible}
-                                windowBackgroundColor="rgba(211,211,211, .8)"
-                                overlayBackgroundColor="#fff"
-                                width={300}
-                                height="auto"
+                            <Modal
+                                visible={globalStore.isVisible}
+                                animationType="slide"
+                                transparent={false}
                             >
-                                {/* <ProfileEdit /> */}
-
-                                <View>
-                                    <View>
-                                        <View>
-                                            <Text>User Name:</Text>
-                                            <TextInput
-                                                value={globalStore.user.username}
-                                                onChangeText={() => {}}
-                                                // style={styles.input} 
-                                            />
-                                        </View>
-
-                                        <View>
-                                            <Text>Email Address:</Text>
-                                            <TextInput
-                                                value={globalStore.user.email}
-                                                onChangeText={() => {}}
-                                                // style={styles.input} 
-                                            />
-                                        </View>
-
-                                        <View>
-                                            <Text>Profile Photo:</Text>
-                                            <TextInput
-                                                value={globalStore.user.thumbnail}
-                                                onChangeText={() => {}}
-                                                // style={styles.input} 
-                                            />
-                                        </View>
-                                    </View>
-
-                                    <View >
-                                        <Text>Cancel</Text>
-                                        <Text>Edit</Text>
-                                    </View>   
-                                </View>
-
-                            </Overlay>
+                                <ProfileEdit />
+                            </Modal>
 
                             <Text style={{fontSize: 20, marginBottom: 10}}>User Name: {globalStore.user.username}</Text>
                             <Text style={{fontSize: 20, }}>Primary Email Address: {globalStore.user.email}</Text>

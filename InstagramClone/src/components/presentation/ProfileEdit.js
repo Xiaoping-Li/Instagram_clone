@@ -17,7 +17,7 @@ class ProfileEdit extends Component {
                     <View>
                         <Text>User Name:</Text>
                         <TextInput
-                            value={GlobalStore.user.username}
+                            value={globalStore.user.username}
                             onChangeText={() => {}}
                             style={styles.input} 
                         />
@@ -26,7 +26,7 @@ class ProfileEdit extends Component {
                     <View>
                         <Text>Email Address:</Text>
                         <TextInput
-                            value={GlobalStore.user.email}
+                            value={globalStore.user.email}
                             onChangeText={() => {}}
                             style={styles.input} 
                         />
@@ -35,7 +35,7 @@ class ProfileEdit extends Component {
                     <View>
                         <Text>Profile Photo:</Text>
                         <TextInput
-                            value={GlobalStore.user.thumbnail}
+                            value={globalStore.user.thumbnail}
                             onChangeText={() => {}}
                             style={styles.input} 
                         />
@@ -74,6 +74,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center', 
         justifyContent: 'space-around',
+        width: 300,
     },
     cancel: {
         borderColor: 'red',
