@@ -19,7 +19,7 @@ PostRouter.get('', (req, res) => {
         .then(user => {
             const owners = user.friends;
             owners.push(owner);
-            return posts.getByOwners(owners);
+            return posts.getByOwners(owners).populate('owner', 'username thumbnail _id');
         })
         .then(result => res.status(200).json(result))
         .catch(err => console.log(err));  
