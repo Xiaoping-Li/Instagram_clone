@@ -1,5 +1,4 @@
 const express = require('express');
-// const posts = require('./PostsControllers');
 const FriendRouter = express.Router();
 const FriendRequests = require('../models/FriendRequest');
 const Users = require('../models/User');
@@ -38,18 +37,13 @@ FriendRouter.post('', (req, res) => {
             const sender = result[0];
             const recipient = result[1];
 
-            Users
-                .update({ _id: sender.sender }, { $push: { requests: sender._id}})
-                .then(result => res.status(200).json(result.ok))
-                .catch(err => console.log(err));
+            const senderPromise = Users.updateOne({ _id: sender.sender }, { $push: { requests: sender._id}});
 
-            Users
-                .update({ _id: recipient.sender }, { $push: { requests: recipient._id}})
-                .then(result => res.status(200).json(result.ok))
-                .catch(err => console.log(err));
+            const recipientPromise = Users.updateOne({ _id: recipient.sender }, { $push: { requests: recipient._id}});
 
-            res.status(201).json(result);
+            return Promise.all([senderPromise, recipientPromise]);
         })
+        .then(result => res.status(200).json(result))
         .catch(err => console.log(err));
 });
 
@@ -59,26 +53,26 @@ FriendRouter.put('', (req, res) => {
 
     // Change friendRequest state from Pending to Friends
     // Save recipientID to sender's friends' list
-    FriendRequests
+    const senderPromise = FriendRequests
         .updateOne({ sender: senderID, recipient: recipientID }, { status: 'Friends' })
         .then(result => {
-            Users
-                .update({ _id: senderID }, { $push: { friends: recipientID }})
-                .then(result => res.status(200).json(result.ok))
-                .catch(err => console.log(err));
-        })
-        .catch(err => console.log(err));
+            if (result.ok) {
+                return Users.update({ _id: senderID }, { $push: { friends: recipientID }});
+            }
+        });
 
     // Change friendRequest state from Requested to Friends
     // Save senderID to recipient's friends' list 
-    FriendRequests
+    const recipientPromise = FriendRequests
         .updateOne({ sender: recipientID, recipient: senderID }, { status: 'Friends' })
         .then(result => {
-            Users
-                .update({ _id: recipientID }, { $push: { friends: senderID }})
-                .then(result => res.status(200).json(result.ok))
-                .catch(err => console.log(err));
-        })
+            if (result.ok) {
+                return Users.update({ _id: recipientID }, { $push: { friends: senderID }});
+            }
+        });
+
+    Promise.all([senderPromise, recipientPromise])
+        .then(result => res.status(200).json(result))
         .catch(err => console.log(err));
 });
 
@@ -86,46 +80,39 @@ FriendRouter.delete('', (req, res) => {
     const senderID = req.query.sender;
     const recipientID = req.query.recipient;
 
-    FriendRequests
+    const senderPromise = FriendRequests
         .findOneAndDelete({ sender: senderID, recipient: recipientID })
         .then(result => {
             if(result.status === 'Friends') {
-                Users
-                    .update(
+                return Users
+                    .updateOne(
                         { _id: senderID }, 
                         { $pull: { friends: recipientID, requests: result._id }},
                         {multi: true}
-                    )
-                    .then(result => res.status(204).json({msg: "Delete successfully from both side", ok: result.ok }))
-                    .catch(err => console.log(err));
+                    );
             } else {
-                Users
-                    .update({ _id: senderID }, { $pull: { requests: result._id }})
-                    .then(result => res.status(204).json({msg: "Delete successfully from both side", ok: result.ok }))
-                    .catch(err => console.log(err));
+                return Users.updateOne({ _id: senderID }, { $pull: { requests: result._id }});
             }
-        })
-        .catch(err => console.log(err));
+        });
 
-    FriendRequests
+    const recipientPromise = FriendRequests
         .findOneAndDelete({ sender: recipientID, recipient: senderID })
         .then(result => {
             if(result.status === 'Friends') {
-                Users
+                return Users
                     .update(
                         { _id: recipientID }, 
                         { $pull: { friends: senderID, requests: result._id }},
                         {multi: true}
-                    )
-                    .then(result => res.status(204).json({msg: "Delete successfully from both side", ok: result.ok }))
-                    .catch(err => console.log(err));
+                    );
             } else {
-                Users
-                    .update({ _id: recipientID }, { $pull: { requests: result._id }})
-                    .then(result => res.status(204).json({msg: "Delete successfully from both side", ok: result.ok }))
-                    .catch(err => console.log(err));
+                return Users
+                    .update({ _id: recipientID }, { $pull: { requests: result._id }});
             }
         })
+
+    Promise.all([senderPromise, recipientPromise])
+        .then(result => res.status(200).json(result))
         .catch(err => console.log(err));
 });
 

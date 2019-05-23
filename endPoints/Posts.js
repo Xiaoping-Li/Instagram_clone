@@ -58,16 +58,24 @@ PostRouter.delete('', (req, res) => {
 /****** API Endpoints for comments for corresponding post ********/
 PostRouter.put('/comments', (req, res) => {
     const { id } = req.query;
-    const comment = {
-        user: mongoose.Types.ObjectId(req.body.user),
-        body: req.body.body,
-    };
-    // const comment = req.body;
+
+    // const comment = {
+    //     user: mongoose.Types.ObjectId(req.body.user),
+    //     body: req.body.body,
+    // };
+    const comment = req.body;
+
+    // const userID = req.body.user;
+    // const body = req.body.body;
+    // const comment = {
+    //     user: userID,
+    //     body: body,
+    // };
+
     Posts
-        .update({ _id: mongoose.Types.ObjectId(id) }, { $push: { comments: comment }})
+        .update({ _id: id }, { $push: { comments: comment }})
         .then(result => {
-            console.log(result);
-            res.status(200).json(result.ok);
+            res.status(200).json(result);
         })
         .catch(err => console.log(err));
 });

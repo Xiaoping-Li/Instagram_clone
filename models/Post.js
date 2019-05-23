@@ -27,6 +27,10 @@ const PostSchema = new Schema({
                 type: String,
                 required: [true, 'Content required'],
             },
+            date: {
+                type: Date,
+                default: Date.now,
+            },
         }
     ],
     createAt: {
