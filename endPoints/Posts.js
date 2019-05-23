@@ -1,4 +1,5 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const Users = require('../models/User');
 const Posts = require('../models/Post');
 const posts = require('./PostsControllers');
@@ -20,7 +21,10 @@ PostRouter.get('', (req, res) => {
         .then(user => {
             const owners = user.friends;
             owners.push(owner);
-            return posts.getByOwners(owners).populate('owner', 'username thumbnail _id');
+            return posts
+                .getByOwners(owners)
+                .populate('owner', 'username thumbnail _id')
+                .populate({ path: 'comments', populate: { path: 'user', select: 'username thumbnail _id'}});
         })
         .then(result => res.status(200).json(result))
         .catch(err => console.log(err));  
@@ -54,10 +58,17 @@ PostRouter.delete('', (req, res) => {
 /****** API Endpoints for comments for corresponding post ********/
 PostRouter.put('/comments', (req, res) => {
     const { id } = req.query;
-    const comment = req.body;
+    const comment = {
+        user: mongoose.Types.ObjectId(req.body.user),
+        body: req.body.body,
+    };
+    // const comment = req.body;
     Posts
-        .update({ _id: id }, { $push: { comments: comment }})
-        .then(result => res.status(203).json({success: true, result}))
+        .update({ _id: mongoose.Types.ObjectId(id) }, { $push: { comments: comment }})
+        .then(result => {
+            console.log(result);
+            res.status(200).json(result.ok);
+        })
         .catch(err => console.log(err));
 });
 

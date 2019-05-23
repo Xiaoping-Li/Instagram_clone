@@ -47,6 +47,33 @@ class Post extends PureComponent {
             .catch(err => console.log(err));
     }
 
+    handleSubmitComment = () => {
+        const newcomment = {
+            user: globalStore.user.userID,
+            body: this.state.commentInfo,
+        };
+
+        const postID = this.props.post._id;
+
+        axios
+            .put(`http://192.168.0.107:5000/posts/comments/?id=${postID}`, newcomment)
+            .then(action(result => {
+                if (result.data) {
+                    const user = {
+                        _id: globalStore.user.userID,
+                        username: globalStore.user.username,
+                        thumbnail: globalStore.user.thumbnail,
+                    };
+                    const comment = {
+                        user: user,
+                        body: this.state.commentInfo,
+                    };
+                    globalStore.addComment(postID, comment);
+                }
+            }))
+            .catch(err => console.log(err));
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -111,7 +138,7 @@ class Post extends PureComponent {
                         />
                         <Button
                             title="Post"
-                            onPress={() => {}}
+                            onPress={this.handleSubmitComment}
                         />
                     </View>
                     : 
