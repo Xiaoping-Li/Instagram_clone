@@ -5,11 +5,15 @@ module.exports = {
         return Posts.find();
     },
 
+    getById: (id) => Posts.findById({ _id: id }),
+
     getByOwners: (owners) => {
         return Posts.find({owner: { $in: owners}}).sort('-createAt').limit(20);
     },
 
     insert: (newPost) => Posts.create(newPost),
+
+    insertComment: (id, comment) => Posts.updateOne({ _id: id }, { $push: { comments: comment }}),
 
     update: (id, updates) => Posts.findByIdAndUpdate(id, updates, {new: true}),
 

@@ -57,7 +57,7 @@ FriendRouter.put('', (req, res) => {
         .updateOne({ sender: senderID, recipient: recipientID }, { status: 'Friends' })
         .then(result => {
             if (result.ok) {
-                return Users.update({ _id: senderID }, { $push: { friends: recipientID }});
+                return Users.updateOne({ _id: senderID }, { $push: { friends: recipientID }});
             }
         });
 
@@ -67,7 +67,7 @@ FriendRouter.put('', (req, res) => {
         .updateOne({ sender: recipientID, recipient: senderID }, { status: 'Friends' })
         .then(result => {
             if (result.ok) {
-                return Users.update({ _id: recipientID }, { $push: { friends: senderID }});
+                return Users.updateOne({ _id: recipientID }, { $push: { friends: senderID }});
             }
         });
 
@@ -100,14 +100,14 @@ FriendRouter.delete('', (req, res) => {
         .then(result => {
             if(result.status === 'Friends') {
                 return Users
-                    .update(
+                    .updateOne(
                         { _id: recipientID }, 
                         { $pull: { friends: senderID, requests: result._id }},
                         {multi: true}
                     );
             } else {
                 return Users
-                    .update({ _id: recipientID }, { $pull: { requests: result._id }});
+                    .updateOne({ _id: recipientID }, { $pull: { requests: result._id }});
             }
         })
 
