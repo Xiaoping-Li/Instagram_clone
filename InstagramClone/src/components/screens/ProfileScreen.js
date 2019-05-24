@@ -32,6 +32,7 @@ class ProfileScreen extends Component {
                 globalStore.initFriends([]);
                 globalStore.initPosts([]);
                 globalStore.initRequests([]);
+                globalStore.initLikes([]);
             }))
             .catch(err => console.log(err));
         this.props.navigation.navigate('AuthLoading');

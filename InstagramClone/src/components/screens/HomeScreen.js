@@ -22,6 +22,7 @@ class HomeScreen extends Component {
             .then(result => {
                 this.getPosts();
                 this.getFriendsAndRequests();
+                this.getLikedPosts();
             })
             .catch(err => console.log(err));
     }
@@ -50,6 +51,16 @@ class HomeScreen extends Component {
                 if (result.data.requests.length) {
                     globalStore.initRequests(result.data.requests);
                 }
+            }))
+            .catch(err => console.log(err));
+    }
+
+    getLikedPosts = () => {
+        const userID = globalStore.user.userID;
+        axios
+            .get(`http://192.168.0.107:5000/posts/likes/?userID=${userID}`)
+            .then(action(result => {
+                if (result.data.length) globalStore.initLikes(result.data);
             }))
             .catch(err => console.log(err));
     }
