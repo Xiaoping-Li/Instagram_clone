@@ -34,11 +34,19 @@ class GlobalStore {
     };
     deletePost = id => {
         this.posts = this.posts.filter(post => post._id !== id);   
-    } 
+    };
 
     // ProfileEdit Page Modal visible states
     isVisible = false;
     toggleVisible = () => this.isVisible = !this.isVisible;
+
+    // likes
+    likes = [];
+    initLikes = list => this.likes = list;
+    addLike = (post) => this.likes.push(post);
+    removeLike = (postID) => {
+        this.likes = this.likes.filter(post => post._id !== postID);
+    };
 }
 
 decorate(
@@ -49,6 +57,7 @@ decorate(
         posts: observable,
         requests: observable,
         isVisible: observable,
+        likes: observable,
         toggleVisible: action,
         updateUser: action,
         initFriends: action, 
@@ -60,6 +69,9 @@ decorate(
         addPosts: action,
         deletePost: action,
         addComment: action,
+        initLikes: action,
+        addLike: action,
+        removeLike: action,
     }
 );
 
