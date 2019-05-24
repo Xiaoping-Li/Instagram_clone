@@ -29,12 +29,8 @@ class GlobalStore {
     initPosts = list => this.posts = list;
     addPosts = (post) => this.posts.unshift(post);
     addComment = (id, comment) => {
-        for (let i = 0; i < posts.length; i++) {
-            if (id === posts[i]._id) {
-                posts[i].comments.push(comment);
-                return;
-            }
-        }
+        const idx = this.posts.findIndex(post => post._id === id);
+        this.posts[idx].comments.push(comment);
     };
     deletePost = id => {
         this.posts = this.posts.filter(post => post._id !== id);

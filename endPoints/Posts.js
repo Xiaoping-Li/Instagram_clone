@@ -3,6 +3,26 @@ const Users = require('../models/User');
 const posts = require('./PostsControllers');
 const PostRouter = express.Router();
 
+/****** API Endpoints for comments insert for corresponding post ********/
+PostRouter.put('/comments', (req, res) => {
+    const { postID } = req.query;
+    const { userID } = req.query;
+    const { content } = req.body;
+
+    const comment = {
+        user: userID,
+        content: content,
+    };
+    
+    posts
+        .insertComment(postID, comment)
+        .then(result => {
+            res.status(200).json(result);
+        })
+        .catch(err => console.log(err)); 
+});
+
+
 /****** API Endpoints for Posts ********/
 // PostRouter.get('', (req, res) => {
 //     posts
@@ -54,25 +74,6 @@ PostRouter.delete('', (req, res) => {
         .delete(id)
         .then(result => res.status(201).json({success: true, result}))
         .catch(err => console.log(err));
-});
-
-/****** API Endpoints for comments insert for corresponding post ********/
-PostRouter.put('/comments', (req, res) => {
-    const { postID } = req.query;
-    const { userID } = req.query;
-    const { content } = req.body;
-
-    const comment = {
-        user: userID,
-        content: content,
-    };
-    
-    posts
-        .insertComment(postID, comment)
-        .then(result => {
-            res.status(200).json(result);
-        })
-        .catch(err => console.log(err)); 
 });
 
 

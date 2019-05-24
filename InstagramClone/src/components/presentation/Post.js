@@ -14,13 +14,15 @@ import DeleteIcon from '@expo/vector-icons/AntDesign';
 import globalStore from '../../../GlobalStore'; 
 import { action } from 'mobx';
 
+import { Comments } from './index';
+
 class Post extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
             like: false,
             countLikes: this.props.post.likes.length,
-            commentInfo: '',
+            content: '',
             comment: false,
         };
     }
@@ -48,27 +50,28 @@ class Post extends PureComponent {
     }
 
     handleSubmitComment = () => {
-        const newcomment = {
-            user: globalStore.user.userID,
-            body: this.state.commentInfo,
+        const postID = this.props.post._id;
+        const userID = globalStore.user.userID;
+
+        const comment = {
+            content: this.state.content,
         };
 
-        const postID = this.props.post._id;
-
         axios
-            .put(`http://192.168.0.107:5000/posts/comments/?id=${postID}`, newcomment)
+            .put(`http://192.168.0.107:5000/posts/comments/?postID=${postID}&userID=${userID}`, comment)
             .then(action(result => {
-                if (result.data) {
+                if (result.data.ok) {
                     const user = {
                         _id: globalStore.user.userID,
                         username: globalStore.user.username,
                         thumbnail: globalStore.user.thumbnail,
                     };
-                    const comment = {
+                    const gcomment = {
                         user: user,
-                        body: this.state.commentInfo,
+                        content: this.state.content,
                     };
-                    globalStore.addComment(postID, comment);
+                    globalStore.addComment(postID, gcomment);
+                    this.setState({ content: ''});
                 }
             }))
             .catch(err => console.log(err));
@@ -132,8 +135,8 @@ class Post extends PureComponent {
                     <View style={styles.comment}>
                         <TextInput
                             placeholder="Add a comment..."
-                            value={this.state.commentInfo}
-                            onChangeText={commentInfo => this.setState({commentInfo})}
+                            value={this.state.content}
+                            onChangeText={content => this.setState({content})}
                             style={styles.input}
                         />
                         <Button
@@ -145,12 +148,12 @@ class Post extends PureComponent {
                     null
                 }
 
-                {
-                    this.props.post.comments.length ?
+                {/* {
+                    this.props.post.comments[0] ?
                     <Comments comments={this.props.post.comments}/>
                     : 
                     null
-                }    
+                }     */}
             </View>
         );
     }
