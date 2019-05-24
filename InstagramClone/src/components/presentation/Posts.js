@@ -4,7 +4,7 @@ import {
     StyleSheet,
     FlatList,
 } from 'react-native';
-import Post from './Post';
+import { Post } from './index';
 
 import globalStore from '../../../GlobalStore';
 

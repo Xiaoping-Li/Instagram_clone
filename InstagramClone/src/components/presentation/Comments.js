@@ -11,14 +11,16 @@ import globalStore from '../../../GlobalStore';
 
 
 class Comments extends Component {
-    renderRow = ({comment}) => {
+
+    // Have to use keyword "item", could not change to other, otherwise, get undefined
+    renderRow = ({item}) => {
         return (
             <View style={{width: 300}}>
                 <View style={{flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center'}}>
-                    <Image source={{uri: comment.user.thumbnail}} style={{width: 15, height: 15}}/>
-                    <Text>{comment.user.username}</Text>
+                    <Image source={{uri: item.user.thumbnail}} style={{width: 15, height: 15}}/>
+                    <Text>{item.user.username}</Text>
                 </View>
-                <Text>{comment.body}</Text>
+                <Text>{item.content}</Text>
                 <View style={{width: 300, height: 1, backgroundColor: '#D3D3D3',}}></View>
             </View>
         );

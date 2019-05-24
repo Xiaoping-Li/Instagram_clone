@@ -130,6 +130,15 @@ class Post extends PureComponent {
 
                 <Text style={styles.likes}>{this.state.countLikes} {this.state.countLikes > 1 ? 'likes' : 'like'}</Text>
 
+                {/* comments content */}
+                {
+                    this.props.post.comments.length ?
+                    <Comments comments={this.props.post.comments}/>
+                    : 
+                    <Text>Be the first to add some comments...</Text>
+                }    
+
+                {/* Post comments */}
                 {
                     this.state.comment ?
                     <View style={styles.comment}>
@@ -147,13 +156,6 @@ class Post extends PureComponent {
                     : 
                     null
                 }
-
-                {/* {
-                    this.props.post.comments[0] ?
-                    <Comments comments={this.props.post.comments}/>
-                    : 
-                    null
-                }     */}
             </View>
         );
     }
