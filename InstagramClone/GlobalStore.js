@@ -30,7 +30,7 @@ class GlobalStore {
     addPosts = (post) => this.posts.unshift(post);
     addComment = (id, comment) => {
         const idx = this.posts.findIndex(post => post._id === id);
-        this.posts[idx].comments.push(comment);
+        this.posts[idx].comments.unshift(comment);
     };
     deletePost = id => {
         this.posts = this.posts.filter(post => post._id !== id);   
@@ -43,7 +43,7 @@ class GlobalStore {
     // likes
     likes = [];
     initLikes = list => this.likes = list;
-    addLike = (post) => this.likes.push(post);
+    addLike = (like) => this.likes.unshift(like);
     removeLike = (postID) => {
         this.likes = this.likes.filter(post => post._id !== postID);
     };

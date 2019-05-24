@@ -14,23 +14,55 @@ import DeleteIcon from '@expo/vector-icons/AntDesign';
 import globalStore from '../../../GlobalStore'; 
 import { action } from 'mobx';
 
-import { Comments } from './index';
+import Comments from './Comments';
 
 class Post extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            like: false,
-            countLikes: this.props.post.likes.length,
             content: '',
             comment: false,
+            like: globalStore.likes.find(post => post._id === this.props.post._id),
+            count: this.props.post.likes.length,  
         };
     }
 
     handleLikeClick = () => {
-        let update;
-        this.state.like ? update = this.state.countLikes - 1 : update = this.state.countLikes + 1;
-        this.setState({ countLikes: update, like: !this.state.like });
+        const postID = this.props.post._id;
+        const userID = globalStore.user.userID;
+        axios 
+            .post(`http://192.168.0.107:5000/posts/likes/?postID=${postID}&userID=${userID}`)
+            .then(action(result => {
+                if (result.data.ok) {
+                    const owner = {};
+                    owner.username = globalStore.user.username;
+                    owner._id = globalStore.user.userID;
+                    owner.thumbnail = globalStore.user.thumbnail;
+
+                    const like = {
+                        owner: owner,
+                        uri: this.props.post.uri,
+                    }
+
+                    globalStore.addLike(like);
+                    this.setState({ like: like, count: this.state.count + 1 });
+                }
+            }))
+            .catch(err => console.log(err));
+    }
+
+    handleUnlikeClick = () => {
+        const postID = this.props.post._id;
+        const userID = globalStore.user.userID;
+        axios
+            .delete(`http://192.168.0.107:5000/posts/likes/?postID=${postID}&userID=${userID}`)
+            .then(action(result => {
+                if (result.data.ok) {
+                    globalStore.removeLike(postID);
+                    this.setState({ like: undefined, count: this.state.count - 1 });
+                }
+            }))
+            .catch(err => console.log(err));
     }
 
     handlecommentClick = () => {
@@ -105,13 +137,23 @@ class Post extends PureComponent {
                
                {/* Post likes, comments */}
                 <View style={styles.icons}>
-                    <Icon
-                        style={{ paddingLeft: 10}}
-                        onPress={this.handleLikeClick} 
-                        name="heart" 
-                        size={20}
-                        color={this.state.like ? "red" : null} 
-                    />
+                    {this.state.like ?
+                        <Icon
+                            style={{ paddingLeft: 10}}
+                            onPress={this.handleUnlikeClick} 
+                            name="heart" 
+                            size={20}
+                            color={"red"} 
+                        />
+                        :
+                        <Icon
+                            style={{ paddingLeft: 10}}
+                            onPress={this.handleLikeClick} 
+                            name="heart" 
+                            size={20}
+                            // color={this.state.like ? "red" : null} 
+                        />
+                    }
 
                     <Icon
                         style={{ paddingLeft: 10}}
@@ -128,7 +170,7 @@ class Post extends PureComponent {
                     />
                 </View>
 
-                <Text style={styles.likes}>{this.state.countLikes} {this.state.countLikes > 1 ? 'likes' : 'like'}</Text>
+                <Text style={styles.likes}>{this.state.count} {this.state.count > 1 ? 'likes' : 'like'}</Text>
 
                 {/* comments content */}
                 {
