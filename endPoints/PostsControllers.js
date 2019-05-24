@@ -20,4 +20,6 @@ module.exports = {
     insertComment: (id, comment) => Posts.updateOne({ _id: id }, { $push: { comments: comment }}),
 
     addLike: (postID, userID) => Posts.updateOne({ _id: postID }, { $push: { likes: userID }}),
+
+    removeLike: (postID, userID) => Posts.updateOne({ _id: postID }, { $pull: { likes: userID }}),
 };

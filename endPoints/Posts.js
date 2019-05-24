@@ -33,6 +33,16 @@ PostRouter.post('/likes', (req, res) => {
         .catch(err => console.log(err));   
 });
 
+// Remove like
+PostRouter.delete('/likes', (req, res) => {
+    const { postID } = req.query;
+    const { userID } = req.query;
+    posts
+        .removeLike(postID, userID)
+        .then(result => res.status(200).json(result))
+        .catch(err => console.log(err));   
+});
+
 
 /****** API Endpoints for Posts ********/
 // PostRouter.get('', (req, res) => {
