@@ -23,5 +23,5 @@ module.exports = {
 
     removeLike: (postID, userID) => Posts.updateOne({ _id: postID }, { $pull: { likes: userID }}),
 
-    getLikedByUser: (userID) => Posts.find({ "likes": userID }),
+    getLikedByUser: (userID) => Posts.find({ "likes": userID }).select('owner uri').populate('owner', 'username thumbnail'),
 };
