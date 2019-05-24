@@ -7,8 +7,6 @@ import {
     Image,
 } from 'react-native';
 
-import globalStore from '../../../GlobalStore';
-
 
 class Comments extends Component {
 

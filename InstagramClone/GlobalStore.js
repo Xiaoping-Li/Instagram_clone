@@ -33,7 +33,7 @@ class GlobalStore {
         this.posts[idx].comments.push(comment);
     };
     deletePost = id => {
-        this.posts = this.posts.filter(post => post._id !== id);
+        this.posts = this.posts.filter(post => post._id !== id);   
     } 
 
     // ProfileEdit Page Modal visible states

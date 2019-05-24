@@ -22,6 +22,17 @@ PostRouter.put('/comments', (req, res) => {
         .catch(err => console.log(err)); 
 });
 
+/****** API Endpoints for Likes  ********/
+// Add like
+PostRouter.post('/likes', (req, res) => {
+    const { postID } = req.query;
+    const { userID } = req.query;
+    posts
+        .addLike(postID, userID)
+        .then(result => res.status(200).json(result))
+        .catch(err => console.log(err));   
+});
+
 
 /****** API Endpoints for Posts ********/
 // PostRouter.get('', (req, res) => {

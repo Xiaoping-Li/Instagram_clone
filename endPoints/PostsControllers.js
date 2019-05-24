@@ -13,9 +13,11 @@ module.exports = {
 
     insert: (newPost) => Posts.create(newPost),
 
-    insertComment: (id, comment) => Posts.updateOne({ _id: id }, { $push: { comments: comment }}),
-
     update: (id, updates) => Posts.findByIdAndUpdate(id, updates, {new: true}),
 
     delete: (id) => Posts.findByIdAndDelete(id),
+
+    insertComment: (id, comment) => Posts.updateOne({ _id: id }, { $push: { comments: comment }}),
+
+    addLike: (postID, userID) => Posts.updateOne({ _id: postID }, { $push: { likes: userID }}),
 };
