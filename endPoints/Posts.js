@@ -34,14 +34,7 @@ PostRouter.get('', (req, res) => {
             return posts
                 .getByOwners(owners)
                 .populate('owner', 'username thumbnail _id')
-                // .populate({
-                //     path: "comments",
-                //     populate: {
-                //         path: "user",
-                //         model: "user",
-                //     }
-                // })
-                ;
+                .populate("comments.user", 'username thumbnail _id');
         })
         .then(result => res.status(200).json(result))
         .catch(err => console.log(err));  
