@@ -22,4 +22,6 @@ module.exports = {
     addLike: (postID, userID) => Posts.updateOne({ _id: postID }, { $push: { likes: userID }}),
 
     removeLike: (postID, userID) => Posts.updateOne({ _id: postID }, { $pull: { likes: userID }}),
+
+    getLikedByUser: (userID) => Posts.find({ "likes": userID }),
 };
