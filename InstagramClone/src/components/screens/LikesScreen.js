@@ -1,16 +1,23 @@
 import React, { Component } from 'react';
 import { 
-    View, 
-    Text, 
-    StyleSheet, 
+    View,  
+    StyleSheet,
+    FlatList, 
 } from 'react-native';
 
+import { Like } from '../presentation';
+
+import globalStore from '../../../GlobalStore';
 
 class LikesScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text>LikesScreen</Text>
+                <FlatList
+                    data={globalStore.likes}
+                    renderItem={({item}) => <Like like={item} />}
+                    keyExtractor={(item, index) => 'key'+index}
+                />
             </View>
         );
     }
