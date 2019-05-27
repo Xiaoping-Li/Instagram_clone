@@ -75,16 +75,13 @@ class Post extends PureComponent {
     downloadImage = async () => {
         const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
         if (status === 'granted') {
-        //    let data = await ImagePicker.launchImageLibraryAsync({
-        //         allowsEditing: true,
-        //     });
-        //     if (!data.cancelled) {
-        //         this.setState({thumbnail: data.uri});
-        //     }
             CameraRoll
                 .saveToCameraRoll(this.props.post.uri)
                 .then(result => alert("Downloaded"))
-                .catch(err => console.log(err));
+                .catch(err => {
+                    alert("Error happens when try to download");
+                    console.log(err);
+                });
 
         } else {
             alert('Album permission denied! Please go to Settings to give permission manually');
