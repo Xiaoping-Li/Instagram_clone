@@ -6,8 +6,10 @@ import {
     Image,
     TextInput,
     Button, 
+    CameraRoll,
 } from 'react-native';
 import axios from 'axios';
+import { Permissions } from 'expo';
 import Icon from '@expo/vector-icons/Feather';
 import DeleteIcon from '@expo/vector-icons/AntDesign';
 
@@ -68,6 +70,25 @@ class Post extends PureComponent {
                 }
             }))
             .catch(err => console.log(err));
+    }
+
+    downloadImage = async () => {
+        const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+        if (status === 'granted') {
+        //    let data = await ImagePicker.launchImageLibraryAsync({
+        //         allowsEditing: true,
+        //     });
+        //     if (!data.cancelled) {
+        //         this.setState({thumbnail: data.uri});
+        //     }
+            CameraRoll
+                .saveToCameraRoll(this.props.post.uri)
+                .then(result => alert("Downloaded"))
+                .catch(err => console.log(err));
+
+        } else {
+            alert('Album permission denied! Please go to Settings to give permission manually');
+        }   
     }
 
     handlecommentClick = () => {
@@ -168,8 +189,8 @@ class Post extends PureComponent {
 
                     <Icon
                         style={{ paddingLeft: 10}}
-                        onPress={() => {}} 
-                        name="upload" 
+                        onPress={this.downloadImage} 
+                        name="download" 
                         size={25} 
                     />
                 </View>

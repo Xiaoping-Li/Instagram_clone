@@ -52,7 +52,6 @@ class ProfileEdit extends Component {
         if (status === 'granted') {
            let data = await ImagePicker.launchImageLibraryAsync({
                 allowsEditing: true,
-                aspect: [4, 3], // only works on Androi, since ios is always square crop
             });
             if (!data.cancelled) {
                 this.setState({thumbnail: data.uri});
