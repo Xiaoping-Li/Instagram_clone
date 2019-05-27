@@ -20,7 +20,7 @@ class Like extends Component {
             .delete(`http://192.168.0.107:5000/posts/likes/?postID=${postID}&userID=${userID}`)
             .then(action(result => {
                 if (result.data.ok) {
-                    globalStore.removeLike(postID);
+                    globalStore.removeLike(postID, userID);
                 }
             }))
             .catch(err => console.log(err));

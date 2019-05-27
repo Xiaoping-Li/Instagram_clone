@@ -43,9 +43,15 @@ class GlobalStore {
     // likes
     likes = [];
     initLikes = list => this.likes = list;
-    addLike = (like) => this.likes.unshift(like);
-    removeLike = (postID) => {
+    addLike = (like, postID, userID) => {
+        this.likes.unshift(like);
+        const idx = this.posts.findIndex(post => post._id === postID);
+        this.posts[idx].likes.push(userID);
+    };
+    removeLike = (postID, userID) => {
         this.likes = this.likes.filter(post => post._id !== postID);
+        const idx = this.posts.findIndex(post => post._id === postID);
+        this.posts[idx].likes = this.posts[idx].likes.filter(id => id !== userID);
     };
 }
 

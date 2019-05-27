@@ -44,7 +44,7 @@ class Post extends PureComponent {
                         uri: this.props.post.uri,
                     }
 
-                    globalStore.addLike(like);
+                    globalStore.addLike(like, postID, userID);
                     this.setState({ like: like, count: this.state.count + 1 });
                 }
             }))
@@ -151,7 +151,6 @@ class Post extends PureComponent {
                             onPress={this.handleLikeClick} 
                             name="heart" 
                             size={20}
-                            // color={this.state.like ? "red" : null} 
                         />
                     }
 
