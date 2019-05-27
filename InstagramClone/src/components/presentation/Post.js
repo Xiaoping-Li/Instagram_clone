@@ -22,8 +22,8 @@ class Post extends PureComponent {
         this.state = {
             content: '',
             comment: false,
-            like: globalStore.likes.find(post => post._id === this.props.post._id),
-            count: this.props.post.likes.length,  
+            // like: globalStore.likes.find(post => post._id === this.props.post._id),
+            // count: this.props.post.likes.length,  
         };
     }
 
@@ -45,7 +45,7 @@ class Post extends PureComponent {
                     }
 
                     globalStore.addLike(like, postID, userID);
-                    this.setState({ like: like, count: this.state.count + 1 });
+                    //this.setState({ like: like, count: this.state.count + 1 });
                 }
             }))
             .catch(err => console.log(err));
@@ -59,7 +59,7 @@ class Post extends PureComponent {
             .then(action(result => {
                 if (result.data.ok) {
                     globalStore.removeLike(postID);
-                    this.setState({ like: undefined, count: this.state.count - 1 });
+                    //this.setState({ like: undefined, count: this.state.count - 1 });
                 }
             }))
             .catch(err => console.log(err));
@@ -137,7 +137,7 @@ class Post extends PureComponent {
                
                {/* Post likes, comments */}
                 <View style={styles.icons}>
-                    {this.state.like ?
+                    {globalStore.likes.find(post => post._id === this.props.post._id) ?
                         <Icon
                             style={{ paddingLeft: 10}}
                             onPress={this.handleUnlikeClick} 
@@ -169,7 +169,7 @@ class Post extends PureComponent {
                     />
                 </View>
 
-                <Text style={styles.likes}>{this.state.count} {this.state.count > 1 ? 'likes' : 'like'}</Text>
+                <Text style={styles.likes}>{this.props.post.likes.length} {this.props.post.likes.length > 1 ? 'likes' : 'like'}</Text>
 
                 {/* comments content */}
                 {
