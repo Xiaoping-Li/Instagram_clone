@@ -22,9 +22,14 @@ class Post extends PureComponent {
         this.state = {
             content: '',
             comment: false,
-            // like: globalStore.likes.find(post => post._id === this.props.post._id),
-            // count: this.props.post.likes.length,  
+            like: false,  
         };
+    }
+
+    componentDidMount = () => {
+        if (globalStore.likes.find(post => post._id === this.props.post._id) !== undefined) {
+            this.setState({ like: true });
+        }
     }
 
     handleLikeClick = () => {
@@ -45,7 +50,7 @@ class Post extends PureComponent {
                     }
 
                     globalStore.addLike(like, postID, userID);
-                    //this.setState({ like: like, count: this.state.count + 1 });
+                    this.setState({ like: true });
                 }
             }))
             .catch(err => console.log(err));
@@ -58,8 +63,8 @@ class Post extends PureComponent {
             .delete(`http://192.168.0.107:5000/posts/likes/?postID=${postID}&userID=${userID}`)
             .then(action(result => {
                 if (result.data.ok) {
-                    globalStore.removeLike(postID);
-                    //this.setState({ like: undefined, count: this.state.count - 1 });
+                    globalStore.removeLike(postID, userID);
+                    this.setState({ like: false });
                 }
             }))
             .catch(err => console.log(err));
@@ -137,12 +142,12 @@ class Post extends PureComponent {
                
                {/* Post likes, comments */}
                 <View style={styles.icons}>
-                    {globalStore.likes.find(post => post._id === this.props.post._id) ?
+                    {this.state.like ?
                         <Icon
                             style={{ paddingLeft: 10}}
                             onPress={this.handleUnlikeClick} 
                             name="heart" 
-                            size={20}
+                            size={25}
                             color={"red"} 
                         />
                         :
@@ -150,7 +155,7 @@ class Post extends PureComponent {
                             style={{ paddingLeft: 10}}
                             onPress={this.handleLikeClick} 
                             name="heart" 
-                            size={20}
+                            size={25}
                         />
                     }
 
@@ -158,14 +163,14 @@ class Post extends PureComponent {
                         style={{ paddingLeft: 10}}
                         onPress={this.handlecommentClick} 
                         name="message-circle" 
-                        size={20} 
+                        size={25} 
                     />
 
                     <Icon
                         style={{ paddingLeft: 10}}
                         onPress={() => {}} 
                         name="upload" 
-                        size={20} 
+                        size={25} 
                     />
                 </View>
 
