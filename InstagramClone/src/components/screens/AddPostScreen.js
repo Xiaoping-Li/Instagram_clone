@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { 
     View, 
     StyleSheet,  
-    AsyncStorage,
 } from 'react-native';
 import axios from 'axios';
 import { Permissions, ImagePicker } from 'expo';
@@ -18,15 +17,7 @@ class AddPostScreen extends Component {
         this.state = {
             image: null,
             camera: false,
-            userID: '',
         };
-    }
-
-    componentDidMount () {
-        AsyncStorage
-            .getItem('userToken')
-            .then(result => this.setState({ userID: result }))
-            .catch(err => console.log(err));
     }
 
     pickImage = async () => {
@@ -62,7 +53,7 @@ class AddPostScreen extends Component {
 
     handleSubmitPost() {
         const postInfo = {
-            owner: this.state.userID,
+            owner: globalStore.user.userID,
             uri: this.state.image,
         };
 
