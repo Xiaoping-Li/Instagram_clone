@@ -25,5 +25,5 @@ Problems:
         }
     ```
     Ref: https://itnext.io/easily-integrate-mobx-into-react-native-app-with-expo-and-react-navigation-29ecf7c14012
-4. 
+
 
