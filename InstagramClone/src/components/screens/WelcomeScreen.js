@@ -24,6 +24,14 @@ class WelcomeScreen extends Component {
         this.setState({ fontLoaded: true });
     }
 
+    navigateToSignin = () => {
+        this.props.navigation.navigate('SignIn');
+    }
+
+    navigateToSignup = () => {
+        this.props.navigation.navigate('SignUp');
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -39,7 +47,7 @@ class WelcomeScreen extends Component {
 
                 {/* Sign In */}
                 <Text
-                    onPress={() => this.props.navigation.navigate('SignIn')}
+                    onPress={this.navigateToSignin}
                     accessibilityLabel="Sign In Button"
                     style={styles.btn}
                 >
@@ -55,7 +63,7 @@ class WelcomeScreen extends Component {
                 
                 {/* Sign Up */}
                 <Text
-                    onPress={() => this.props.navigation.navigate('SignUp')}
+                    onPress={this.navigateToSignup}
                     accessibilityLabel="Sign Up Button"
                     style={styles.btn}
                 >
@@ -103,10 +111,10 @@ const styles = StyleSheet.create({
     btn: {
         fontSize: 20,
         width: 300,
-        backgroundColor: 'powderblue',
+        color: '#fff',
+        backgroundColor: '#009FF8',
         textAlign: 'center',
         marginTop: 25,
-        // borderRadius: 10,
         padding: 5,
     }
 });

@@ -171,9 +171,9 @@ const styles = StyleSheet.create({
     btn: {
         fontSize: 20,
         width: 350,
-        backgroundColor: 'powderblue',
+        color: '#fff',
+        backgroundColor: '#009FF8',
         textAlign: 'center',
-        // borderRadius: 10,
         padding: 5,
     }
 });

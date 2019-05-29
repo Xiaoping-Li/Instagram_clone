@@ -101,7 +101,8 @@ const styles = StyleSheet.create({
     },
     btn: {
         width: 350,
-        backgroundColor: 'powderblue',
+        color: '#fff',
+        backgroundColor: '#009FF8',
         textAlign: 'center',
         fontSize: 20,
         fontWeight: 'bold',
