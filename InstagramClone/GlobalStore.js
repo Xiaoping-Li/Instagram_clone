@@ -42,6 +42,9 @@ class GlobalStore {
 
     // likes
     likes = [];
+    verifyLike = postID => {
+        return this.likes.find(post => post._id === postID) !== undefined;
+    };
     initLikes = list => this.likes = list;
     addLike = (like, postID, userID) => {
         this.likes.unshift(like);
@@ -64,6 +67,7 @@ decorate(
         requests: observable,
         isVisible: observable,
         likes: observable,
+        verifyLike: action,
         toggleVisible: action,
         updateUser: action,
         initFriends: action, 

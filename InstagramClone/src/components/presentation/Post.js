@@ -24,14 +24,19 @@ class Post extends PureComponent {
         this.state = {
             content: '',
             comment: false,
-            like: false,  
+            like: globalStore.verifyLike(this.props.post._id),  
         };
     }
 
-    componentDidMount = () => {
-        if (globalStore.likes.find(post => post._id === this.props.post._id) !== undefined) {
-            this.setState({ like: true });
-        }
+    // componentDidMount = () => {
+    //     const postID = this.props.post._id;
+    //     if (globalStore.verifyLike(postID)) {
+    //         this.toggleLike();
+    //     }   
+    // }
+
+    toggleLike = () => {
+        this.setState({ like: !this.state.like });
     }
 
     handleLikeClick = () => {
@@ -52,7 +57,7 @@ class Post extends PureComponent {
                     }
 
                     globalStore.addLike(like, postID, userID);
-                    this.setState({ like: true });
+                    this.toggleLike();
                 }
             }))
             .catch(err => console.log(err));
@@ -66,7 +71,7 @@ class Post extends PureComponent {
             .then(action(result => {
                 if (result.data.ok) {
                     globalStore.removeLike(postID, userID);
-                    this.setState({ like: false });
+                    this.toggleLike();
                 }
             }))
             .catch(err => console.log(err));
