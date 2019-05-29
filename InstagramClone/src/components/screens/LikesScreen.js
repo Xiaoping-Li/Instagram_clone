@@ -20,7 +20,7 @@ class LikesScreen extends Component {
                     <FlatList
                         data={globalStore.likes}
                         renderItem={({item}) => <Like post={item} />}
-                        keyExtractor={(item, index) => 'key'+index}
+                        keyExtractor={(item) => item._id}
                     />
                     :
                     <View style={styles.textContainer}><Text style={styles.text}>Add some posts you like</Text></View>

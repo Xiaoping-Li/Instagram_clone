@@ -17,7 +17,7 @@ class Posts extends Component {
                 <FlatList
                     data={globalStore.posts}
                     renderItem={({item}) => <Post post={item} />}
-                    keyExtractor={(item, index) => 'key'+index}
+                    keyExtractor={(item) => item._id}
                 />
             </View>
         );

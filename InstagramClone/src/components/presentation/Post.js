@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { 
     View, 
     Text, 
@@ -18,22 +18,22 @@ import { action } from 'mobx';
 
 import Comments from './Comments';
 
-class Post extends PureComponent {
+
+class Post extends Component {
     constructor(props) {
         super(props);
         this.state = {
             content: '',
             comment: false,
-            like: globalStore.verifyLike(this.props.post._id),  
+            like: false,  
         };
     }
 
-    // componentDidMount = () => {
-    //     const postID = this.props.post._id;
-    //     if (globalStore.verifyLike(postID)) {
-    //         this.toggleLike();
-    //     }   
-    // }
+    componentDidMount = () => {
+        if (this.props.post.likes.findIndex(id => id === globalStore.user.userID) !== -1) {
+            this.toggleLike();
+        }
+    }
 
     toggleLike = () => {
         this.setState({ like: !this.state.like });
@@ -54,6 +54,7 @@ class Post extends PureComponent {
                     const like = {
                         owner: owner,
                         uri: this.props.post.uri,
+                        _id: postID,
                     }
 
                     globalStore.addLike(like, postID, userID);

@@ -17,7 +17,7 @@ class RequestsScreen extends Component {
                     <FlatList
                         data={globalStore.requests}
                         renderItem={({item}) => <Request req={item} />}
-                        keyExtractor={(item, index) => 'key'+index}
+                        keyExtractor={(item) => item._id}
                     />
                     :
                     <View style={styles.textContainer}>

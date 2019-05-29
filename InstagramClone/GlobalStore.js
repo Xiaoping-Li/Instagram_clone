@@ -32,8 +32,9 @@ class GlobalStore {
         const idx = this.posts.findIndex(post => post._id === id);
         this.posts[idx].comments.unshift(comment);
     };
-    deletePost = id => {
-        this.posts = this.posts.filter(post => post._id !== id);   
+    deletePost = postID => {
+        this.posts = this.posts.filter(post => post._id !== postID);
+        this.likes = this.likes.filter(post => post._id !== postID);   
     };
 
     // ProfileEdit Page Modal visible states
@@ -42,9 +43,6 @@ class GlobalStore {
 
     // likes
     likes = [];
-    verifyLike = postID => {
-        return this.likes.find(post => post._id === postID) !== undefined;
-    };
     initLikes = list => this.likes = list;
     addLike = (like, postID, userID) => {
         this.likes.unshift(like);
@@ -67,7 +65,6 @@ decorate(
         requests: observable,
         isVisible: observable,
         likes: observable,
-        verifyLike: action,
         toggleVisible: action,
         updateUser: action,
         initFriends: action, 
