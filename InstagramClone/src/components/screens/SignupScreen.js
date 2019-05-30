@@ -118,13 +118,16 @@ class SignupScreen extends Component {
                 />
 
                 {/* Sign Up Button */}
-                <Text
-                    onPress={this.handleSignUp}
-                    accessibilityLabel="Sign up"
-                    style={styles.btn}
-                >
-                    Sign Up
-                </Text>
+                <View style={styles.btn}>
+                    <Text
+                        onPress={this.handleSignUp}
+                        accessibilityLabel="Sign up"
+                        style={styles.btnText}
+                    >
+                        Sign Up
+                    </Text>
+                </View>
+                
 
                 <View style={styles.divider_bar}></View> 
 
@@ -173,11 +176,17 @@ const styles = StyleSheet.create({
         borderRadius: 10,
     },
     btn: {
-        fontSize: 20,
         width: 350,
-        color: '#fff',
         backgroundColor: '#009FF8',
+        marginTop: 25,
+        padding: 10,
+        justifyContent: 'center',
+        borderRadius: 10,
+    },
+    btnText: {
         textAlign: 'center',
-        padding: 5,
+        fontSize: 20,
+        width: 300,
+        color: '#fff',
     }
 });
