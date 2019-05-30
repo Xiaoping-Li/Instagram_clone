@@ -72,6 +72,10 @@ class SignupScreen extends Component {
         });
     }
 
+    navigateToSignin = () => {
+        this.props.navigation.navigate('SignIn');
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -126,7 +130,7 @@ class SignupScreen extends Component {
 
                 {/* Log In */}
                 <Text
-                    onPress={() => this.props.navigation.navigate('SignIn')}
+                    onPress={this.navigateToSignin}
                     accessibilityLabel="Link to Sign In page"
                 >
                     Already have an account? Log In
