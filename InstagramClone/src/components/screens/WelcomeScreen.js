@@ -46,13 +46,16 @@ class WelcomeScreen extends Component {
                 <Text style={styles.subTitle}>Sign up to manage your posts and see the comments.</Text>
 
                 {/* Sign In */}
-                <Text
-                    onPress={this.navigateToSignin}
-                    accessibilityLabel="Sign In Button"
-                    style={styles.btn}
-                >
-                    Sign In
-                </Text>    
+                <View style={styles.btn}>
+                    <Text
+                        onPress={this.navigateToSignin}
+                        accessibilityLabel="Sign In Button"
+                        style={styles.btnText}
+                    >
+                        Sign In
+                    </Text>
+                </View>
+                    
 
                 {/* Divider */}
                 <View style={styles.divider}>
@@ -62,13 +65,16 @@ class WelcomeScreen extends Component {
                 </View>
                 
                 {/* Sign Up */}
-                <Text
-                    onPress={this.navigateToSignup}
-                    accessibilityLabel="Sign Up Button"
-                    style={styles.btn}
-                >
-                    Sign up with email or phone number
-                </Text>
+                <View style={styles.btn}>
+                    <Text
+                        onPress={this.navigateToSignup}
+                        accessibilityLabel="Sign Up Button"
+                        style={styles.btnText}
+                    >
+                        Sign Up
+                    </Text>
+                </View>
+                
             </View>
         );
     }
@@ -109,12 +115,17 @@ const styles = StyleSheet.create({
         height: 1,
     },
     btn: {
-        fontSize: 20,
         width: 300,
-        color: '#fff',
         backgroundColor: '#009FF8',
-        textAlign: 'center',
         marginTop: 25,
-        padding: 5,
+        padding: 10,
+        justifyContent: 'center',
+        borderRadius: 10,
+    },
+    btnText: {
+        textAlign: 'center',
+        fontSize: 20,
+        width: 250,
+        color: '#fff',
     }
 });
