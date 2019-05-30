@@ -35,42 +35,60 @@ class FriendsScreen extends Component {
             .catch(err => console.log(err));
     }
 
-    renderRow = ({item}) => {
-        return (
-            <ListItem
-                key={item.id}
-                leftAvatar={{ source: { uri: item.thumbnail }}} 
-                title={item.friendName}
-                chevronColor="#a9a9a9"
-                bottomDivider={true} 
-                rightIcon={
-                    <Icon
-                        raised
-                        name='remove'
-                        type='font-awesome'
-                        color='#8B0000'
-                        size={15}
-                        onPress={() => this.handleRemoveFriend(item.id)}
-                    />
-                } 
-            />
-        );
-    }
+    // renderRow = ({item}) => {
+    //     return (
+    //         <ListItem
+    //             key={item.id}
+    //             leftAvatar={{ source: { uri: item.thumbnail }}} 
+    //             title={item.friendName}
+    //             chevronColor="#a9a9a9"
+    //             bottomDivider={true} 
+    //             rightIcon={
+    //                 <Icon
+    //                     raised
+    //                     name='remove'
+    //                     type='font-awesome'
+    //                     color='#8B0000'
+    //                     size={15}
+    //                     onPress={() => this.handleRemoveFriend(item.id)}
+    //                 />
+    //             } 
+    //         />
+    //     );
+    // }
 
     render() {
-         
         return (
             <View style={styles.container}>
                 {globalStore.friends.length ?
                     <FlatList
                         data={globalStore.friends}
-                        renderItem={this.renderRow}
+                        renderItem={({item}) => {
+                            return (
+                                <ListItem
+                                    key={item.id}
+                                    leftAvatar={{ source: { uri: item.thumbnail }}} 
+                                    title={item.friendName}
+                                    chevronColor="#a9a9a9"
+                                    bottomDivider={true} 
+                                    rightIcon={
+                                        <Icon
+                                            raised
+                                            name='remove'
+                                            type='font-awesome'
+                                            color='#8B0000'
+                                            size={15}
+                                            onPress={() => this.handleRemoveFriend(item.id)}
+                                        />
+                                    } 
+                                />
+                            );
+                        }}
                         keyExtractor={(item) => item.id}
                     />
                     : 
                     <View style={styles.textContainer}><Text style={styles.text}>Add some Friends</Text></View>
-                }
-                
+                }    
             </View>
         );
     }
