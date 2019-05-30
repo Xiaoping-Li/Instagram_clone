@@ -80,7 +80,12 @@ class SearchScreen extends Component {
                 <View>
                     {this.state.msg ?
                         <View style={styles.btnContainer}>
-                            <Text style={styles.btn}>{this.state.msg}</Text>
+                            <View style={styles.btn}>
+                                <Text style={styles.btnText}>
+                                    {this.state.msg}
+                                </Text>
+                            </View>
+                            
                         </View>
                         :
                         this.state.list.map((item, idx) => (
@@ -139,10 +144,17 @@ const styles = StyleSheet.create({
     },
     btn: {
         width: 350,
-        backgroundColor: 'powderblue',
+        backgroundColor: '#009FF8',
+        marginTop: 25,
+        padding: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 10,
+    },
+    btnText: {
         textAlign: 'center',
         fontSize: 30,
-        fontWeight: 'bold',
-        padding: 10,
+        width: 300,
+        color: '#fff',
     }
 });

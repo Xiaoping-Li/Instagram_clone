@@ -6,9 +6,10 @@ import {
     FlatList,
 } from 'react-native';
 import axios from 'axios';
-import { Icon } from 'react-native-elements';
 
+import { Icon } from 'react-native-elements';
 import { ListItem } from 'react-native-elements';
+
 import globalStore from '../../../GlobalStore';
 import { action } from 'mobx';
 import {observer} from 'mobx-react/native';
@@ -35,55 +36,35 @@ class FriendsScreen extends Component {
             .catch(err => console.log(err));
     }
 
-    // renderRow = ({item}) => {
-    //     return (
-    //         <ListItem
-    //             key={item.id}
-    //             leftAvatar={{ source: { uri: item.thumbnail }}} 
-    //             title={item.friendName}
-    //             chevronColor="#a9a9a9"
-    //             bottomDivider={true} 
-    //             rightIcon={
-    //                 <Icon
-    //                     raised
-    //                     name='remove'
-    //                     type='font-awesome'
-    //                     color='#8B0000'
-    //                     size={15}
-    //                     onPress={() => this.handleRemoveFriend(item.id)}
-    //                 />
-    //             } 
-    //         />
-    //     );
-    // }
+    renderRow = ({item}) => {
+        return (
+            <ListItem
+                key={item.id}
+                leftAvatar={{ source: { uri: item.thumbnail }}} 
+                title={item.friendName}
+                bottomDivider={true} 
+                rightIcon={
+                    <Icon
+                        raised
+                        name='remove'
+                        type='font-awesome'
+                        color='#8B0000'
+                        size={15}
+                        onPress={() => this.handleRemoveFriend(item.id)}
+                    />
+                } 
+            />
+        );
+    }
 
     render() {
+        let friends = globalStore.friends.slice();
         return (
             <View style={styles.container}>
                 {globalStore.friends.length ?
                     <FlatList
-                        data={globalStore.friends}
-                        renderItem={({item}) => {
-                            return (
-                                <ListItem
-                                    key={item.id}
-                                    leftAvatar={{ source: { uri: item.thumbnail }}} 
-                                    title={item.friendName}
-                                    chevronColor="#a9a9a9"
-                                    bottomDivider={true} 
-                                    rightIcon={
-                                        <Icon
-                                            raised
-                                            name='remove'
-                                            type='font-awesome'
-                                            color='#8B0000'
-                                            size={15}
-                                            onPress={() => this.handleRemoveFriend(item.id)}
-                                        />
-                                    } 
-                                />
-                            );
-                        }}
+                        data={friends}
+                        renderItem={this.renderRow}
                         keyExtractor={(item) => item.id}
                     />
                     : 
