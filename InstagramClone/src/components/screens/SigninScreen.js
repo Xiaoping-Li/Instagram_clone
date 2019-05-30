@@ -113,13 +113,7 @@ class SigninScreen extends Component {
                     >
                         Sign In
                     </Text>
-                </View>
-                
-
-                <View style={styles.divider_bar}></View> 
-
-                {/* Forgot Password link */}
-                <Text>Forgot password?</Text>
+                </View> 
             </View>
         );
     }
