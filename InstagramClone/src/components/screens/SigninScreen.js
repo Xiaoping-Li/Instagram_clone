@@ -163,6 +163,7 @@ const styles = StyleSheet.create({
         marginTop: 25,
         padding: 10,
         justifyContent: 'center',
+        alignItems: 'center',
         borderRadius: 10,
     },
     btnText: {
