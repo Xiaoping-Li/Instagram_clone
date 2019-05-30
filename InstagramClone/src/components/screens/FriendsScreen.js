@@ -23,6 +23,14 @@ class FriendsScreen extends Component {
             .delete(`http://192.168.0.107:5000/friends/?sender=${userID}&recipient=${id}`)
             .then(action(result => {
                 globalStore.deleteFriend(id);
+
+                // Update posts to exclude deleted friend's posts
+                return axios.get(`http://192.168.0.107:5000/posts/?owner=${userID}`);
+            }))
+            .then(action(result => {
+                if (result.data.length) {
+                    globalStore.initPosts(result.data);
+                }
             }))
             .catch(err => console.log(err));
     }
@@ -57,7 +65,7 @@ class FriendsScreen extends Component {
                     <FlatList
                         data={globalStore.friends}
                         renderItem={this.renderRow}
-                        keyExtractor={(item, index) => 'key'+index}
+                        keyExtractor={(item) => item.id}
                     />
                     : 
                     <View style={styles.textContainer}><Text style={styles.text}>Add some Friends</Text></View>
