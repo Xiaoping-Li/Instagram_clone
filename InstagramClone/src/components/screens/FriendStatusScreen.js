@@ -65,7 +65,12 @@ class FriendStatusScreen extends Component {
             renderItems = 
                 <View style={{alignItems: 'center', justifyContent: 'center',}}>
                     <View style={styles.divider}></View>
-                    <Text style={styles.btn} onPress={this.handleAddFriend}>{this.state.status}</Text>
+                    <View style={styles.btn}>
+                        <Text style={styles.btnText} onPress={this.handleAddFriend}>
+                            {this.state.status}
+                        </Text>
+                    </View>
+                    
                 </View>;
         }
 
@@ -107,11 +112,18 @@ const styles = StyleSheet.create({
         padding: 5,
     },
     btn: {
-        fontSize: 20,
         width: 150,
-        backgroundColor: 'powderblue',
-        textAlign: 'center',
-        padding: 5, 
+        backgroundColor: '#009FF8',
         marginTop: 50,
+        padding: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 10,
+    },
+    btnText: {
+        textAlign: 'center',
+        fontSize: 20,
+        width: 130,
+        color: '#fff',
     }
 });
