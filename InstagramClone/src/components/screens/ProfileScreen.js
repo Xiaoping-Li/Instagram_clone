@@ -61,7 +61,7 @@ class ProfileScreen extends Component {
                             </Modal>
 
                             <Text style={{fontSize: 20, marginBottom: 10}}>User Name: {globalStore.user.username}</Text>
-                            <Text style={{fontSize: 20, }}>Primary Email Address: {globalStore.user.email}</Text>
+                            <Text style={{fontSize: 20, }}>Primary Email: {globalStore.user.email}</Text>
                         </View>
                         
                         <View style={{marginRight: 12}}>

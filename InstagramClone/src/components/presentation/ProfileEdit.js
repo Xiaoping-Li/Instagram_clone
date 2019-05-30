@@ -42,6 +42,14 @@ class ProfileEdit extends Component {
                 if (result.data.success) {
                     globalStore.updateUser(update);
                     globalStore.toggleVisible();
+
+                    // Update posts to show the edit of user info
+                    return axios.get(`http://192.168.0.107:5000/posts/?owner=${id}`);
+                }   
+            }))
+            .then(action(result => {
+                if (result.data.length) {
+                    globalStore.initPosts(result.data);
                 }
             }))
             .catch(err => console.log(err));
