@@ -25,6 +25,14 @@ class Request extends Component {
 
                 globalStore.addFriends(friend);
                 globalStore.deleteRequest(this.props.req._id);
+                
+                // Update posts to include new added friend's posts
+                return axios.get(`http://192.168.0.107:5000/posts/?owner=${userID}`);
+            }))
+            .then(action(result => {
+                if (result.data.length) {
+                    globalStore.initPosts(result.data);
+                }
             }))
             .catch(err => console.log(err));
     }

@@ -42,7 +42,7 @@ class FriendsScreen extends Component {
                         type='font-awesome'
                         color='#8B0000'
                         size={15}
-                        onPress={this.handleRemoveFriend(item.id)}
+                        onPress={() => this.handleRemoveFriend(item.id)}
                     />
                 } 
             />
@@ -57,11 +57,12 @@ class FriendsScreen extends Component {
                     <FlatList
                         data={globalStore.friends}
                         renderItem={this.renderRow}
-                        keyExtractor={(item) => item.id}
+                        keyExtractor={(item, index) => 'key'+index}
                     />
                     : 
                     <View style={styles.textContainer}><Text style={styles.text}>Add some Friends</Text></View>
-                }  
+                }
+                
             </View>
         );
     }
