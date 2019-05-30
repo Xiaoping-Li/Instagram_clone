@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
         borderStyle: 'solid',
         borderColor: '#D3D3D3',
         borderRadius: 10,
-        padding: 5,
+        padding: 10,
     },
     btn: {
         width: 150,
