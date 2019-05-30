@@ -65,6 +65,10 @@ class HomeScreen extends Component {
             .catch(err => console.log(err));
     }
 
+    navigateTo = () => {
+        this.props.navigation.navigate('AddPost');
+    }
+
 
     render() {
         return (
@@ -73,12 +77,15 @@ class HomeScreen extends Component {
                     <Posts /> 
                     :
                     <View style={styles.btnContainer}>
-                        <Text
-                            onPress={() => this.props.navigation.navigate('AddPost')}
-                            style={styles.btn}
-                        >
-                            Something you want to share?
-                        </Text>
+                        <View style={styles.btn}>
+                            <Text
+                                onPress={this.navigateTo}
+                                style={styles.btnText}
+                            >
+                                Something you want to share?
+                            </Text>
+                        </View>
+                        
                     </View> 
                 }    
             </View>
@@ -101,11 +108,16 @@ const styles = StyleSheet.create({
     },
     btn: {
         width: 350,
-        color: '#fff',
         backgroundColor: '#009FF8',
+        marginTop: 25,
+        padding: 10,
+        justifyContent: 'center',
+        borderRadius: 10,
+    },
+    btnText: {
         textAlign: 'center',
         fontSize: 20,
-        fontWeight: 'bold',
-        padding: 10,
+        width: 300,
+        color: '#fff',
     }
 });
