@@ -84,7 +84,7 @@ class AddPostScreen extends Component {
                         onPress={this.pickImage} 
                         name="photo-album" 
                         size={80} 
-                        color="gray"
+                        color="#009FF8"
                     />
 
                     <Icon
@@ -92,7 +92,7 @@ class AddPostScreen extends Component {
                         onPress={this.takePicture} 
                         name="camera-alt" 
                         size={80}
-                        color="gray" 
+                        color="#009FF8" 
                     /> 
                 </View>                
             </View>
