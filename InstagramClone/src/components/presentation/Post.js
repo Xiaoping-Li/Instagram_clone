@@ -25,7 +25,8 @@ class Post extends Component {
         this.state = {
             content: '',
             comment: false,
-            like: false,  
+            like: false,
+            download: false,  
         };
     }
 
@@ -94,7 +95,7 @@ class Post extends Component {
         }   
     }
 
-    handlecommentClick = () => {
+    toggleComment = () => {
         this.setState({ comment: !this.state.comment });
     }
 
@@ -132,6 +133,7 @@ class Post extends Component {
                         content: this.state.content,
                     };
                     globalStore.addComment(postID, gcomment);
+                    this.toggleComment();
                     this.setState({ content: ''});
                 }
             }))
@@ -185,9 +187,10 @@ class Post extends Component {
 
                     <Icon
                         style={{ paddingLeft: 10}}
-                        onPress={this.handlecommentClick} 
+                        onPress={this.toggleComment} 
                         name="message-circle" 
-                        size={25} 
+                        size={25}
+                        color={this.state.comment ? "#007AFF" : null} 
                     />
 
                     <Icon
