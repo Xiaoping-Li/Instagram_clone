@@ -29,11 +29,6 @@ import Icon from '@expo/vector-icons/Ionicons';
 
 export default class InstagramClone extends Component {
   render() {
-      // return (
-      //   <Provider globalStore={globalStore}>
-      //     <AppContainer />
-      //   </Provider>
-      // ); 
       return <AppContainer />;
   }
 }
