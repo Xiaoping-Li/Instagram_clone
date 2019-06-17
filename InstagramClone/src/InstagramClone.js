@@ -290,7 +290,6 @@ const HomeStackNavigator = createStackNavigator(
       };
     }
   }
-
 );
 
 const AppDrawerNavigator = createDrawerNavigator({
